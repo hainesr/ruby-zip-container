@@ -31,6 +31,7 @@
 # Author: Robert Haines
 
 require 'forwardable'
+require 'stringio'
 require 'zip/zipfilesystem'
 
 module UCF
@@ -66,11 +67,10 @@ module UCF
     META_INF_DIR = "META-INF"
 
     def initialize(document)
-      @zipfile = open_document(document)
+      @zipfile, @on_disk = open_document(document)
       check_document!
 
       @mimetype = read_mimetype
-      @on_disk = true
 
       # Here we fake up the connection to the rubyzip filesystem classes so
       # that they also respect the reserved names that we define.
@@ -184,6 +184,7 @@ module UCF
     # :call-seq:
     #   commit -> boolean
     #   close -> boolean
+    #   write_buffer -> boolean
     #
     # Commits changes that have been made since the previous commit to the
     # UCF document. Returns +true+ if anything was actually done, +false+
@@ -193,10 +194,14 @@ module UCF
 
       if on_disk?
         @zipfile.commit
+      else
+        @zipfile.write_buffer
+        true
       end
     end
 
     alias :close :commit
+    alias :write_buffer :commit
 
     # :call-seq:
     #   dir -> Zip::ZipFsDir
@@ -364,7 +369,21 @@ module UCF
     private
 
     def open_document(document)
-      ::Zip::ZipFile.new(document)
+      if document.is_a? String
+        begin
+          if ::File.exist?(document) && ::File.file?(document)
+            return [::Zip::ZipFile.new(document), true]
+          end
+        rescue
+          # Ignore this...
+        end
+
+        document = StringIO.new(document)
+      end
+
+      zip = ::Zip::ZipFile.new("", true, true)
+      zip.read_from_stream(document)
+      [zip, false]
     end
 
     def check_document!
