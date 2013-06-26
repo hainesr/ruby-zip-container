@@ -1,19 +1,20 @@
-= Universal Container Format (UCF) Ruby Library
+= ZIP Container Format Ruby Library
 
 Authors::     Robert Haines
 Contact::     mailto:support@mygrid.org.uk
-Homepage::    http://mygrid.github.io/ruby-ucf
-Source code:: https://github.com/myGrid/ruby-ucf
+Homepage::    http://mygrid.github.io/ruby-zip-container
+Source code:: https://github.com/myGrid/ruby-zip-container
 Licence::     BSD (See Licence file or http://www.opensource.org/licenses/bsd-license.php)
 Copyright::   (c) 2013 The University of Manchester, UK
 
-{<img src="https://codeclimate.com/github/myGrid/ruby-ucf.png" />}[https://codeclimate.com/github/myGrid/ruby-ucf]
+{<img src="https://codeclimate.com/github/myGrid/ruby-zip-container.png" />}[https://codeclimate.com/github/myGrid/ruby-zip-container]
 
 == Synopsis
 
-This is a Ruby library for working with UCF documents. See
-{the specification}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
-for more details.
+This is a Ruby library for working with ZIP Container files. See the
+{ODF}[http://www.idpf.org/epub/30/spec/epub30-ocf.html] and
+{UDF}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
+specifications for more details.
 
 <b>This library is a work in progress!</b> Until we release version 1.0.0 you
 can expect the API to change in incompatible ways, although we will try to
@@ -26,19 +27,8 @@ directory. See the contents of the tests directory for even more.
 
 == What this library can not do yet
 
-The basic requirements of a UCF document are all implemented but there are a
-number of optional features that are not yet provided.
-
-* Memory resident UCF documents. Presently all operations are performed on
-  documents that are resident on disk as the underlying
-  {rubyzip library}[https://github.com/aussiegeek/rubyzip] currently
-  {cannot do anything else}[https://github.com/aussiegeek/rubyzip/issues/74].
-* Validation of file contents in the META-INF directory. Most of the machinery
-  for this has been implemented but files are not validated against the schema
-  yet.
-* Digital signatures (this feature has been deferred until a future revision
-  of the UCF specification. It will be supported by this gem when it is added
-  to the specification).
-* Encryption (this feature has been deferred until a future revision of the
-  UCF specification. It will be supported by this gem when it is added to the
-  specification).
+The basic requirements of a ZIP Container are all implemented but memory
+resident ZIP Container files are not yet supported. Presently all operations
+are performed on files that are resident on disk as the underlying
+{rubyzip library}[https://github.com/aussiegeek/rubyzip] currently
+{cannot do anything else}[https://github.com/aussiegeek/rubyzip/issues/74].

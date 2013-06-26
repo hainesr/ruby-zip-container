@@ -30,37 +30,38 @@
 #
 # Author: Robert Haines
 
+require 'test/unit'
 require 'tmpdir'
-require 'ucf'
+require 'zip-container'
 
 # Classes to test managed entries.
-class ManagedUCF < UCF::Container
+class ManagedZipContainer < ZipContainer::Container
 
   private_class_method :new
 
   def initialize(filename)
     super(filename)
-    register_managed_entry(UCF::ManagedDirectory.new("src", true))
-    register_managed_entry(UCF::ManagedDirectory.new("test"))
-    register_managed_entry(UCF::ManagedDirectory.new("lib"))
-    register_managed_entry(UCF::ManagedFile.new("index.html", true))
+    register_managed_entry(ZipContainer::ManagedDirectory.new("src", true))
+    register_managed_entry(ZipContainer::ManagedDirectory.new("test"))
+    register_managed_entry(ZipContainer::ManagedDirectory.new("lib"))
+    register_managed_entry(ZipContainer::ManagedFile.new("index.html", true))
   end
 
 end
 
-class ExampleUCF < UCF::Container
+class ExampleZipContainer < ZipContainer::Container
 
   private_class_method :new
 
   def initialize(filename)
     super(filename)
-    register_managed_entry(UCF::ManagedDirectory.new("dir", true))
-    register_managed_entry(UCF::ManagedFile.new("greeting.txt", true))
+    register_managed_entry(ZipContainer::ManagedDirectory.new("dir", true))
+    register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt", true))
   end
 
 end
 
-class ExampleUCF2 < UCF::Container
+class ExampleZipContainer2 < ZipContainer::Container
 
   private_class_method :new
 
@@ -68,47 +69,55 @@ class ExampleUCF2 < UCF::Container
     super(filename)
 
     valid = Proc.new { |contents| contents.match(/[Hh]ello/) }
-    register_managed_entry(UCF::ManagedFile.new("greeting.txt", true, valid))
+    register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt",
+      true, valid))
+  end
+
+  def ExampleZipContainer2.create(filename, &block)
+    super(filename, "application/example+zip", &block)
   end
 
 end
 
 class TestManagedEntries < Test::Unit::TestCase
 
-  # Check that the example UCF document does not validate as a ManagedUCF.
+  # Check that the example ZipContainer file does not validate as a
+  # ManagedZipContainer.
   def test_fail_verification
-    refute(ManagedUCF.verify($ucf_example))
+    refute(ManagedZipContainer.verify($example))
 
-    assert_raises(UCF::MalformedUCFError) do
-      ManagedUCF.verify!($ucf_example)
+    assert_raises(ZipContainer::MalformedZipContainerError) do
+      ManagedZipContainer.verify!($example)
     end
   end
 
-  # Check that the example UCF document does validate as an ExampleUCF.
+  # Check that the example ZipContainer file does validate as an
+  # ExampleZipContainer.
   def test_pass_verification
-    assert(ExampleUCF.verify($ucf_example))
+    assert(ExampleZipContainer.verify($example))
 
-    assert_nothing_raised(UCF::MalformedUCFError) do
-      ExampleUCF.verify!($ucf_example)
+    assert_nothing_raised(ZipContainer::MalformedZipContainerError) do
+      ExampleZipContainer.verify!($example)
     end
   end
 
-  # Check that the example UCF document does validate as an ExampleUCF2.
+  # Check that the example ZipContainer file does validate as an
+  # ExampleZipContainer2.
   def test_pass_verification_2
-    assert(ExampleUCF2.verify($ucf_example))
+    assert(ExampleZipContainer2.verify($example))
 
-    assert_nothing_raised(UCF::MalformedUCFError) do
-      ExampleUCF2.verify!($ucf_example)
+    assert_nothing_raised(ZipContainer::MalformedZipContainerError) do
+      ExampleZipContainer2.verify!($example)
     end
   end
 
   # Check that a standard Container can be created
   def test_create_standard_container
     Dir.mktmpdir do |dir|
-      filename = File.join(dir, "test.ucf")
+      filename = File.join(dir, "test.container")
 
       assert_nothing_raised do
-        UCF::Container.create(filename) do |c|
+        ZipContainer::Container.create(filename, $mimetype) do |c|
           c.mkdir("META-INF")
           assert(c.file.exists?("META-INF"))
 
@@ -119,39 +128,41 @@ class TestManagedEntries < Test::Unit::TestCase
         end
       end
 
-      assert_nothing_raised(UCF::MalformedUCFError) do
-        UCF::Container.verify!(filename)
+      assert_nothing_raised(ZipContainer::MalformedZipContainerError) do
+        ZipContainer::Container.verify!(filename)
       end
     end
   end
 
-  # Check that a ManagedUCF does not verify immediately after creation.
+  # Check that a ManagedZipContainer does not verify immediately after
+  # creation.
   def test_create_bad_subclassed_container
     Dir.mktmpdir do |dir|
-      filename = File.join(dir, "test.ucf")
+      filename = File.join(dir, "test.container")
 
       assert_nothing_raised do
-        ManagedUCF.create(filename) do |c|
-          assert_raises(UCF::MalformedUCFError) do
+        ManagedZipContainer.create(filename, $mimetype) do |c|
+          assert_raises(ZipContainer::MalformedZipContainerError) do
             c.verify!
           end
         end
       end
 
-      refute(ManagedUCF.verify(filename))
-      assert_raises(UCF::MalformedUCFError) do
-        ManagedUCF.verify!(filename)
+      refute(ManagedZipContainer.verify(filename))
+      assert_raises(ZipContainer::MalformedZipContainerError) do
+        ManagedZipContainer.verify!(filename)
       end
     end
   end
 
-  # Check that a ManagedUCF does verify when required objects are added.
+  # Check that a ManagedZipContainer does verify when required objects are
+  # added.
   def test_create_subclassed_container
     Dir.mktmpdir do |dir|
-      filename = File.join(dir, "test.ucf")
+      filename = File.join(dir, "test.container")
 
       assert_nothing_raised do
-        ManagedUCF.create(filename) do |c|
+        ManagedZipContainer.create(filename, $mimetype) do |c|
           c.dir.mkdir("src")
           c.file.open("index.html", "w") do |f|
             f.puts "<html />"
@@ -159,22 +170,35 @@ class TestManagedEntries < Test::Unit::TestCase
         end
       end
 
-      assert(ManagedUCF.verify(filename))
-      assert_nothing_raised(UCF::MalformedUCFError) do
-        ManagedUCF.verify!(filename)
+      assert(ManagedZipContainer.verify(filename))
+      assert_nothing_raised(ZipContainer::MalformedZipContainerError) do
+        ManagedZipContainer.verify!(filename)
       end
     end
   end
 
-  # Check that a ExampleUCF2 will only verify when required objects are added
-  # with the correct contents.
-  def test_create_subclassed_container_with_content_verification
+  def test_create_subclassed_mimetype
     Dir.mktmpdir do |dir|
-      filename = File.join(dir, "test.ucf")
+      filename = File.join(dir, "test.container")
 
       assert_nothing_raised do
-        ExampleUCF2.create(filename) do |c|
-          assert_raises(UCF::MalformedUCFError) do
+        ExampleZipContainer2.create(filename) do |c|
+          assert(c.file.exists?("mimetype"))
+          assert_equal("application/example+zip", c.file.read("mimetype"))
+        end
+      end
+    end
+  end
+
+  # Check that a ExampleZipContainer2 will only verify when required objects
+  # are added with the correct contents.
+  def test_create_subclassed_container_with_content_verification
+    Dir.mktmpdir do |dir|
+      filename = File.join(dir, "test.container")
+
+      assert_nothing_raised do
+        ExampleZipContainer2.create(filename) do |c|
+          assert_raises(ZipContainer::MalformedZipContainerError) do
             c.verify!
           end
 
@@ -182,7 +206,7 @@ class TestManagedEntries < Test::Unit::TestCase
             f.puts "Goodbye!"
           end
 
-          assert_raises(UCF::MalformedUCFError) do
+          assert_raises(ZipContainer::MalformedZipContainerError) do
             c.verify!
           end
 
@@ -190,15 +214,15 @@ class TestManagedEntries < Test::Unit::TestCase
             f.puts "Hello, Y'All!"
           end
 
-          assert_nothing_raised(UCF::MalformedUCFError) do
+          assert_nothing_raised(ZipContainer::MalformedZipContainerError) do
             c.verify!
           end
         end
       end
 
-      assert(ExampleUCF2.verify(filename))
-      assert_nothing_raised(UCF::MalformedUCFError) do
-        ExampleUCF2.verify!(filename)
+      assert(ExampleZipContainer2.verify(filename))
+      assert_nothing_raised(ZipContainer::MalformedZipContainerError) do
+        ExampleZipContainer2.verify!(filename)
       end
     end
   end

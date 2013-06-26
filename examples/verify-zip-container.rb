@@ -30,23 +30,15 @@
 #
 # Author: Robert Haines
 
-#
-module UCF
+require 'rubygems'
+require 'zip-container'
 
-  # This is a subclass of ManagedDirectory to represent the META-INF directory
-  # in a basic UCF Document.
-  class MetaInf < ManagedDirectory
+ZIP_FILE = "example.zip"
+file = ARGV.length > 0 ? ARGV[0] : ZIP_FILE
 
-    # :call-seq:
-    #   new -> MetaInf
-    #
-    # Create a standard META-INF ManagedDirectory.
-    def initialize
-      super("META-INF", false,
-        [ManagedFile.new("container.xml"), ManagedFile.new("manifest.xml"),
-          ManagedFile.new("metadata.xml"), ManagedFile.new("signatures.xml"),
-          ManagedFile.new("encryption.xml"), ManagedFile.new("rights.xml")])
-    end
-
-  end
+begin
+  ZipContainer::Container.verify!(file)
+rescue ZipContainer::MalformedZipContainerError, Zip::ZipError => err
+  puts err.to_s
+  exit 1
 end

@@ -33,11 +33,12 @@
 require 'forwardable'
 require 'zip/zipfilesystem'
 
-module UCF
+module ZipContainer
 
-  # This class represents a UCF document in PK Zip format. See
-  # {the specification}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
-  # for more details.
+  # This class represents a ZipContainer file in PK Zip format. See the
+  # {OCF}[http://www.idpf.org/epub/30/spec/epub30-ocf.html] and
+  # {UCF}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
+  # specifications for more details.
   #
   # This class provides most of the facilities of the <tt>Zip::ZipFile</tt>
   # class in the rubyzip gem. Please also consult the
@@ -56,14 +57,11 @@ module UCF
 
     private_class_method :new
 
-    # The mime-type of this UCF document. By default this is
-    # "application/epub+zip".
+    # The mime-type of this ZipContainer file.
     attr_reader :mimetype
 
     # :stopdoc:
-    DEFAULT_MIMETYPE = "application/epub+zip"
-
-    # The reserved mimetype file name for standard UCF documents.
+    # The reserved mimetype file name for standard ZipContainer documents.
     MIMETYPE_FILE = "mimetype"
 
     def initialize(document)
@@ -77,7 +75,7 @@ module UCF
       register_reserved_name(MIMETYPE_FILE)
 
       # Initialize the managed entries and register the META-INF directory.
-      initialize_managed_entries(MetaInf.new)
+      initialize_managed_entries
 
       # Here we fake up the connection to the rubyzip filesystem classes so
       # that they also respect the reserved names that we define.
@@ -93,8 +91,8 @@ module UCF
     #   Container.create(filename, mimetype = "application/epub+zip") -> document
     #   Container.create(filename, mimetype = "application/epub+zip") {|document| ...}
     #
-    # Create a new UCF document on disk with the specified mimetype.
-    def Container.create(filename, mimetype = DEFAULT_MIMETYPE, &block)
+    # Create a new ZipContainer file on disk with the specified mimetype.
+    def Container.create(filename, mimetype, &block)
       ::Zip::ZipOutputStream.open(filename) do |stream|
         stream.put_next_entry(MIMETYPE_FILE, nil, nil, ::Zip::ZipEntry::STORED)
         stream.write mimetype
@@ -118,9 +116,9 @@ module UCF
     #   Container.each_entry -> Enumerator
     #   Container.each_entry {|entry| ...}
     #
-    # Iterate over the entries in the UCF document. The entry objects returned
-    # by this method are Zip::ZipEntry objects. Please see the rubyzip
-    # documentation for details.
+    # Iterate over the entries in the ZipContainer file. The entry objects
+    # returned by this method are Zip::ZipEntry objects. Please see the
+    # rubyzip documentation for details.
     def Container.each_entry(filename, &block)
       c = new(filename)
 
@@ -139,8 +137,8 @@ module UCF
     #   Container.open(filename) -> document
     #   Container.open(filename) {|document| ...}
     #
-    # Open an existing UCF document from disk. It will be checked for
-    # conformance to the UCF specification upon first access.
+    # Open an existing ZipContainer file from disk. It will be checked for
+    # conformance upon first access.
     def Container.open(filename, &block)
       c = new(filename)
 
@@ -158,7 +156,7 @@ module UCF
     # :call-seq:
     #   Container.verify(filename) -> boolean
     #
-    # Verify that the specified UCF document conforms to the UCF
+    # Verify that the specified ZipContainer file conforms to the
     # specification. This method returns +false+ if there are any problems at
     # all with the file (including if it cannot be found).
     def Container.verify(filename)
@@ -174,7 +172,7 @@ module UCF
     # :call-seq:
     #   Container.verify!(filename)
     #
-    # Verify that the specified UCF document conforms to the UCF
+    # Verify that the specified ZipContainer file conforms to the
     # specification. This method raises exceptions when errors are found or if
     # there is something fundamental wrong with the file itself (e.g. it
     # cannot be found).
@@ -185,9 +183,9 @@ module UCF
     # :call-seq:
     #   add(entry, src_path, &continue_on_exists_proc)
     #
-    # Convenience method for adding the contents of a file to the UCF
-    # document. If asked to add a file with a reserved name, such as the
-    # special mimetype header file, this method will raise a
+    # Convenience method for adding the contents of a file to the ZipContainer
+    # file. If asked to add a file with a reserved name, such as the special
+    # mimetype header file, this method will raise a
     # ReservedNameClashError.
     #
     # See the rubyzip documentation for details of the
@@ -205,7 +203,7 @@ module UCF
     #   close -> boolean
     #
     # Commits changes that have been made since the previous commit to the
-    # UCF document. Returns +true+ if anything was actually done, +false+
+    # ZipContainer file. Returns +true+ if anything was actually done, +false+
     # otherwise.
     def commit
       return false unless commit_required?
@@ -221,8 +219,8 @@ module UCF
     #   dir -> Zip::ZipFsDir
     #
     # Returns an object which can be used like ruby's built in +Dir+ (class)
-    # object, except that it works on the UCF document on which this method is
-    # invoked.
+    # object, except that it works on the ZipContainer file on which this
+    # method is invoked.
     #
     # See the rubyzip documentation for details.
     def dir
@@ -233,8 +231,8 @@ module UCF
     #   file -> Zip::ZipFsFile
     #
     # Returns an object which can be used like ruby's built in +File+ (class)
-    # object, except that it works on the UCF document on which this method is
-    # invoked.
+    # object, except that it works on the ZipContainer file on which this
+    # method is invoked.
     #
     # See the rubyzip documentation for details.
     def file
@@ -262,7 +260,7 @@ module UCF
     # :call-seq:
     #   in_memory? -> boolean
     #
-    # Is this UCF document memory resident as opposed to stored on disk?
+    # Is this ZipContainer file memory resident as opposed to stored on disk?
     def in_memory?
       !@on_disk
     end
@@ -270,8 +268,9 @@ module UCF
     # :call-seq:
     #   mkdir(name, permission = 0755)
     #
-    # Creates a directory in the UCF document. If asked to create a directory
-    # with a reserved name this method will raise a ReservedNameClashError.
+    # Creates a directory in the ZipContainer file. If asked to create a
+    # directory with a name reserved for use by a file this method will raise
+    # a ReservedNameClashError.
     #
     # The new directory will be created with the supplied unix-style
     # permissions. The default (+0755+) is owner read, write and list; group
@@ -287,7 +286,7 @@ module UCF
     # :call-seq:
     #   on_disk? -> boolean
     #
-    # Is this UCF document stored on disk as opposed to memory resident?
+    # Is this ZipContainer file stored on disk as opposed to memory resident?
     def on_disk?
       @on_disk
     end
@@ -295,9 +294,9 @@ module UCF
     # :call-seq:
     #   remove(entry)
     #
-    # Removes the specified entry from the UCF document. If asked to remove
-    # any reserved files such as the special mimetype header file this method
-    # will do nothing.
+    # Removes the specified entry from the ZipContainer file. If asked to
+    # remove any reserved files such as the special mimetype header file this
+    # method will do nothing.
     def remove(entry)
       return if reserved_entry?(entry)
       @zipfile.remove(entry)
@@ -306,10 +305,10 @@ module UCF
     # :call-seq:
     #   rename(entry, new_name, &continue_on_exists_proc)
     #
-    # Renames the specified entry in the UCF document. If asked to rename any
-    # reserved files such as the special mimetype header file this method will
-    # do nothing. If asked to rename a file _to_ one of the reserved names a
-    # ReservedNameClashError is raised.
+    # Renames the specified entry in the ZipContainer file. If asked to rename
+    # any reserved files such as the special mimetype header file this method
+    # will do nothing. If asked to rename a file _to_ one of the reserved
+    # names a ReservedNameClashError is raised.
     #
     # See the rubyzip documentation for details of the
     # +continue_on_exists_proc+ parameter.
@@ -323,8 +322,8 @@ module UCF
     # :call-seq:
     #   replace(entry, src_path)
     #
-    # Replaces the specified entry of the UCF document with the contents of
-    # +src_path+ (from the file system). If asked to replace any reserved
+    # Replaces the specified entry of the ZipContainer file with the contents
+    # of +src_path+ (from the file system). If asked to replace any reserved
     # files such as the special mimetype header file this method will do
     # nothing.
     def replace(entry, src_path)
@@ -335,7 +334,7 @@ module UCF
     # :call-seq:
     #   to_s -> String
     #
-    # Return a textual summary of this UCF document.
+    # Return a textual summary of this ZipContainer file.
     def to_s
       @zipfile.to_s + " - #{@mimetype}"
     end
@@ -343,7 +342,7 @@ module UCF
     # :call-seq:
     #   verify!
     #
-    # Verify the contents of this UCF document. All managed files and
+    # Verify the contents of this ZipContainer file. All managed files and
     # directories are checked to make sure that they exist, if required.
     def verify!
       verify_managed_entries!
@@ -359,12 +358,12 @@ module UCF
       # Check mimetype file is present and correct.
       entry = @zipfile.find_entry(MIMETYPE_FILE)
 
-      raise MalformedUCFError.new("'mimetype' file is missing.") if entry.nil?
+      raise MalformedZipContainerError.new("'mimetype' file is missing.") if entry.nil?
       if entry.localHeaderOffset != 0
-        raise MalformedUCFError.new("'mimetype' file is not at offset 0 in the archive.")
+        raise MalformedZipContainerError.new("'mimetype' file is not at offset 0 in the archive.")
       end
       if entry.compression_method != ::Zip::ZipEntry::STORED
-        raise MalformedUCFError.new("'mimetype' file is compressed.")
+        raise MalformedZipContainerError.new("'mimetype' file is compressed.")
       end
 
       true
@@ -383,22 +382,22 @@ module UCF
     # :call-seq:
     #   comment -> String
     #
-    # Returns the UCF document comment, if it has one.
+    # Returns the ZipContainer file comment, if it has one.
 
     ##
     # :method: comment=
     # :call-seq:
     #   comment = comment
     #
-    # Set the UCF document comment to the new value.
+    # Set the ZipContainer file comment to the new value.
 
     ##
     # :method: commit_required?
     # :call-seq:
     #   commit_required? -> boolean
     #
-    # Returns +true+ if any changes have been made to this UCF document since
-    # the last commit, +false+ otherwise.
+    # Returns +true+ if any changes have been made to this ZipContainer file
+    # since the last commit, +false+ otherwise.
 
     ##
     # :method: each
@@ -406,25 +405,25 @@ module UCF
     #   each -> Enumerator
     #   each {|entry| ...}
     #
-    # Iterate over the entries in the UCF document. The entry objects returned
-    # by this method are Zip::ZipEntry objects. Please see the rubyzip
-    # documentation for details.
+    # Iterate over the entries in the ZipContainer file. The entry objects
+    # returned by this method are Zip::ZipEntry objects. Please see the
+    # rubyzip documentation for details.
 
     ##
     # :method:
     # :call-seq:
     #   entries -> Enumerable
     #
-    # Returns an Enumerable containing all the entries in the UCF Document.
-    # The entry objects returned by this method are Zip::ZipEntry objects.
-    # Please see the rubyzip documentation for details.
+    # Returns an Enumerable containing all the entries in the ZipContainer
+    # file The entry objects returned by this method are Zip::ZipEntry
+    # objects. Please see the rubyzip documentation for details.
 
     ##
     # :method: extract
     # :call-seq:
     #   extract(entry, dest_path, &on_exists_proc)
     #
-    # Extracts the specified entry of the UCF document to +dest_path+.
+    # Extracts the specified entry of the ZipContainer file to +dest_path+.
     #
     # See the rubyzip documentation for details of the +on_exists_proc+
     # parameter.
@@ -434,16 +433,16 @@ module UCF
     # :call-seq:
     #   find_entry(entry) -> Zip::ZipEntry
     #
-    # Searches for entries within the UCF document with the specified name.
-    # Returns +nil+ if no entry is found. See also +get_entry+.
+    # Searches for entries within the ZipContainer file with the specified
+    # name. Returns +nil+ if no entry is found. See also +get_entry+.
 
     ##
     # :method: get_entry
     # :call-seq:
     #   get_entry(entry) -> Zip::ZipEntry
     #
-    # Searches for an entry within the UCF document in a similar manner to
-    # +find_entry+, but throws +Errno::ENOENT+ if no entry is found.
+    # Searches for an entry within the ZipContainer file in a similar manner
+    # to +find_entry+, but throws +Errno::ENOENT+ if no entry is found.
 
     ##
     # :method: get_input_stream
@@ -461,7 +460,8 @@ module UCF
     #   glob(*args) -> Array of Zip::ZipEntry
     #   glob(*args) {|entry| ...}
     #
-    # Searches for entries within the UCF document that match the given glob.
+    # Searches for entries within the ZipContainer file that match the given
+    # glob.
     #
     # See the rubyzip documentation for details of the parameters that can be
     # passed in.
@@ -471,7 +471,7 @@ module UCF
     # :call-seq:
     #   name -> String
     #
-    # Returns the filename of this UCF document.
+    # Returns the filename of this ZipContainer file.
 
     ##
     # :method: read
@@ -485,7 +485,7 @@ module UCF
     # :call-seq:
     #   size -> int
     #
-    # Returns the number of entries in the UCF document.
+    # Returns the number of entries in the ZipContainer file.
 
   end
 end

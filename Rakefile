@@ -39,24 +39,26 @@ require 'jeweler'
 
 # we need to add lib to the path because we're not installed yet!
 $LOAD_PATH.unshift File.join(File.dirname(__FILE__), "lib")
-require 'ucf'
+require 'zip-container'
 
 task :default => [:test]
 
 Jeweler::Tasks.new do |s|
-  s.name             = "ucf"
-  s.version          = UCF::Version::STRING
+  s.name             = "zip-container"
+  s.version          = ZipContainer::Version::STRING
   s.authors          = ["Robert Haines"]
   s.email            = ["support@mygrid.org.uk"]
-  s.homepage         = "http://mygrid.github.io/ruby-ucf/"
+  s.homepage         = "http://mygrid.github.io/ruby-zip-container/"
   s.platform         = Gem::Platform::RUBY
-  s.summary          = "Universal Container Format (UCF) Ruby Library"
-  s.description      = "A Ruby library for working with Universal Container "\
+  s.summary          = "A ZIP Container for use by OCF and UCF implementations"
+  s.description      = "A Ruby library for working with ZIP Container "\
     "Format files. See "\
+    "http://www.idpf.org/epub/30/spec/epub30-ocf.html for the OCF "\
+    "specification and "\
     "https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format "\
-    "for the specification."
+    "for the UCF specification."
   s.require_path     = "lib"
-  s.test_file        = "test/ts_ucf.rb"
+  s.test_file        = "test/ts_container.rb"
   s.has_rdoc         = true
   s.extra_rdoc_files = ["ReadMe.rdoc", "Licence.rdoc", "Changes.rdoc"]
   s.rdoc_options     = ["-N", "--tab-width=2", "--main=ReadMe.rdoc"]
@@ -68,7 +70,7 @@ end
 
 Rake::TestTask.new do |t|
   t.libs << "test"
-  t.test_files = FileList['test/ts_ucf.rb']
+  t.test_files = FileList['test/ts_container.rb']
   t.verbose = true
 end
 
@@ -76,8 +78,8 @@ RDoc::Task.new do |r|
   r.main = "ReadMe.rdoc"
   lib = Dir.glob("lib/**/*.rb")
   r.rdoc_files.include("ReadMe.rdoc", "Licence.rdoc", "Changes.rdoc", lib)
-  r.options << "-t Universal Container Format Ruby Library version " +
-    "#{UCF::Version::STRING}"
+  r.options << "-t ZIP Container Format Ruby Library version " +
+    "#{ZipContainer::Version::STRING}"
   r.options << "-N"
   r.options << "--tab-width=2"
 end

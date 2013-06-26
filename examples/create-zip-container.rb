@@ -30,32 +30,32 @@
 #
 # Author: Robert Haines
 
-require 'yaml'
-require 'ucf/exceptions'
-require 'ucf/entries/reserved'
-require 'ucf/entries/managed'
-require 'ucf/entries/entry'
-require 'ucf/entries/file'
-require 'ucf/entries/directory'
-require 'ucf/meta-inf'
-require 'ucf/container'
+require 'rubygems'
+require 'zip-container'
 
-# This is a ruby library to read and write UCF files in PK Zip format. See the
-# UCF::Container class for more information.
-#
-# See
-# {the UCF specification}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
-# for more details.
-module UCF
+ZIP_FILE = "example.zip"
+file = ARGV.length > 0 ? ARGV[0] : ZIP_FILE
 
-  # Library version information.
-  module Version
-    # Version information in a Hash
-    INFO = YAML.load_file(File.join(File.dirname(__FILE__), "..",
-      "version.yml"))
+File.delete(file) if File.exists?(file)
 
-    # Version number as a String
-    STRING = [:major, :minor, :patch].map {|d| INFO[d]}.compact.join('.')
+begin
+  ZipContainer::Container.create(file, "application/epub+zip") do |c|
+
+    # Add a cheery greeting file from a string.
+    c.file.open("greeting.txt", "w") do |f|
+      f.puts "Hello, World!"
+    end
+
+    # Create a subdirectory.
+    c.dir.mkdir("dir")
+
+    # Copy this example code in straight from a file.
+    c.add("dir/code.rb", __FILE__)
+
+    # Add a explanation of this file.
+    c.comment = "This is an example Container file!"
   end
-
+rescue ZipContainer::MalformedZipContainerError, Zip::ZipError => err
+  puts err.to_s
+  exit 1
 end

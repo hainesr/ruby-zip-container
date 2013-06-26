@@ -30,59 +30,41 @@
 #
 # Author: Robert Haines
 
-require 'zip/zip_entry'
+#
+module ZipContainer
 
-module UCF
+  # The base class of all other exceptions raised by this library.
+  class ZipContainerError < RuntimeError
+  end
 
-  # This module provides support for reserved names.
-  module ReservedNames
-
-    # :call-seq:
-    #   reserved_names -> Array
-    #
-    # Return a list of reserved file and directory names for this UCF
-    # document.
-    #
-    # Reserved files and directories must be accessed directly by methods
-    # within Container (or subclasses of Container). This is because they are
-    # fundamental to the format and might need to exhibit certain properties
-    # (such as no compression) that must be preserved. The "mimetype" file is
-    # an example of such a reserved entry.
-    #
-    # To add a reserved name to a subclass of Container simply add it to the
-    # list in the constructor (you must call the super constructor first!):
-    #
-    #  class MyContainer < UCF::Container
-    #    def initialize(filename)
-    #      super(filename)
-    #
-    #      register_reserved_name("my_reserved_name")
-    #    end
-    #  end
-    def reserved_names
-      @reserved_names ||= []
-    end
+  # This exception is raised when a bad ZipContainer is detected.
+  class MalformedZipContainerError < ZipContainerError
 
     # :call-seq:
-    #   reserved_entry?(entry) -> boolean
+    #   new(reason = "")
     #
-    # Is the given entry in the reserved list of names? A String or a
-    # Zip::ZipEntry object can be passed in here.
-    def reserved_entry?(entry)
-      name = entry.kind_of?(::Zip::ZipEntry) ? entry.name : entry
-      name.chop! if name.end_with? "/"
-      reserved_names.map { |n| n.downcase }.include? name.downcase
-    end
-
-    protected
-
-    # :call-seq:
-    #   register_reserved_name(name)
-    #
-    # Add a reserved name to the list.
-    def register_reserved_name(name)
-      @reserved_names ||= []
-      @reserved_names << name unless @reserved_names.include? name
+    # Create a new MalformedZipContainerError with an optional reason for why
+    # the ZipContainer file is malformed.
+    def initialize(reason = nil)
+      if reason.nil?
+        super("Malformed ZipContainer File.")
+      else
+        super("Malformed ZipContainer File: #{reason}")
+      end
     end
   end
+
+  # This exception is raised when a clash occurs with a reserved or managed
+  # name.
+  class ReservedNameClashError < ZipContainerError
+
+    # :call-seq:
+    #   new(name)
+    #
+    # Create a new ReservedNameClashError with the name of the clash supplied.
+    def initialize(name)
+      super("'#{name}' is reserved for internal use in this ZipContainer file.")
+    end
+  end
+
 end

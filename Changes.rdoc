@@ -1,4 +1,9 @@
-= Changes log for the UCF Ruby Gem
+= Changes log for the ZIP Container Ruby Gem
+
+== Version 0.8.0
+
+* Abstract out all the underlying zip functionality and turn this library
+  into a basic ZIP Container provider.
 
 == Version 0.5.0
 

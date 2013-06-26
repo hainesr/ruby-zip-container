@@ -30,18 +30,19 @@
 #
 # Author: Robert Haines
 
+require 'test/unit'
 require 'tmpdir'
-require 'ucf'
+require 'zip-container'
 
 class TestCreation < Test::Unit::TestCase
 
-  # Check creation of standard empty ucf files.
+  # Check creation of standard empty container files.
   def test_create_standard_file
     Dir.mktmpdir do |dir|
-      filename = File.join(dir, "test.ucf")
+      filename = File.join(dir, "test.container")
 
       assert_nothing_raised do
-        UCF::Container.create(filename) do |c|
+        ZipContainer::Container.create(filename, $mimetype) do |c|
           assert(c.on_disk?)
           refute(c.in_memory?)
 
@@ -49,21 +50,21 @@ class TestCreation < Test::Unit::TestCase
         end
       end
 
-      assert_nothing_raised(UCF::MalformedUCFError, Zip::ZipError) do
-        UCF::Container.verify!(filename)
+      assert_nothing_raised(ZipContainer::MalformedZipContainerError, Zip::ZipError) do
+        ZipContainer::Container.verify!(filename)
       end
     end
   end
 
-  # Check creation of empty ucf files with a different mimetype.
+  # Check creation of empty container files with a different mimetype.
   def test_create_mimetype_file
     mimetype = "application/x-something-really-odd"
 
     Dir.mktmpdir do |dir|
-      filename = File.join(dir, "test.ucf")
+      filename = File.join(dir, "test.container")
 
       assert_nothing_raised do
-        UCF::Container.create(filename) do |c|
+        ZipContainer::Container.create(filename, mimetype) do |c|
           assert(c.on_disk?)
           refute(c.in_memory?)
 
@@ -71,66 +72,66 @@ class TestCreation < Test::Unit::TestCase
         end
       end
 
-      assert_nothing_raised(UCF::MalformedUCFError, Zip::ZipError) do
-        UCF::Container.verify!(filename)
+      assert_nothing_raised(ZipContainer::MalformedZipContainerError, Zip::ZipError) do
+        ZipContainer::Container.verify!(filename)
       end
     end
   end
 
-  # Check creation of stuff in ucf files. Check the commit status a few times
-  # to ensure that what we expect to happen, happens.
+  # Check creation of stuff in container files. Check the commit status a few
+  # times to ensure that what we expect to happen, happens.
   def test_create_contents_file
     Dir.mktmpdir do |dir|
-      filename = File.join(dir, "test.ucf")
+      filename = File.join(dir, "test.container")
 
       assert_nothing_raised do
-        UCF::Container.create(filename) do |ucf|
-          assert(ucf.on_disk?)
-          refute(ucf.in_memory?)
+        ZipContainer::Container.create(filename, $mimetype) do |c|
+          assert(c.on_disk?)
+          refute(c.in_memory?)
 
-          ucf.file.open("test.txt", "w") do |f|
+          c.file.open("test.txt", "w") do |f|
             f.print "testing"
           end
 
-          assert(ucf.commit_required?)
-          assert(ucf.commit)
-          refute(ucf.commit_required?)
-          refute(ucf.commit)
+          assert(c.commit_required?)
+          assert(c.commit)
+          refute(c.commit_required?)
+          refute(c.commit)
 
-          ucf.dir.mkdir("dir1")
-          ucf.mkdir("dir2")
+          c.dir.mkdir("dir1")
+          c.mkdir("dir2")
 
-          assert(ucf.commit_required?)
-          assert(ucf.commit)
-          refute(ucf.commit_required?)
-          refute(ucf.commit)
+          assert(c.commit_required?)
+          assert(c.commit)
+          refute(c.commit_required?)
+          refute(c.commit)
 
-          ucf.comment = "A comment!"
+          c.comment = "A comment!"
 
-          assert(ucf.commit_required?)
-          assert(ucf.commit)
-          refute(ucf.commit_required?)
-          refute(ucf.commit)
+          assert(c.commit_required?)
+          assert(c.commit)
+          refute(c.commit_required?)
+          refute(c.commit)
         end
       end
 
-      assert_nothing_raised(UCF::MalformedUCFError, Zip::ZipError) do
-        UCF::Container.open(filename) do |ucf|
-          assert(ucf.on_disk?)
-          refute(ucf.in_memory?)
+      assert_nothing_raised(ZipContainer::MalformedZipContainerError, Zip::ZipError) do
+        ZipContainer::Container.open(filename) do |c|
+          assert(c.on_disk?)
+          refute(c.in_memory?)
 
-          assert(ucf.file.exists?("test.txt"))
-          assert(ucf.file.exists?("dir1"))
-          assert(ucf.file.exists?("dir2"))
-          refute(ucf.file.exists?("dir3"))
+          assert(c.file.exists?("test.txt"))
+          assert(c.file.exists?("dir1"))
+          assert(c.file.exists?("dir2"))
+          refute(c.file.exists?("dir3"))
 
-          text = ucf.file.read("test.txt")
+          text = c.file.read("test.txt")
           assert_equal("testing", text)
 
-          assert_equal("A comment!", ucf.comment)
+          assert_equal("A comment!", c.comment)
 
-          refute(ucf.commit_required?)
-          refute(ucf.commit)
+          refute(c.commit_required?)
+          refute(c.commit)
         end
       end
     end

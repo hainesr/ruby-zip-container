@@ -30,15 +30,42 @@
 #
 # Author: Robert Haines
 
-require 'rubygems'
-require 'ucf'
+#
+module ZipContainer
 
-ZIP_FILE = "example.zip"
-file = ARGV.length > 0 ? ARGV[0] : ZIP_FILE
+  # A ManagedDirectory acts as the interface to a set of (possibly) managed
+  # files within it and also reserves the directory name in the Container
+  # namespace.
+  #
+  # Once a ManagedDirectory is registered in a Container then only it can be
+  # used to write to its contents.
+  class ManagedDirectory < ManagedEntry
+    include ReservedNames
+    include ManagedEntries
 
-begin
-  UCF::Container.verify!(file)
-rescue UCF::MalformedUCFError, Zip::ZipError => err
-  puts err.to_s
-  exit 1
+    # :call-seq:
+    #   new(name, required = false) -> ManagedDirectory
+    #
+    # Create a new ManagedDirectory with the supplied name and whether it is
+    # required to exist or not. Any ManagedFile or ManagedDirectory objects
+    # that are within this directory can also be given if required.
+    def initialize(name, required = false, entries = [])
+      super(name, required)
+
+      initialize_managed_entries(entries)
+    end
+
+    # :call-seq:
+    #   verify!
+    #
+    # Verify this ManagedDirectory for correctness. ManagedFiles registered
+    # within it are verified recursively.
+    #
+    # A MalformedZipContainerError is raised if it does not pass verification.
+    def verify!
+      super
+      @files.values.each { |f| f.verify! }
+    end
+
+  end
 end

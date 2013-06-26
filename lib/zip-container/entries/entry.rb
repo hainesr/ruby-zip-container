@@ -31,7 +31,7 @@
 # Author: Robert Haines
 
 #
-module UCF
+module ZipContainer
 
   # ManagedEntry is the superclass of ManagedDirectory and ManagedFile. It
   # should not be used directly but may be subclassed if necessary.
@@ -111,13 +111,14 @@ module UCF
     # :call-seq:
     #   verify!
     #
-    # Verify this ManagedEntry raising a MalformedUCFError if it fails.
+    # Verify this ManagedEntry raising a MalformedZipContainerError if it
+    # fails.
     #
     # Subclasses should override this method if they require more complex
     # verification to be done.
     def verify!
       unless !@required || exists?
-        raise MalformedUCFError.new("Entry '#{full_name}' is required but "\
+        raise MalformedZipContainerError.new("Entry '#{full_name}' is required but "\
           "missing.")
       end
     end

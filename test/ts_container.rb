@@ -30,14 +30,15 @@
 #
 # Author: Robert Haines
 
-require 'test/unit'
-require 'ucf'
+# Example default mimetype
+$mimetype = "application/epub+zip"
 
+# Example data files
 $file_null = "test/data/null.file"
-$ucf_empty = "test/data/empty.ucf"
-$zip_empty = "test/data/empty.zip"
-$ucf_compressed_mimetype = "test/data/compressed_mimetype.ucf"
-$ucf_example = "test/data/example.ucf"
+$empty = "test/data/empty.container"
+$empty_zip = "test/data/empty.zip"
+$compressed_mimetype = "test/data/compressed_mimetype.container"
+$example = "test/data/example.container"
 
 # Run test cases.
 require 'tc_create'
