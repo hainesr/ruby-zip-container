@@ -86,7 +86,7 @@ class TestManagedEntries < Test::Unit::TestCase
   def test_fail_verification
     refute(ManagedZipContainer.verify($example))
 
-    assert_raises(ZipContainer::MalformedZipContainerError) do
+    assert_raises(ZipContainer::MalformedContainerError) do
       ManagedZipContainer.verify!($example)
     end
   end
@@ -96,7 +96,7 @@ class TestManagedEntries < Test::Unit::TestCase
   def test_pass_verification
     assert(ExampleZipContainer.verify($example))
 
-    assert_nothing_raised(ZipContainer::MalformedZipContainerError) do
+    assert_nothing_raised(ZipContainer::MalformedContainerError) do
       ExampleZipContainer.verify!($example)
     end
   end
@@ -106,7 +106,7 @@ class TestManagedEntries < Test::Unit::TestCase
   def test_pass_verification_2
     assert(ExampleZipContainer2.verify($example))
 
-    assert_nothing_raised(ZipContainer::MalformedZipContainerError) do
+    assert_nothing_raised(ZipContainer::MalformedContainerError) do
       ExampleZipContainer2.verify!($example)
     end
   end
@@ -128,7 +128,7 @@ class TestManagedEntries < Test::Unit::TestCase
         end
       end
 
-      assert_nothing_raised(ZipContainer::MalformedZipContainerError) do
+      assert_nothing_raised(ZipContainer::MalformedContainerError) do
         ZipContainer::Container.verify!(filename)
       end
     end
@@ -142,14 +142,14 @@ class TestManagedEntries < Test::Unit::TestCase
 
       assert_nothing_raised do
         ManagedZipContainer.create(filename, $mimetype) do |c|
-          assert_raises(ZipContainer::MalformedZipContainerError) do
+          assert_raises(ZipContainer::MalformedContainerError) do
             c.verify!
           end
         end
       end
 
       refute(ManagedZipContainer.verify(filename))
-      assert_raises(ZipContainer::MalformedZipContainerError) do
+      assert_raises(ZipContainer::MalformedContainerError) do
         ManagedZipContainer.verify!(filename)
       end
     end
@@ -171,7 +171,7 @@ class TestManagedEntries < Test::Unit::TestCase
       end
 
       assert(ManagedZipContainer.verify(filename))
-      assert_nothing_raised(ZipContainer::MalformedZipContainerError) do
+      assert_nothing_raised(ZipContainer::MalformedContainerError) do
         ManagedZipContainer.verify!(filename)
       end
     end
@@ -198,7 +198,7 @@ class TestManagedEntries < Test::Unit::TestCase
 
       assert_nothing_raised do
         ExampleZipContainer2.create(filename) do |c|
-          assert_raises(ZipContainer::MalformedZipContainerError) do
+          assert_raises(ZipContainer::MalformedContainerError) do
             c.verify!
           end
 
@@ -206,7 +206,7 @@ class TestManagedEntries < Test::Unit::TestCase
             f.puts "Goodbye!"
           end
 
-          assert_raises(ZipContainer::MalformedZipContainerError) do
+          assert_raises(ZipContainer::MalformedContainerError) do
             c.verify!
           end
 
@@ -214,14 +214,14 @@ class TestManagedEntries < Test::Unit::TestCase
             f.puts "Hello, Y'All!"
           end
 
-          assert_nothing_raised(ZipContainer::MalformedZipContainerError) do
+          assert_nothing_raised(ZipContainer::MalformedContainerError) do
             c.verify!
           end
         end
       end
 
       assert(ExampleZipContainer2.verify(filename))
-      assert_nothing_raised(ZipContainer::MalformedZipContainerError) do
+      assert_nothing_raised(ZipContainer::MalformedContainerError) do
         ExampleZipContainer2.verify!(filename)
       end
     end

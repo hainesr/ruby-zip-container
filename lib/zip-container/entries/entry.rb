@@ -111,15 +111,15 @@ module ZipContainer
     # :call-seq:
     #   verify!
     #
-    # Verify this ManagedEntry raising a MalformedZipContainerError if it
+    # Verify this ManagedEntry raising a MalformedContainerError if it
     # fails.
     #
     # Subclasses should override this method if they require more complex
     # verification to be done.
     def verify!
       unless !@required || exists?
-        raise MalformedZipContainerError.new("Entry '#{full_name}' is required but "\
-          "missing.")
+        raise MalformedContainerError.new("Entry '#{full_name}' is required "\
+          "but missing.")
       end
     end
 

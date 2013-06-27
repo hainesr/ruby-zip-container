@@ -38,7 +38,7 @@ file = ARGV.length > 0 ? ARGV[0] : ZIP_FILE
 
 begin
   ZipContainer::Container.verify!(file)
-rescue ZipContainer::MalformedZipContainerError, Zip::ZipError => err
+rescue ZipContainer::MalformedContainerError, Zip::ZipError => err
   puts err.to_s
   exit 1
 end

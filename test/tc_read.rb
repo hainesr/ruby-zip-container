@@ -46,7 +46,7 @@ class TestRead < Test::Unit::TestCase
 
   # Check that the empty container file does verify.
   def test_verify_empty_container
-    assert_nothing_raised(ZipContainer::MalformedZipContainerError, Zip::ZipError) do
+    assert_nothing_raised(ZipContainer::MalformedContainerError, Zip::ZipError) do
       ZipContainer::Container.verify!($empty)
     end
 
@@ -55,7 +55,7 @@ class TestRead < Test::Unit::TestCase
 
   # Check that the empty zip file does not verify.
   def test_verify_empty_zip
-    assert_raise(ZipContainer::MalformedZipContainerError) do
+    assert_raise(ZipContainer::MalformedContainerError) do
       ZipContainer::Container.verify!($empty_zip)
     end
 
@@ -64,7 +64,7 @@ class TestRead < Test::Unit::TestCase
 
   # Check that a compressed mimetype file is detected.
   def test_verify_compressed_mimetype
-    assert_raise(ZipContainer::MalformedZipContainerError) do
+    assert_raise(ZipContainer::MalformedContainerError) do
       ZipContainer::Container.verify!($compressed_mimetype)
     end
 
@@ -83,7 +83,7 @@ class TestRead < Test::Unit::TestCase
   # Check reading files out of a container file and make sure we don't change
   # it.
   def test_read_files_from_container
-    assert_nothing_raised(ZipContainer::MalformedZipContainerError, Zip::ZipError) do
+    assert_nothing_raised(ZipContainer::MalformedContainerError, Zip::ZipError) do
       ZipContainer::Container.open($example) do |c|
         assert(c.on_disk?)
         refute(c.in_memory?)

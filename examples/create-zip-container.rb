@@ -55,7 +55,7 @@ begin
     # Add a explanation of this file.
     c.comment = "This is an example Container file!"
   end
-rescue ZipContainer::MalformedZipContainerError, Zip::ZipError => err
+rescue ZipContainer::MalformedContainerError, Zip::ZipError => err
   puts err.to_s
   exit 1
 end

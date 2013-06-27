@@ -34,29 +34,29 @@
 module ZipContainer
 
   # The base class of all other exceptions raised by this library.
-  class ZipContainerError < RuntimeError
+  class ContainerError < RuntimeError
   end
 
-  # This exception is raised when a bad ZipContainer is detected.
-  class MalformedZipContainerError < ZipContainerError
+  # This exception is raised when a bad Container is detected.
+  class MalformedContainerError < ContainerError
 
     # :call-seq:
     #   new(reason = "")
     #
-    # Create a new MalformedZipContainerError with an optional reason for why
-    # the ZipContainer file is malformed.
+    # Create a new MalformedContainerError with an optional reason for why
+    # the Container file is malformed.
     def initialize(reason = nil)
       if reason.nil?
-        super("Malformed ZipContainer File.")
+        super("Malformed Container File.")
       else
-        super("Malformed ZipContainer File: #{reason}")
+        super("Malformed Container File: #{reason}")
       end
     end
   end
 
   # This exception is raised when a clash occurs with a reserved or managed
   # name.
-  class ReservedNameClashError < ZipContainerError
+  class ReservedNameClashError < ContainerError
 
     # :call-seq:
     #   new(name)

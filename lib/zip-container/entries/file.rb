@@ -67,11 +67,11 @@ module ZipContainer
     # Verify this ManagedFile for correctness. The contents are validated if
     # required.
     #
-    # A MalformedZipContainerError is raised if it does not pass verification.
+    # A MalformedContainerError is raised if it does not pass verification.
     def verify!
       super
       unless (exists? ? validate : true)
-        raise MalformedZipContainerError.new("The contents of file "\
+        raise MalformedContainerError.new("The contents of file "\
           "'#{full_name}' do not pass validation.")
       end
     end
