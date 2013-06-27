@@ -61,7 +61,7 @@ module ZipContainer
     # Verify this ManagedDirectory for correctness. ManagedFiles registered
     # within it are verified recursively.
     #
-    # A MalformedZipContainerError is raised if it does not pass verification.
+    # A MalformedContainerError is raised if it does not pass verification.
     def verify!
       super
       @files.values.each { |f| f.verify! }

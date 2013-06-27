@@ -358,12 +358,12 @@ module ZipContainer
       # Check mimetype file is present and correct.
       entry = @zipfile.find_entry(MIMETYPE_FILE)
 
-      raise MalformedZipContainerError.new("'mimetype' file is missing.") if entry.nil?
+      raise MalformedContainerError.new("'mimetype' file is missing.") if entry.nil?
       if entry.localHeaderOffset != 0
-        raise MalformedZipContainerError.new("'mimetype' file is not at offset 0 in the archive.")
+        raise MalformedContainerError.new("'mimetype' file is not at offset 0 in the archive.")
       end
       if entry.compression_method != ::Zip::ZipEntry::STORED
-        raise MalformedZipContainerError.new("'mimetype' file is compressed.")
+        raise MalformedContainerError.new("'mimetype' file is compressed.")
       end
 
       true

@@ -35,7 +35,7 @@ require 'rubygems'
 require 'zip-container'
 
 def usage
-  puts "zip-container-info zip-container-file"
+  puts "Usage:\n  zip-container-info <zip-container-file>"
   exit 1
 end
 
@@ -45,7 +45,7 @@ container_file = ARGV[0]
 
 begin
   container = ZipContainer::Container.open(container_file)
-rescue ZipContainer::MalformedZipContainerError, Zip::ZipError => err
+rescue ZipContainer::MalformedContainerError, Zip::ZipError => err
   puts err.to_s
   exit 1
 end
