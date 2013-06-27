@@ -1,0 +1,12 @@
+Thu, 27 Jun 2013 10:15:32 +0100
+ReadMe.rdoc	Wed, 26 Jun 2013 16:27:22 +0100
+Licence.rdoc	Wed, 22 May 2013 16:43:44 +0100
+Changes.rdoc	Wed, 26 Jun 2013 16:27:22 +0100
+lib/zip-container.rb	Wed, 26 Jun 2013 16:27:22 +0100
+lib/zip-container/exceptions.rb	Thu, 27 Jun 2013 10:12:42 +0100
+lib/zip-container/container.rb	Thu, 27 Jun 2013 10:12:42 +0100
+lib/zip-container/entries/entry.rb	Thu, 27 Jun 2013 10:12:42 +0100
+lib/zip-container/entries/directory.rb	Thu, 27 Jun 2013 10:12:42 +0100
+lib/zip-container/entries/file.rb	Thu, 27 Jun 2013 10:12:42 +0100
+lib/zip-container/entries/managed.rb	Wed, 26 Jun 2013 16:27:22 +0100
+lib/zip-container/entries/reserved.rb	Wed, 26 Jun 2013 16:27:22 +0100
