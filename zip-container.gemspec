@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Robert Haines"]
-  s.date = "2013-06-26"
+  s.date = "2013-06-27"
   s.description = "A Ruby library for working with ZIP Container Format files. See http://www.idpf.org/epub/30/spec/epub30-ocf.html for the OCF specification and https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format for the UCF specification."
   s.email = ["support@mygrid.org.uk"]
   s.extra_rdoc_files = [
@@ -22,8 +22,8 @@ Gem::Specification.new do |s|
     "Licence.rdoc",
     "Rakefile",
     "ReadMe.rdoc",
-    "examples/create-zip-container.rb",
-    "examples/verify-zip-container.rb",
+    "examples/create-zip-container",
+    "examples/verify-zip-container",
     "examples/zip-container-info",
     "lib/zip-container.rb",
     "lib/zip-container/container.rb",

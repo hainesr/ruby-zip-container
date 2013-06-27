@@ -35,7 +35,7 @@ require 'rubygems'
 require 'zip-container'
 
 def usage
-  puts "zip-container-info zip-container-file"
+  puts "Usage:\n  zip-container-info <zip-container-file>"
   exit 1
 end
 

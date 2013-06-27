@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 # Copyright (c) 2013 The University of Manchester, UK.
 #
 # All rights reserved.
@@ -33,13 +34,22 @@
 require 'rubygems'
 require 'zip-container'
 
-ZIP_FILE = "example.zip"
-file = ARGV.length > 0 ? ARGV[0] : ZIP_FILE
+def usage
+  puts "Usage:\n  create-zip-container <zip-container-file>"
+  exit 1
+end
 
-File.delete(file) if File.exists?(file)
+usage unless ARGV.length == 1
+
+container_file = ARGV[0]
+
+if File.exists?(container_file)
+  puts "File '#{container_file}' already exists. Exiting."
+  exit 1
+end
 
 begin
-  ZipContainer::Container.create(file, "application/epub+zip") do |c|
+  ZipContainer::Container.create(container_file, "application/epub+zip") do |c|
 
     # Add a cheery greeting file from a string.
     c.file.open("greeting.txt", "w") do |f|
