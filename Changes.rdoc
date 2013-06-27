@@ -1,5 +1,10 @@
 = Changes log for the ZIP Container Ruby Gem
 
+== Version 0.9.0
+
+* Generalize the Container Error class names.
+* Polish example scripts.
+
 == Version 0.8.0
 
 * Abstract out all the underlying zip functionality and turn this library
