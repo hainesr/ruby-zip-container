@@ -46,7 +46,7 @@ class TestCreation < Test::Unit::TestCase
           assert(c.on_disk?)
           refute(c.in_memory?)
 
-          assert(c.find_entry("mimetype").localHeaderOffset == 0)
+          assert(c.find_entry("mimetype").local_header_offset == 0)
         end
       end
 
@@ -68,7 +68,7 @@ class TestCreation < Test::Unit::TestCase
           assert(c.on_disk?)
           refute(c.in_memory?)
 
-          assert(c.find_entry("mimetype").localHeaderOffset == 0)
+          assert(c.find_entry("mimetype").local_header_offset == 0)
         end
       end
 

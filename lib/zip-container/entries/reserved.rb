@@ -30,8 +30,7 @@
 #
 # Author: Robert Haines
 
-require 'zip/zip_entry'
-
+#
 module ZipContainer
 
   # This module provides support for reserved names.
@@ -67,9 +66,9 @@ module ZipContainer
     #   reserved_entry?(entry) -> boolean
     #
     # Is the given entry in the reserved list of names? A String or a
-    # Zip::ZipEntry object can be passed in here.
+    # Zip::Entry object can be passed in here.
     def reserved_entry?(entry)
-      name = entry.kind_of?(::Zip::ZipEntry) ? entry.name : entry
+      name = entry.kind_of?(::Zip::Entry) ? entry.name : entry
       name.chop! if name.end_with? "/"
       reserved_names.map { |n| n.downcase }.include? name.downcase
     end

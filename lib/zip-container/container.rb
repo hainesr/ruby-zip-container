@@ -31,7 +31,6 @@
 # Author: Robert Haines
 
 require 'forwardable'
-require 'zip/zipfilesystem'
 
 module ZipContainer
 
@@ -40,9 +39,9 @@ module ZipContainer
   # {UCF}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
   # specifications for more details.
   #
-  # This class provides most of the facilities of the <tt>Zip::ZipFile</tt>
+  # This class provides most of the facilities of the <tt>Zip::File</tt>
   # class in the rubyzip gem. Please also consult the
-  # {rubyzip documentation}[http://rubydoc.info/gems/rubyzip/0.9.9/frames]
+  # {rubyzip documentation}[http://rubydoc.info/gems/rubyzip/1.1.0/frames]
   # alongside these pages.
   #
   # There are code examples available with the source code of this library.
@@ -79,9 +78,9 @@ module ZipContainer
 
       # Here we fake up the connection to the rubyzip filesystem classes so
       # that they also respect the reserved names that we define.
-      mapped_zip = ::Zip::ZipFileSystem::ZipFileNameMapper.new(self)
-      @fs_dir  = ::Zip::ZipFileSystem::ZipFsDir.new(mapped_zip)
-      @fs_file = ::Zip::ZipFileSystem::ZipFsFile.new(mapped_zip)
+      mapped_zip = ::Zip::FileSystem::ZipFileNameMapper.new(self)
+      @fs_dir  = ::Zip::FileSystem::ZipFsDir.new(mapped_zip)
+      @fs_file = ::Zip::FileSystem::ZipFsFile.new(mapped_zip)
       @fs_dir.file = @fs_file
       @fs_file.dir = @fs_dir
     end
@@ -93,8 +92,8 @@ module ZipContainer
     #
     # Create a new ZipContainer file on disk with the specified mimetype.
     def Container.create(filename, mimetype, &block)
-      ::Zip::ZipOutputStream.open(filename) do |stream|
-        stream.put_next_entry(MIMETYPE_FILE, nil, nil, ::Zip::ZipEntry::STORED)
+      ::Zip::OutputStream.open(filename) do |stream|
+        stream.put_next_entry(MIMETYPE_FILE, nil, nil, ::Zip::Entry::STORED)
         stream.write mimetype
       end
 
@@ -117,7 +116,7 @@ module ZipContainer
     #   Container.each_entry {|entry| ...}
     #
     # Iterate over the entries in the ZipContainer file. The entry objects
-    # returned by this method are Zip::ZipEntry objects. Please see the
+    # returned by this method are Zip::Entry objects. Please see the
     # rubyzip documentation for details.
     def Container.each_entry(filename, &block)
       c = new(filename)
@@ -351,7 +350,7 @@ module ZipContainer
     private
 
     def open_document(document)
-      ::Zip::ZipFile.new(document)
+      ::Zip::File.new(document)
     end
 
     def check_mimetype!
@@ -359,10 +358,10 @@ module ZipContainer
       entry = @zipfile.find_entry(MIMETYPE_FILE)
 
       raise MalformedContainerError.new("'mimetype' file is missing.") if entry.nil?
-      if entry.localHeaderOffset != 0
+      if entry.local_header_offset != 0
         raise MalformedContainerError.new("'mimetype' file is not at offset 0 in the archive.")
       end
-      if entry.compression_method != ::Zip::ZipEntry::STORED
+      if entry.compression_method != ::Zip::Entry::STORED
         raise MalformedContainerError.new("'mimetype' file is compressed.")
       end
 
@@ -406,16 +405,16 @@ module ZipContainer
     #   each {|entry| ...}
     #
     # Iterate over the entries in the ZipContainer file. The entry objects
-    # returned by this method are Zip::ZipEntry objects. Please see the
+    # returned by this method are Zip::Entry objects. Please see the
     # rubyzip documentation for details.
 
     ##
-    # :method:
+    # :method: entries
     # :call-seq:
     #   entries -> Enumerable
     #
     # Returns an Enumerable containing all the entries in the ZipContainer
-    # file The entry objects returned by this method are Zip::ZipEntry
+    # file The entry objects returned by this method are Zip::Entry
     # objects. Please see the rubyzip documentation for details.
 
     ##
@@ -431,7 +430,7 @@ module ZipContainer
     ##
     # :method: find_entry
     # :call-seq:
-    #   find_entry(entry) -> Zip::ZipEntry
+    #   find_entry(entry) -> Zip::Entry
     #
     # Searches for entries within the ZipContainer file with the specified
     # name. Returns +nil+ if no entry is found. See also +get_entry+.
@@ -439,7 +438,7 @@ module ZipContainer
     ##
     # :method: get_entry
     # :call-seq:
-    #   get_entry(entry) -> Zip::ZipEntry
+    #   get_entry(entry) -> Zip::Entry
     #
     # Searches for an entry within the ZipContainer file in a similar manner
     # to +find_entry+, but throws +Errno::ENOENT+ if no entry is found.
@@ -457,7 +456,7 @@ module ZipContainer
     ##
     # :method: glob
     # :call-seq:
-    #   glob(*args) -> Array of Zip::ZipEntry
+    #   glob(*args) -> Array of Zip::Entry
     #   glob(*args) {|entry| ...}
     #
     # Searches for entries within the ZipContainer file that match the given

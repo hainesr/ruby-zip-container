@@ -31,6 +31,8 @@
 # Author: Robert Haines
 
 require 'yaml'
+require 'zip/filesystem'
+
 require 'zip-container/exceptions'
 require 'zip-container/entries/reserved'
 require 'zip-container/entries/managed'

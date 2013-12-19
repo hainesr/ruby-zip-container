@@ -30,8 +30,7 @@
 #
 # Author: Robert Haines
 
-require 'zip/zip_entry'
-
+#
 module ZipContainer
 
   # This module provides support for managed file and directory entries.
@@ -86,7 +85,7 @@ module ZipContainer
     #
     # Is the supplied entry/name a managed entry?
     def managed_entry?(entry, list = managed_entry_names)
-      name = entry.kind_of?(::Zip::ZipEntry) ? entry.name : entry
+      name = entry.kind_of?(::Zip::Entry) ? entry.name : entry
       name.chop! if name.end_with? "/"
       list.map { |n| n.downcase }.include? name.downcase
     end
