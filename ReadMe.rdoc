@@ -16,11 +16,20 @@ This is a Ruby library for working with ZIP Container files. See the
 {UDF}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
 specifications for more details.
 
-<b>This library is a work in progress!</b> Until we release version 1.0.0 you
-can expect the API to change in incompatible ways, although we will try to
-keep this to an absolute minimum. Once version 1.0.0 is released we will be
-following the principles of {Semantic Versioning}[http://semver.org/] for our
-version numbering scheme.
+== Backwards incompatibility warning!
+
+Version 1.0.0 and up of this gem uses version 1.0.0 and up of the
+{rubyzip}[https://rubygems.org/gems/rubyzip] library. This has a backwards
+incompatible API that may clash with other gems that you are using. Please see
+the {important note}[https://github.com/rubyzip/rubyzip/blob/master/README.md#important-note]
+in the rubyzip readme for a workaround.
+
+== Usage
+
+This library largely mimics the rubyzip Zip::File API so much of what you can
+do with that is supported for ZIP Containers. There is also
+{API documentation}[http://mygrid.github.io/ruby-zip-container/] with much more
+detail and any differences explained.
 
 There are some examples of how to use the library provided in the examples
 directory. See the contents of the tests directory for even more.
@@ -29,6 +38,4 @@ directory. See the contents of the tests directory for even more.
 
 The basic requirements of a ZIP Container are all implemented but memory
 resident ZIP Container files are not yet supported. Presently all operations
-are performed on files that are resident on disk as the underlying
-{rubyzip library}[https://github.com/aussiegeek/rubyzip] currently
-{cannot do anything else}[https://github.com/aussiegeek/rubyzip/issues/74].
+are performed on files that are resident on disk.
