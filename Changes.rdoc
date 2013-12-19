@@ -1,5 +1,9 @@
 = Changes log for the ZIP Container Ruby Gem
 
+== Version 1.0.0
+
+* Update to use version 1.0.0 of rubyzip.
+
 == Version 0.9.0
 
 * Generalize the Container Error class names.
