@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,33 +30,6 @@
 #
 # Author: Robert Haines
 
-lib = File.expand_path('../lib', __FILE__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "zip-container/version"
+source "https://rubygems.org"
 
-Gem::Specification.new do |s|
-  s.name             = "zip-container"
-  s.version          = ZipContainer::Version::STRING
-  s.authors          = ["Robert Haines"]
-  s.email            = ["support@mygrid.org.uk"]
-  s.homepage         = "http://mygrid.github.io/ruby-zip-container/"
-  s.platform         = Gem::Platform::RUBY
-  s.summary          = "A ZIP Container for use by OCF and UCF implementations"
-  s.description      = "A Ruby library for working with ZIP Container "\
-    "Format files. See http://www.idpf.org/epub/30/spec/epub30-ocf.html for "\
-    "the OCF specification and "\
-    "https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format "\
-    "for the UCF specification."
-  s.license          = "BSD"
-  s.require_path     = "lib"
-  s.files            = `git ls-files`.split($/)
-  s.test_files       = `git ls-files -- test/*`.split($/)
-  s.has_rdoc         = true
-  s.extra_rdoc_files = [ "Changes.rdoc", "Licence.rdoc", "ReadMe.rdoc" ]
-  s.rdoc_options     = [ "-N", "--tab-width=2", "--main=ReadMe.rdoc" ]
-  s.add_development_dependency("rake", "~> 10.0.4")
-  s.add_development_dependency("bundler", "~> 1.5")
-  s.add_development_dependency("rdoc", "~> 4.0.1")
-  s.add_runtime_dependency("rubyzip", "~> 1.0.0")
-end
-
+gemspec

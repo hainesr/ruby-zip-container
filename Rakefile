@@ -1,4 +1,4 @@
-# Copyright (c) 2013 The University of Manchester, UK.
+# Copyright (c) 2013, 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,43 +30,11 @@
 #
 # Author: Robert Haines
 
-require 'rubygems'
-require 'rake'
-require 'rake/clean'
-require 'rake/testtask'
-require 'rdoc/task'
-require 'jeweler'
-
-# we need to add lib to the path because we're not installed yet!
-$LOAD_PATH.unshift File.join(File.dirname(__FILE__), "lib")
-require 'zip-container'
+require "bundler/gem_tasks"
+require "rake/testtask"
+require "rdoc/task"
 
 task :default => [:test]
-
-Jeweler::Tasks.new do |s|
-  s.name             = "zip-container"
-  s.version          = ZipContainer::Version::STRING
-  s.authors          = ["Robert Haines"]
-  s.email            = ["support@mygrid.org.uk"]
-  s.homepage         = "http://mygrid.github.io/ruby-zip-container/"
-  s.platform         = Gem::Platform::RUBY
-  s.summary          = "A ZIP Container for use by OCF and UCF implementations"
-  s.description      = "A Ruby library for working with ZIP Container "\
-    "Format files. See "\
-    "http://www.idpf.org/epub/30/spec/epub30-ocf.html for the OCF "\
-    "specification and "\
-    "https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format "\
-    "for the UCF specification."
-  s.require_path     = "lib"
-  s.test_file        = "test/ts_container.rb"
-  s.has_rdoc         = true
-  s.extra_rdoc_files = ["ReadMe.rdoc", "Licence.rdoc", "Changes.rdoc"]
-  s.rdoc_options     = ["-N", "--tab-width=2", "--main=ReadMe.rdoc"]
-  s.add_development_dependency('rake', '~> 10.0.4')
-  s.add_development_dependency('rdoc', '~> 4.0.1')
-  s.add_development_dependency('jeweler', '~> 1.8.4')
-  s.add_runtime_dependency('rubyzip', '~> 1.0.0')
-end
 
 Rake::TestTask.new do |t|
   t.libs << "test"

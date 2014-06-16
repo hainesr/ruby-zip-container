@@ -30,6 +30,9 @@
 #
 # Author: Robert Haines
 
+require 'rubygems'
+require 'bundler/setup'
+
 require 'zip/filesystem'
 
 require 'zip-container/version'
