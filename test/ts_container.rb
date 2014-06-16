@@ -30,6 +30,9 @@
 #
 # Author: Robert Haines
 
+require 'coveralls'
+Coveralls.wear!
+
 # Example default mimetype
 $mimetype = "application/epub+zip"
 
