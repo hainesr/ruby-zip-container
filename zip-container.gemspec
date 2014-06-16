@@ -57,6 +57,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency("rake", "~> 10.0.4")
   s.add_development_dependency("bundler", "~> 1.5")
   s.add_development_dependency("rdoc", "~> 4.0.1")
+  s.add_development_dependency('coveralls')
   s.add_runtime_dependency("rubyzip", "~> 1.0.0")
 end
 
