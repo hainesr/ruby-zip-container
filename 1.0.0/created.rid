@@ -1,12 +1,13 @@
-Thu, 19 Dec 2013 11:37:37 +0000
-ReadMe.rdoc	Thu, 19 Dec 2013 11:37:21 +0000
-Licence.rdoc	Wed, 22 May 2013 16:43:44 +0100
-Changes.rdoc	Thu, 19 Dec 2013 11:37:21 +0000
-lib/zip-container.rb	Thu, 19 Dec 2013 11:37:21 +0000
-lib/zip-container/exceptions.rb	Thu, 27 Jun 2013 10:12:42 +0100
-lib/zip-container/container.rb	Thu, 19 Dec 2013 11:37:21 +0000
-lib/zip-container/entries/entry.rb	Thu, 27 Jun 2013 10:12:42 +0100
-lib/zip-container/entries/directory.rb	Thu, 27 Jun 2013 10:12:42 +0100
-lib/zip-container/entries/file.rb	Thu, 27 Jun 2013 10:12:42 +0100
-lib/zip-container/entries/managed.rb	Thu, 19 Dec 2013 11:37:21 +0000
-lib/zip-container/entries/reserved.rb	Thu, 19 Dec 2013 11:37:21 +0000
+Mon, 16 Jun 2014 19:29:26 +0100
+ReadMe.rdoc	Mon, 16 Jun 2014 19:01:04 +0100
+Licence.rdoc	Mon, 16 Jun 2014 15:30:49 +0100
+Changes.rdoc	Mon, 16 Jun 2014 15:30:49 +0100
+lib/zip-container/version.rb	Mon, 16 Jun 2014 18:45:06 +0100
+lib/zip-container/exceptions.rb	Mon, 16 Jun 2014 15:30:49 +0100
+lib/zip-container/container.rb	Mon, 16 Jun 2014 15:30:49 +0100
+lib/zip-container/entries/file.rb	Mon, 16 Jun 2014 15:30:49 +0100
+lib/zip-container/entries/directory.rb	Mon, 16 Jun 2014 15:30:49 +0100
+lib/zip-container/entries/managed.rb	Mon, 16 Jun 2014 15:30:49 +0100
+lib/zip-container/entries/reserved.rb	Mon, 16 Jun 2014 15:30:49 +0100
+lib/zip-container/entries/entry.rb	Mon, 16 Jun 2014 15:30:49 +0100
+lib/zip-container.rb	Mon, 16 Jun 2014 18:45:06 +0100
