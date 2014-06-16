@@ -10,6 +10,7 @@ Copyright::   (c) 2013, 2014 The University of Manchester, UK
 {<img src="https://badge.fury.io/rb/zip-container.png" alt="Gem Version" />}[http://badge.fury.io/rb/zip-container]
 {<img src="https://codeclimate.com/github/myGrid/ruby-zip-container.png" />}[https://codeclimate.com/github/myGrid/ruby-zip-container]
 {<img src="https://travis-ci.org/myGrid/ruby-zip-container.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/myGrid/ruby-zip-container]
+{<img src="https://coveralls.io/repos/myGrid/ruby-zip-container/badge.png?branch=master" alt="Coverage Status" />}[https://coveralls.io/r/myGrid/ruby-zip-container?branch=master]
 
 == Synopsis
 
