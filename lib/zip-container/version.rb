@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,22 +30,17 @@
 #
 # Author: Robert Haines
 
-require 'zip/filesystem'
+require 'yaml'
 
-require 'zip-container/version'
-require 'zip-container/exceptions'
-require 'zip-container/entries/reserved'
-require 'zip-container/entries/managed'
-require 'zip-container/entries/entry'
-require 'zip-container/entries/file'
-require 'zip-container/entries/directory'
-require 'zip-container/container'
-
-# This is a ruby library to read and write ZIP Container Format files. See the
-# ZipContainer::Container class for more information.
-#
-# See the {OCF}[http://www.idpf.org/epub/30/spec/epub30-ocf.html] and
-# {UCF}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
-# specifications for more details.
 module ZipContainer
+
+  # Library version information.
+  module Version
+    # Version information in a Hash
+    INFO = YAML.load_file(File.join(File.dirname(__FILE__), "..", "..",
+      "version.yml"))
+
+    # Version number as a String
+    STRING = [:major, :minor, :patch].map {|d| INFO[d]}.compact.join('.')
+  end
 end
