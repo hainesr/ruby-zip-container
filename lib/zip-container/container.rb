@@ -73,7 +73,7 @@ module ZipContainer
       # Reserved entry names. Just the mimetype file by default.
       register_reserved_name(MIMETYPE_FILE)
 
-      # Initialize the managed entries and register the META-INF directory.
+      # Initialize the managed entry tables.
       initialize_managed_entries
 
       # Here we fake up the connection to the rubyzip filesystem classes so
