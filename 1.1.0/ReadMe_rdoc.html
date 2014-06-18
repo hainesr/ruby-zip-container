@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>ReadMe -  ZIP Container Format Ruby Library version 1.1.0</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body class="file">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+<div id="table-of-contents">
+  <nav class="section">
+    <h3 class="section-header">Table of Contents</h3>
+    <ul>
+      <li><a href="#label-ZIP+Container+Format+Ruby+Library">ZIP Container Format Ruby Library</a>
+      <li><a href="#label-Synopsis">Synopsis</a>
+      <li><a href="#label-Backwards+incompatibility+warning%21">Backwards incompatibility warning!</a>
+      <li><a href="#label-Usage">Usage</a>
+      <li><a href="#label-What+this+library+can+not+do+yet">What this library can not do yet</a>
+    </ul>
+  </nav>
+</div>
+
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./Changes_rdoc.html">Changes</a>
+  
+    <li class="file"><a href="./Licence_rdoc.html">Licence</a>
+  
+    <li class="file"><a href="./ReadMe_rdoc.html">ReadMe</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./ZipContainer.html">ZipContainer</a>
+  
+    <li><a href="./ZipContainer/Container.html">ZipContainer::Container</a>
+  
+    <li><a href="./ZipContainer/ContainerError.html">ZipContainer::ContainerError</a>
+  
+    <li><a href="./ZipContainer/MalformedContainerError.html">ZipContainer::MalformedContainerError</a>
+  
+    <li><a href="./ZipContainer/ManagedDirectory.html">ZipContainer::ManagedDirectory</a>
+  
+    <li><a href="./ZipContainer/ManagedEntries.html">ZipContainer::ManagedEntries</a>
+  
+    <li><a href="./ZipContainer/ManagedEntry.html">ZipContainer::ManagedEntry</a>
+  
+    <li><a href="./ZipContainer/ManagedFile.html">ZipContainer::ManagedFile</a>
+  
+    <li><a href="./ZipContainer/ReservedNameClashError.html">ZipContainer::ReservedNameClashError</a>
+  
+    <li><a href="./ZipContainer/ReservedNames.html">ZipContainer::ReservedNames</a>
+  
+    <li><a href="./ZipContainer/Version.html">ZipContainer::Version</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation" class="description">
+  
+<h1 id="label-ZIP+Container+Format+Ruby+Library">ZIP Container Format Ruby Library<span><a href="#label-ZIP+Container+Format+Ruby+Library">&para;</a> <a href="#documentation">&uarr;</a></span></h1>
+<dl class="rdoc-list note-list"><dt>Authors
+<dd>
+<p>Robert Haines</p>
+</dd><dt>Contact
+<dd>
+<p><a href="mailto:support@mygrid.org.uk">support@mygrid.org.uk</a></p>
+</dd><dt>Homepage
+<dd>
+<p><a
+href="http://mygrid.github.io/ruby-zip-container">mygrid.github.io/ruby-zip-container</a></p>
+</dd><dt>Source code
+<dd>
+<p><a
+href="https://github.com/myGrid/ruby-zip-container">github.com/myGrid/ruby-zip-container</a></p>
+</dd><dt><a href="Licence_rdoc.html">Licence</a>
+<dd>
+<p>BSD (See <a href="Licence_rdoc.html">Licence</a> file or <a
+href="http://www.opensource.org/licenses/bsd-license.php">www.opensource.org/licenses/bsd-license.php</a>)</p>
+</dd><dt>Copyright
+<dd>
+<p>© 2013, 2014 The University of Manchester, UK</p>
+</dd></dl>
+
+<p><a href="http://badge.fury.io/rb/zip-container"><img
+src="https://badge.fury.io/rb/zip-container.png" alt="Gem Version" /></a>
+<a href="https://codeclimate.com/github/myGrid/ruby-zip-container"><img
+src="https://codeclimate.com/github/myGrid/ruby-zip-container.png" /></a>
+<a href="https://travis-ci.org/myGrid/ruby-zip-container"><img
+src="https://travis-ci.org/myGrid/ruby-zip-container.svg?branch=master"
+alt="Build Status" /></a> <a
+href="https://coveralls.io/r/myGrid/ruby-zip-container?branch=master"><img
+src="https://coveralls.io/repos/myGrid/ruby-zip-container/badge.png?branch=master"
+alt="Coverage Status" /></a></p>
+
+<h2 id="label-Synopsis">Synopsis<span><a href="#label-Synopsis">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<p>This is a Ruby library for working with ZIP Container files. See the <a
+href="http://www.idpf.org/epub/30/spec/epub30-ocf.html">ODF</a> and <a
+href="https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format">UDF</a>
+specifications for more details.</p>
+
+<h2 id="label-Backwards+incompatibility+warning%21">Backwards incompatibility warning!<span><a href="#label-Backwards+incompatibility+warning%21">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<p>Version 1.0.0 and up of this gem uses version 1.0.0 and up of the <a
+href="https://rubygems.org/gems/rubyzip">rubyzip</a> library. This has a
+backwards incompatible API that may clash with other gems that you are
+using. Please see the <a
+href="https://github.com/rubyzip/rubyzip/blob/master/README.md#important-note">important
+note</a> in the rubyzip readme for a workaround.</p>
+
+<h2 id="label-Usage">Usage<span><a href="#label-Usage">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<p>This library largely mimics the rubyzip Zip::File API so much of what you
+can do with that is supported for ZIP Containers. There is also <a
+href="http://mygrid.github.io/ruby-zip-container/">API documentation</a>
+with much more detail and any differences explained.</p>
+
+<p>There are some examples of how to use the library provided in the examples
+directory. See the contents of the tests directory for even more.</p>
+
+<h2 id="label-What+this+library+can+not+do+yet">What this library can not do yet<span><a href="#label-What+this+library+can+not+do+yet">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<p>The basic requirements of a ZIP Container are all implemented but memory
+resident ZIP Container files are not yet supported. Presently all
+operations are performed on files that are resident on disk.</p>
+
+</div>
+
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.1.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
