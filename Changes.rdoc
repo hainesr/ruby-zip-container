@@ -1,5 +1,9 @@
 = Changes log for the ZIP Container Ruby Gem
 
+== Version 1.1.0
+
+* Bump version of rubyzip to 1.1.4.
+
 == Version 1.0.0
 
 * Update to use version 1.0.0 of rubyzip.
