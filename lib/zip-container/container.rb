@@ -1,4 +1,4 @@
-# Copyright (c) 2013 The University of Manchester, UK.
+# Copyright (c) 2013, 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -87,8 +87,8 @@ module ZipContainer
     # :startdoc:
 
     # :call-seq:
-    #   Container.create(filename, mimetype = "application/epub+zip") -> document
-    #   Container.create(filename, mimetype = "application/epub+zip") {|document| ...}
+    #   Container.create(filename, mimetype) -> document
+    #   Container.create(filename, mimetype) {|document| ...}
     #
     # Create a new ZipContainer file on disk with the specified mimetype.
     def Container.create(filename, mimetype, &block)
