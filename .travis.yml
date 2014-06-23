@@ -1,0 +1,10 @@
+language: ruby
+install:
+  - gem install jeweler -v 1.8.4
+  - gem install rake -v 10.0.4
+  - gem install rdoc -v 4.0.1
+  - gem install rubyzip -v 0.9.9
+rvm:
+  - 1.9.3
+  - 2.0.0
+  - 2.1.2
