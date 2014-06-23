@@ -49,3 +49,9 @@ require 'tc_create'
 require 'tc_read'
 require 'tc_reserved_names'
 require 'tc_managed_entries'
+
+# Run compatibility test cases.
+require 'tc_create_c'
+require 'tc_read_c'
+require 'tc_reserved_names_c'
+require 'tc_managed_entries_c'

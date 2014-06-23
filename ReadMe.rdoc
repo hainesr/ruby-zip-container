@@ -19,7 +19,19 @@ This is a Ruby library for working with ZIP Container files. See the
 {UDF}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
 specifications for more details.
 
-== Backwards incompatibility warning!
+== Backwards incompatibility warnings!
+
+=== ZipContainer
+
+The ZipContainer::Container class is deprecated in favour of
+ZipContainer::File. These classes are functionally identical; it is just a
+change of name. The new name brings this API into closer alignment with the
+underlying rubyzip API (Zip::File).
+
+ZipContainer::Container will be available until version 2.0.0 when it will be
+removed.
+
+=== Rubyzip
 
 Version 1.0.0 and up of this gem uses version 1.0.0 and up of the
 {rubyzip}[https://rubygems.org/gems/rubyzip] library. This has a backwards

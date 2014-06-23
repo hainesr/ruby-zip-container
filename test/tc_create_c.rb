@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2013 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -34,7 +34,7 @@ require 'test/unit'
 require 'tmpdir'
 require 'zip-container'
 
-class TestCreation < Test::Unit::TestCase
+class TestCreationC < Test::Unit::TestCase
 
   # Check creation of standard empty container files.
   def test_create_standard_file
@@ -42,7 +42,7 @@ class TestCreation < Test::Unit::TestCase
       filename = File.join(dir, "test.container")
 
       assert_nothing_raised do
-        ZipContainer::File.create(filename, $mimetype) do |c|
+        ZipContainer::Container.create(filename, $mimetype) do |c|
           assert(c.on_disk?)
           refute(c.in_memory?)
 
@@ -50,8 +50,8 @@ class TestCreation < Test::Unit::TestCase
         end
       end
 
-      assert_nothing_raised(ZipContainer::MalformedContainerError, ZipContainer::ZipError) do
-        ZipContainer::File.verify!(filename)
+      assert_nothing_raised(ZipContainer::MalformedContainerError, Zip::ZipError) do
+        ZipContainer::Container.verify!(filename)
       end
     end
   end
@@ -64,7 +64,7 @@ class TestCreation < Test::Unit::TestCase
       filename = File.join(dir, "test.container")
 
       assert_nothing_raised do
-        ZipContainer::File.create(filename, mimetype) do |c|
+        ZipContainer::Container.create(filename, mimetype) do |c|
           assert(c.on_disk?)
           refute(c.in_memory?)
 
@@ -72,8 +72,8 @@ class TestCreation < Test::Unit::TestCase
         end
       end
 
-      assert_nothing_raised(ZipContainer::MalformedContainerError, ZipContainer::ZipError) do
-        ZipContainer::File.verify!(filename)
+      assert_nothing_raised(ZipContainer::MalformedContainerError, Zip::ZipError) do
+        ZipContainer::Container.verify!(filename)
       end
     end
   end
@@ -85,7 +85,7 @@ class TestCreation < Test::Unit::TestCase
       filename = File.join(dir, "test.container")
 
       assert_nothing_raised do
-        ZipContainer::File.create(filename, $mimetype) do |c|
+        ZipContainer::Container.create(filename, $mimetype) do |c|
           assert(c.on_disk?)
           refute(c.in_memory?)
 
@@ -115,8 +115,8 @@ class TestCreation < Test::Unit::TestCase
         end
       end
 
-      assert_nothing_raised(ZipContainer::MalformedContainerError, ZipContainer::ZipError) do
-        ZipContainer::File.open(filename) do |c|
+      assert_nothing_raised(ZipContainer::MalformedContainerError, Zip::ZipError) do
+        ZipContainer::Container.open(filename) do |c|
           assert(c.on_disk?)
           refute(c.in_memory?)
 
