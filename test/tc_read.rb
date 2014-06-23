@@ -37,7 +37,7 @@ class TestRead < Test::Unit::TestCase
 
   # Check that the null file does not verify.
   def test_verify_null_file
-    assert_raise(Zip::ZipError) do
+    assert_raise(ZipContainer::ZipError) do
       ZipContainer::Container.verify!($file_null)
     end
 
@@ -46,7 +46,7 @@ class TestRead < Test::Unit::TestCase
 
   # Check that the empty container file does verify.
   def test_verify_empty_container
-    assert_nothing_raised(ZipContainer::MalformedContainerError, Zip::ZipError) do
+    assert_nothing_raised(ZipContainer::MalformedContainerError, ZipContainer::ZipError) do
       ZipContainer::Container.verify!($empty)
     end
 
@@ -83,7 +83,7 @@ class TestRead < Test::Unit::TestCase
   # Check reading files out of a container file and make sure we don't change
   # it.
   def test_read_files_from_container
-    assert_nothing_raised(ZipContainer::MalformedContainerError, Zip::ZipError) do
+    assert_nothing_raised(ZipContainer::MalformedContainerError, ZipContainer::ZipError) do
       ZipContainer::Container.open($example) do |c|
         assert(c.on_disk?)
         refute(c.in_memory?)
