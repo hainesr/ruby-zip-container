@@ -1,4 +1,4 @@
-# Copyright (c) 2013 The University of Manchester, UK.
+# Copyright (c) 2013, 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,15 +30,21 @@
 #
 # Author: Robert Haines
 
-#
+require 'zip/zip'
+
 module ZipContainer
 
-  # The base class of all other exceptions raised by this library.
-  class ContainerError < RuntimeError
+  # The base of all exceptions raised by this library.
+  module ContainerError
   end
 
+  # Shadow Zip::ZipError so the rubyzip API doesn't leak out.
+  ZipError = ::Zip::ZipError
+  ZipError.send(:include, ContainerError)
+
   # This exception is raised when a bad Container is detected.
-  class MalformedContainerError < ContainerError
+  class MalformedContainerError < RuntimeError
+    include ContainerError
 
     # :call-seq:
     #   new(reason = "")
@@ -56,7 +62,8 @@ module ZipContainer
 
   # This exception is raised when a clash occurs with a reserved or managed
   # name.
-  class ReservedNameClashError < ContainerError
+  class ReservedNameClashError < RuntimeError
+    include ContainerError
 
     # :call-seq:
     #   new(name)
