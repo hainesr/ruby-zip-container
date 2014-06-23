@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,22 +30,27 @@
 #
 # Author: Robert Haines
 
-require 'coveralls'
-Coveralls.wear!
+require 'test/unit'
+require 'zip-container'
 
-# Example default mimetype
-$mimetype = "application/epub+zip"
+class TestExceptions < Test::Unit::TestCase
 
-# Example data files
-$file_null = "test/data/null.file"
-$empty = "test/data/empty.container"
-$empty_zip = "test/data/empty.zip"
-$compressed_mimetype = "test/data/compressed_mimetype.container"
-$example = "test/data/example.container"
+  def test_rescue_container_errors
+    assert_raise(ZipContainer::ContainerError) do
+      raise ZipContainer::ZipError.new
+    end
 
-# Run test cases.
-require 'tc_exceptions'
-require 'tc_create'
-require 'tc_read'
-require 'tc_reserved_names'
-require 'tc_managed_entries'
+    assert_raise(ZipContainer::ContainerError) do
+      raise ZipContainer::MalformedContainerError.new
+    end
+
+    assert_raise(ZipContainer::ContainerError) do
+      raise ZipContainer::ReservedNameClashError.new("test")
+    end
+
+    assert_raise(ZipContainer::ContainerError) do
+      raise Zip::ZipError.new
+    end
+  end
+
+end
