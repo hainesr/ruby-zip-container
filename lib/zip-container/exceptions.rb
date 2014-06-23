@@ -37,8 +37,8 @@ module ZipContainer
   module ContainerError
   end
 
-  # Shadow Zip::ZipError so the rubyzip API doesn't leak out.
-  ZipError = ::Zip::ZipError
+  # Shadow Zip::Error so the rubyzip API doesn't leak out.
+  ZipError = ::Zip::Error
   ZipError.send(:include, ContainerError)
 
   # This exception is raised when a bad Container is detected.
