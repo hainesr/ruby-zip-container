@@ -33,42 +33,42 @@
 require 'test/unit'
 require 'zip-container'
 
-class TestRead < Test::Unit::TestCase
+class TestReadC < Test::Unit::TestCase
 
   # Check that the null file does not verify.
   def test_verify_null_file
     assert_raise(Zip::ZipError) do
-      ZipContainer::File.verify!($file_null)
+      ZipContainer::Container.verify!($file_null)
     end
 
-    refute(ZipContainer::File.verify($file_null))
+    refute(ZipContainer::Container.verify($file_null))
   end
 
   # Check that the empty container file does verify.
   def test_verify_empty_container
     assert_nothing_raised(ZipContainer::MalformedContainerError, Zip::ZipError) do
-      ZipContainer::File.verify!($empty)
+      ZipContainer::Container.verify!($empty)
     end
 
-    assert(ZipContainer::File.verify($empty))
+    assert(ZipContainer::Container.verify($empty))
   end
 
   # Check that the empty zip file does not verify.
   def test_verify_empty_zip
     assert_raise(ZipContainer::MalformedContainerError) do
-      ZipContainer::File.verify!($empty_zip)
+      ZipContainer::Container.verify!($empty_zip)
     end
 
-    refute(ZipContainer::File.verify($empty_zip))
+    refute(ZipContainer::Container.verify($empty_zip))
   end
 
   # Check that a compressed mimetype file is detected.
   def test_verify_compressed_mimetype
     assert_raise(ZipContainer::MalformedContainerError) do
-      ZipContainer::File.verify!($compressed_mimetype)
+      ZipContainer::Container.verify!($compressed_mimetype)
     end
 
-    refute(ZipContainer::File.verify($compressed_mimetype))
+    refute(ZipContainer::Container.verify($compressed_mimetype))
   end
 
   # Check the raw mimetype bytes
@@ -84,7 +84,7 @@ class TestRead < Test::Unit::TestCase
   # it.
   def test_read_files_from_container
     assert_nothing_raised(ZipContainer::MalformedContainerError, Zip::ZipError) do
-      ZipContainer::File.open($example) do |c|
+      ZipContainer::Container.open($example) do |c|
         assert(c.on_disk?)
         refute(c.in_memory?)
 

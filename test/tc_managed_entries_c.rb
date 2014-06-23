@@ -35,7 +35,7 @@ require 'tmpdir'
 require 'zip-container'
 
 # Classes to test managed entries.
-class ManagedZipContainer < ZipContainer::File
+class ManagedZipContainerC < ZipContainer::Container
 
   private_class_method :new
 
@@ -49,7 +49,7 @@ class ManagedZipContainer < ZipContainer::File
 
 end
 
-class ExampleZipContainer < ZipContainer::File
+class ExampleZipContainerC < ZipContainer::Container
 
   private_class_method :new
 
@@ -61,7 +61,7 @@ class ExampleZipContainer < ZipContainer::File
 
 end
 
-class ExampleZipContainer2 < ZipContainer::File
+class ExampleZipContainer2C < ZipContainer::Container
 
   private_class_method :new
 
@@ -73,41 +73,41 @@ class ExampleZipContainer2 < ZipContainer::File
       true, valid))
   end
 
-  def ExampleZipContainer2.create(filename, &block)
+  def ExampleZipContainer2C.create(filename, &block)
     super(filename, "application/example+zip", &block)
   end
 
 end
 
-class TestManagedEntries < Test::Unit::TestCase
+class TestManagedEntriesC < Test::Unit::TestCase
 
   # Check that the example ZipContainer file does not validate as a
   # ManagedZipContainer.
   def test_fail_verification
-    refute(ManagedZipContainer.verify($example))
+    refute(ManagedZipContainerC.verify($example))
 
     assert_raises(ZipContainer::MalformedContainerError) do
-      ManagedZipContainer.verify!($example)
+      ManagedZipContainerC.verify!($example)
     end
   end
 
   # Check that the example ZipContainer file does validate as an
   # ExampleZipContainer.
   def test_pass_verification
-    assert(ExampleZipContainer.verify($example))
+    assert(ExampleZipContainerC.verify($example))
 
     assert_nothing_raised(ZipContainer::MalformedContainerError) do
-      ExampleZipContainer.verify!($example)
+      ExampleZipContainerC.verify!($example)
     end
   end
 
   # Check that the example ZipContainer file does validate as an
   # ExampleZipContainer2.
   def test_pass_verification_2
-    assert(ExampleZipContainer2.verify($example))
+    assert(ExampleZipContainer2C.verify($example))
 
     assert_nothing_raised(ZipContainer::MalformedContainerError) do
-      ExampleZipContainer2.verify!($example)
+      ExampleZipContainer2C.verify!($example)
     end
   end
 
@@ -117,7 +117,7 @@ class TestManagedEntries < Test::Unit::TestCase
       filename = File.join(dir, "test.container")
 
       assert_nothing_raised do
-        ZipContainer::File.create(filename, $mimetype) do |c|
+        ZipContainer::Container.create(filename, $mimetype) do |c|
           c.mkdir("META-INF")
           assert(c.file.exists?("META-INF"))
 
@@ -129,7 +129,7 @@ class TestManagedEntries < Test::Unit::TestCase
       end
 
       assert_nothing_raised(ZipContainer::MalformedContainerError) do
-        ZipContainer::File.verify!(filename)
+        ZipContainer::Container.verify!(filename)
       end
     end
   end
@@ -141,16 +141,16 @@ class TestManagedEntries < Test::Unit::TestCase
       filename = File.join(dir, "test.container")
 
       assert_nothing_raised do
-        ManagedZipContainer.create(filename, $mimetype) do |c|
+        ManagedZipContainerC.create(filename, $mimetype) do |c|
           assert_raises(ZipContainer::MalformedContainerError) do
             c.verify!
           end
         end
       end
 
-      refute(ManagedZipContainer.verify(filename))
+      refute(ManagedZipContainerC.verify(filename))
       assert_raises(ZipContainer::MalformedContainerError) do
-        ManagedZipContainer.verify!(filename)
+        ManagedZipContainerC.verify!(filename)
       end
     end
   end
@@ -162,7 +162,7 @@ class TestManagedEntries < Test::Unit::TestCase
       filename = File.join(dir, "test.container")
 
       assert_nothing_raised do
-        ManagedZipContainer.create(filename, $mimetype) do |c|
+        ManagedZipContainerC.create(filename, $mimetype) do |c|
           c.dir.mkdir("src")
           c.file.open("index.html", "w") do |f|
             f.puts "<html />"
@@ -170,9 +170,9 @@ class TestManagedEntries < Test::Unit::TestCase
         end
       end
 
-      assert(ManagedZipContainer.verify(filename))
+      assert(ManagedZipContainerC.verify(filename))
       assert_nothing_raised(ZipContainer::MalformedContainerError) do
-        ManagedZipContainer.verify!(filename)
+        ManagedZipContainerC.verify!(filename)
       end
     end
   end
@@ -182,7 +182,7 @@ class TestManagedEntries < Test::Unit::TestCase
       filename = File.join(dir, "test.container")
 
       assert_nothing_raised do
-        ExampleZipContainer2.create(filename) do |c|
+        ExampleZipContainer2C.create(filename) do |c|
           assert(c.file.exists?("mimetype"))
           assert_equal("application/example+zip", c.file.read("mimetype"))
         end
@@ -197,7 +197,7 @@ class TestManagedEntries < Test::Unit::TestCase
       filename = File.join(dir, "test.container")
 
       assert_nothing_raised do
-        ExampleZipContainer2.create(filename) do |c|
+        ExampleZipContainer2C.create(filename) do |c|
           assert_raises(ZipContainer::MalformedContainerError) do
             c.verify!
           end
@@ -220,9 +220,9 @@ class TestManagedEntries < Test::Unit::TestCase
         end
       end
 
-      assert(ExampleZipContainer2.verify(filename))
+      assert(ExampleZipContainer2C.verify(filename))
       assert_nothing_raised(ZipContainer::MalformedContainerError) do
-        ExampleZipContainer2.verify!(filename)
+        ExampleZipContainer2C.verify!(filename)
       end
     end
   end
