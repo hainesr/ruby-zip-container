@@ -1,4 +1,4 @@
-# Copyright (c) 2013 The University of Manchester, UK.
+# Copyright (c) 2013, 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -46,7 +46,7 @@ module ZipContainer
   # alongside these pages.
   #
   # There are code examples available with the source code of this library.
-  class Container
+  class File
     include ReservedNames
     include ManagedEntries
 
@@ -88,11 +88,11 @@ module ZipContainer
     # :startdoc:
 
     # :call-seq:
-    #   Container.create(filename, mimetype = "application/epub+zip") -> document
-    #   Container.create(filename, mimetype = "application/epub+zip") {|document| ...}
+    #   File.create(filename, mimetype) -> document
+    #   File.create(filename, mimetype) {|document| ...}
     #
     # Create a new ZipContainer file on disk with the specified mimetype.
-    def Container.create(filename, mimetype, &block)
+    def self.create(filename, mimetype, &block)
       ::Zip::ZipOutputStream.open(filename) do |stream|
         stream.put_next_entry(MIMETYPE_FILE, nil, nil, ::Zip::ZipEntry::STORED)
         stream.write mimetype
@@ -113,13 +113,13 @@ module ZipContainer
     end
 
     # :call-seq:
-    #   Container.each_entry -> Enumerator
-    #   Container.each_entry {|entry| ...}
+    #   File.each_entry -> Enumerator
+    #   File.each_entry {|entry| ...}
     #
     # Iterate over the entries in the ZipContainer file. The entry objects
     # returned by this method are Zip::ZipEntry objects. Please see the
     # rubyzip documentation for details.
-    def Container.each_entry(filename, &block)
+    def self.each_entry(filename, &block)
       c = new(filename)
 
       if block_given?
@@ -134,12 +134,12 @@ module ZipContainer
     end
 
     # :call-seq:
-    #   Container.open(filename) -> document
-    #   Container.open(filename) {|document| ...}
+    #   File.open(filename) -> document
+    #   File.open(filename) {|document| ...}
     #
     # Open an existing ZipContainer file from disk. It will be checked for
     # conformance upon first access.
-    def Container.open(filename, &block)
+    def self.open(filename, &block)
       c = new(filename)
 
       if block_given?
@@ -154,12 +154,12 @@ module ZipContainer
     end
 
     # :call-seq:
-    #   Container.verify(filename) -> boolean
+    #   File.verify(filename) -> boolean
     #
     # Verify that the specified ZipContainer file conforms to the
     # specification. This method returns +false+ if there are any problems at
     # all with the file (including if it cannot be found).
-    def Container.verify(filename)
+    def self.verify(filename)
       begin
         new(filename).verify!
       rescue
@@ -170,13 +170,13 @@ module ZipContainer
     end
 
     # :call-seq:
-    #   Container.verify!(filename)
+    #   File.verify!(filename)
     #
     # Verify that the specified ZipContainer file conforms to the
     # specification. This method raises exceptions when errors are found or if
     # there is something fundamental wrong with the file itself (e.g. it
     # cannot be found).
-    def Container.verify!(filename)
+    def self.verify!(filename)
       new(filename).verify!
     end
 

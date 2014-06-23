@@ -22,6 +22,16 @@ keep this to an absolute minimum. Once version 1.0.0 is released we will be
 following the principles of {Semantic Versioning}[http://semver.org/] for our
 version numbering scheme.
 
+== Backwards incompatibility warning!
+
+The ZipContainer::Container class is deprecated in favour of
+ZipContainer::File. These classes are functionally identical; it is just a
+change of name. The new name brings this API into closer alignment with the
+underlying rubyzip API (Zip::File).
+
+ZipContainer::Container will be available until version 2.0.0 when it will be
+removed.
+
 There are some examples of how to use the library provided in the examples
 directory. See the contents of the tests directory for even more.
 

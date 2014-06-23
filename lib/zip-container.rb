@@ -1,4 +1,4 @@
-# Copyright (c) 2013 The University of Manchester, UK.
+# Copyright (c) 2013, 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -37,7 +37,7 @@ require 'zip-container/entries/managed'
 require 'zip-container/entries/entry'
 require 'zip-container/entries/file'
 require 'zip-container/entries/directory'
-require 'zip-container/container'
+require 'zip-container/file'
 
 # This is a ruby library to read and write ZIP Container Format files. See the
 # ZipContainer::Container class for more information.
@@ -46,11 +46,13 @@ require 'zip-container/container'
 # {UCF}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
 # specifications for more details.
 module ZipContainer
+  # For compatibility until we fully switch.
+  Container = File
 
   # Library version information.
   module Version
     # Version information in a Hash
-    INFO = YAML.load_file(File.join(File.dirname(__FILE__), "..",
+    INFO = YAML.load_file(::File.join(::File.dirname(__FILE__), "..",
       "version.yml"))
 
     # Version number as a String
