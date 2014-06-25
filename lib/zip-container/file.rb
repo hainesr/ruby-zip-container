@@ -51,8 +51,8 @@ module ZipContainer
 
     extend Forwardable
     def_delegators :@zipfile, :comment, :comment=, :commit_required?, :each,
-      :entries, :extract, :find_entry, :get_entry, :get_input_stream, :glob,
-      :name, :read, :size
+      :entries, :extract, :get_entry, :get_input_stream, :glob, :name, :read,
+      :size
 
     private_class_method :new
 
@@ -236,6 +236,23 @@ module ZipContainer
     # See the rubyzip documentation for details.
     def file
       @fs_file
+    end
+
+    # :call-seq:
+    #   find_entry(entry_name, options = {}) -> Zip::Entry or nil
+    #
+    # Searches for the entry with the specified name. Returns +nil+ if no
+    # entry is found or if the specified entry is hidden for normal use. You
+    # can specify <tt>:include_hidden => true</tt> to include hidden entries
+    # in the search.
+    def find_entry(entry_name, options = {})
+      options = {:include_hidden => false}.merge(options)
+
+      unless options[:include_hidden]
+        return if hidden_entry?(entry_name)
+      end
+
+      @zipfile.find_entry(entry_name)
     end
 
     # :call-seq:

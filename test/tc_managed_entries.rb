@@ -168,21 +168,36 @@ class TestManagedEntries < Test::Unit::TestCase
             f.puts "<html />"
           end
 
-          # Test hidden entries
-          refute(c.hidden_entry?("src"))
-          refute(c.hidden_file?("src"))
-          refute(c.hidden_directory?("src"))
-          assert(c.hidden_entry?("test"))
-          assert(c.hidden_directory?("test"))
-          assert(c.hidden_entry?("test/"))
-          assert(c.hidden_directory?("test/"))
-          refute(c.hidden_file?("test"))
+          # Test a hidden entry before and after creation.
+          assert_nil(c.find_entry("test", :include_hidden => true))
+          c.dir.mkdir("test")
+          assert_not_nil(c.find_entry("test", :include_hidden => true))
         end
       end
 
       assert(ManagedZipContainer.verify(filename))
       assert_nothing_raised(ZipContainer::MalformedContainerError) do
         ManagedZipContainer.verify!(filename)
+      end
+    end
+  end
+
+  def test_hidden_entries
+    assert_nothing_raised do
+      ManagedZipContainer.open($subclass) do |c|
+        refute(c.hidden_entry?("src"))
+        refute(c.hidden_file?("src"))
+        refute(c.hidden_directory?("src"))
+        assert(c.hidden_entry?("test"))
+        assert(c.hidden_directory?("test"))
+        assert(c.hidden_entry?("test/"))
+        assert(c.hidden_directory?("test/"))
+        refute(c.hidden_file?("test"))
+
+        assert_not_nil(c.find_entry("src"))
+        assert_nil(c.find_entry("test"))
+        assert_not_nil(c.find_entry("src", :include_hidden => true))
+        assert_not_nil(c.find_entry("test", :include_hidden => true))
       end
     end
   end

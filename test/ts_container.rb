@@ -42,6 +42,7 @@ $empty = "test/data/empty.container"
 $empty_zip = "test/data/empty.zip"
 $compressed_mimetype = "test/data/compressed_mimetype.container"
 $example = "test/data/example.container"
+$subclass = "test/data/subclassed.container"
 
 # Run test cases.
 require 'tc_util'
