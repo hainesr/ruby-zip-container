@@ -42,7 +42,7 @@ class ManagedZipContainerC < ZipContainer::Container
   def initialize(filename)
     super(filename)
     register_managed_entry(ZipContainer::ManagedDirectory.new("src", :required => true))
-    register_managed_entry(ZipContainer::ManagedDirectory.new("test"))
+    register_managed_entry(ZipContainer::ManagedDirectory.new("test", :hidden => true))
     register_managed_entry(ZipContainer::ManagedDirectory.new("lib"))
     register_managed_entry(ZipContainer::ManagedFile.new("index.html", :required => true))
   end
@@ -167,6 +167,16 @@ class TestManagedEntriesC < Test::Unit::TestCase
           c.file.open("index.html", "w") do |f|
             f.puts "<html />"
           end
+
+          # Test hidden entries
+          refute(c.hidden_entry?("src"))
+          refute(c.hidden_file?("src"))
+          refute(c.hidden_directory?("src"))
+          assert(c.hidden_entry?("test"))
+          assert(c.hidden_directory?("test"))
+          assert(c.hidden_entry?("test/"))
+          assert(c.hidden_directory?("test/"))
+          refute(c.hidden_file?("test"))
         end
       end
 

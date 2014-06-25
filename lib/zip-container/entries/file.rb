@@ -43,6 +43,7 @@ module ZipContainer
     # be passed in are:
     # * <tt>:required</tt> whether it is required to exist or not (default
     #   false).
+    # * <tt>:hidden</tt> whether it is hidden for normal operations.
     # * <tt>:validation_proc</tt> should be a Proc that takes a single
     #   parameter, to which will be supplied the contents of the file, and
     #   returns +true+ or +false+ depending on whether the contents of the
@@ -59,8 +60,13 @@ module ZipContainer
     #  ManagedFile.new("Surprize.txt", :required => false,
     #    :validation_proc => valid)
     def initialize(name, options = {})
-      options = {:required => false, :validation_proc => nil}.merge(options)
-      super(name, options[:required])
+      options = {
+        :required => false,
+        :hidden => false,
+        :validation_proc => nil
+      }.merge(options)
+
+      super(name, options[:required], options[:hidden])
 
       @validation_proc =
         options[:validation_proc].is_a?(Proc) ? options[:validation_proc] : nil

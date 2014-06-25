@@ -50,11 +50,17 @@ module ZipContainer
     # be passed in are:
     # * <tt>:required</tt> whether it is required to exist or not (default
     #   false).
+    # * <tt>:hidden</tt> whether it is hidden for normal operations.
     # * <tt>:entries</tt> a list of ManagedFile and ManagedDirectory objects
     #   that are within this directory (default []).
     def initialize(name, options = {})
-      options = {:required => false, :entries => []}.merge(options)
-      super(name, options[:required])
+      options = {
+        :required => false,
+        :hidden => false,
+        :entries => []
+      }.merge(options)
+
+      super(name, options[:required], options[:hidden])
 
       initialize_managed_entries(options[:entries])
     end

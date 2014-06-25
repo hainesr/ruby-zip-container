@@ -45,11 +45,13 @@ module ZipContainer
     #   new(name, required) -> ManagedEntry
     #
     # Create a new ManagedEntry with the supplied name. The entry should also
-    # be marked as required or not.
-    def initialize(name, required)
+    # be marked as required or not and whether it is hidden for normal
+    # operations.
+    def initialize(name, required, hidden)
       @parent = nil
       @name = name
       @required = required
+      @hidden = hidden
     end
 
     # :call-seq:
@@ -67,6 +69,15 @@ module ZipContainer
     # specification of its Container?
     def required?
       @required
+    end
+
+    # :call-seq:
+    #   hidden? -> true or false
+    #
+    # Is this ManagedEntry hidden for normal operations?
+    def hidden?
+      # An entry is hidden if its parent is hidden.
+      @parent.is_a?(ZipContainer::File) ? @hidden : @hidden || @parent.hidden?
     end
 
     # :call-seq:

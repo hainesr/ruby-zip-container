@@ -99,6 +99,32 @@ module ZipContainer
     end
 
     # :call-seq:
+    #   hidden_directory?(entry) -> boolean
+    #
+    # Is the supplied entry/name a hidden directory?
+    def hidden_directory?(entry)
+      name = entry_name(entry)
+      managed_directory?(name) ? @directories[name].hidden? : false
+    end
+
+    # :call-seq:
+    #   hidden_file?(entry) -> boolean
+    #
+    # Is the supplied entry/name a hidden file?
+    def hidden_file?(entry)
+      name = entry_name(entry)
+      managed_file?(name) ? @files[name].hidden? : false
+    end
+
+    # :call-seq:
+    #   hidden_entry?(entry) -> boolean
+    #
+    # Is the supplied entry/name a hidden?
+    def hidden_entry?(entry)
+      hidden_directory?(entry) || hidden_file?(entry)
+    end
+
+    # :call-seq:
     #   managed_files -> Array
     #
     # Return the list of managed files.
