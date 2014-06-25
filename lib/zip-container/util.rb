@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,29 +30,24 @@
 #
 # Author: Robert Haines
 
-require 'coveralls'
-Coveralls.wear!
+#
+module ZipContainer
 
-# Example default mimetype
-$mimetype = "application/epub+zip"
+  # Utility methods useful throughout the rest of the ZipContainer library.
+  module Util
 
-# Example data files
-$file_null = "test/data/null.file"
-$empty = "test/data/empty.container"
-$empty_zip = "test/data/empty.zip"
-$compressed_mimetype = "test/data/compressed_mimetype.container"
-$example = "test/data/example.container"
+    # :call-seq:
+    #   entry_name(entry) -> String
+    #
+    # A lot of methods can take either a String or a Zip::Entry object to
+    # represent an item in a Zip file so this method normalizes these
+    # parameters.
+    def entry_name(entry)
+      name = entry.kind_of?(::Zip::Entry) ? entry.name : entry
+      name.chop! if name.end_with? "/"
 
-# Run test cases.
-require 'tc_util'
-require 'tc_exceptions'
-require 'tc_create'
-require 'tc_read'
-require 'tc_reserved_names'
-require 'tc_managed_entries'
+      name
+    end
 
-# Run compatibility test cases.
-require 'tc_create_c'
-require 'tc_read_c'
-require 'tc_reserved_names_c'
-require 'tc_managed_entries_c'
+  end
+end

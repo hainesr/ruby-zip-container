@@ -1,4 +1,4 @@
-# Copyright (c) 2013 The University of Manchester, UK.
+# Copyright (c) 2013, 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -39,6 +39,7 @@ module ZipContainer
   # +initialize_managed_entries+ in your constructor to ensure that the
   # internal lists of managed entries are correctly assigned.
   module ManagedEntries
+    include Util
 
     # :call-seq:
     #   managed_directories -> Array
@@ -85,8 +86,7 @@ module ZipContainer
     #
     # Is the supplied entry/name a managed entry?
     def managed_entry?(entry, list = managed_entry_names)
-      name = entry.kind_of?(::Zip::Entry) ? entry.name : entry
-      name.chop! if name.end_with? "/"
+      name = entry_name(entry)
       list.map { |n| n.downcase }.include? name.downcase
     end
 

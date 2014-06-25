@@ -1,4 +1,4 @@
-# Copyright (c) 2013 The University of Manchester, UK.
+# Copyright (c) 2013, 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -35,6 +35,7 @@ module ZipContainer
 
   # This module provides support for reserved names.
   module ReservedNames
+    include Util
 
     # :call-seq:
     #   reserved_names -> Array
@@ -68,8 +69,7 @@ module ZipContainer
     # Is the given entry in the reserved list of names? A String or a
     # Zip::Entry object can be passed in here.
     def reserved_entry?(entry)
-      name = entry.kind_of?(::Zip::Entry) ? entry.name : entry
-      name.chop! if name.end_with? "/"
+      name = entry_name(entry)
       reserved_names.map { |n| n.downcase }.include? name.downcase
     end
 

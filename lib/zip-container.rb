@@ -35,6 +35,7 @@ require 'bundler/setup'
 
 require 'zip/filesystem'
 
+require 'zip-container/util'
 require 'zip-container/version'
 require 'zip-container/exceptions'
 require 'zip-container/entries/reserved'

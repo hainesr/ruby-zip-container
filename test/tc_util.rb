@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,29 +30,33 @@
 #
 # Author: Robert Haines
 
-require 'coveralls'
-Coveralls.wear!
+require 'test/unit'
+require 'zip-container'
 
-# Example default mimetype
-$mimetype = "application/epub+zip"
+class Util
+  include ZipContainer::Util
+end
 
-# Example data files
-$file_null = "test/data/null.file"
-$empty = "test/data/empty.container"
-$empty_zip = "test/data/empty.zip"
-$compressed_mimetype = "test/data/compressed_mimetype.container"
-$example = "test/data/example.container"
+class TestUtil < Test::Unit::TestCase
 
-# Run test cases.
-require 'tc_util'
-require 'tc_exceptions'
-require 'tc_create'
-require 'tc_read'
-require 'tc_reserved_names'
-require 'tc_managed_entries'
+  def setup
+    @util = Util.new
+  end
 
-# Run compatibility test cases.
-require 'tc_create_c'
-require 'tc_read_c'
-require 'tc_reserved_names_c'
-require 'tc_managed_entries_c'
+  def test_entry_name_strings
+    assert_equal("test", @util.entry_name("test"))
+    assert_equal("test", @util.entry_name("test/"))
+    assert_equal("test/test", @util.entry_name("test/test"))
+    assert_equal("test/test", @util.entry_name("test/test/"))
+  end
+
+  def test_entry_name_entries
+    assert_equal("test", @util.entry_name(Zip::Entry.new("fake.zip", "test")))
+    assert_equal("test", @util.entry_name(Zip::Entry.new("fake.zip", "test/")))
+    assert_equal("test/test",
+      @util.entry_name(Zip::Entry.new("fake.zip", "test/test")))
+    assert_equal("test/test",
+      @util.entry_name(Zip::Entry.new("fake.zip", "test/test/")))
+  end
+
+end
