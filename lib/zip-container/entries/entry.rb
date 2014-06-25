@@ -128,7 +128,7 @@ module ZipContainer
     #
     # Return the Container that this ManagedEntry resides in.
     def container
-      @parent.is_a?(Container) ? @parent : @parent.container
+      @parent.is_a?(ZipContainer::File) ? @parent : @parent.container
     end
 
   end

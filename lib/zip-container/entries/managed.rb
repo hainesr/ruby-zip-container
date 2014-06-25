@@ -175,7 +175,7 @@ module ZipContainer
     private
 
     def expand_names(names)
-      names.map { |n| self.is_a?(Container) ? n : "#{name}/#{n}" }
+      names.map { |n| self.is_a?(ZipContainer::File) ? n : "#{name}/#{n}" }
     end
 
   end
