@@ -44,15 +44,19 @@ module ZipContainer
     include ManagedEntries
 
     # :call-seq:
-    #   new(name, required = false) -> ManagedDirectory
+    #   new(name, options = {}) -> ManagedDirectory
     #
-    # Create a new ManagedDirectory with the supplied name and whether it is
-    # required to exist or not. Any ManagedFile or ManagedDirectory objects
-    # that are within this directory can also be given if required.
-    def initialize(name, required = false, entries = [])
-      super(name, required)
+    # Create a new ManagedDirectory with the supplied name. Options that can
+    # be passed in are:
+    # * <tt>:required</tt> whether it is required to exist or not (default
+    #   false).
+    # * <tt>:entries</tt> a list of ManagedFile and ManagedDirectory objects
+    #   that are within this directory (default []).
+    def initialize(name, options = {})
+      options = {:required => false, :entries => []}.merge(options)
+      super(name, options[:required])
 
-      initialize_managed_entries(entries)
+      initialize_managed_entries(options[:entries])
     end
 
     # :call-seq:

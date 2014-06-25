@@ -39,12 +39,14 @@ module ZipContainer
     # :call-seq:
     #   new(name, required = false, validation_proc = nil) -> ManagedFile
     #
-    # Create a new ManagedFile with the supplied name and whether it is
-    # required to exist or not.
-    #
-    # If supplied <tt>validation_proc</tt> should be a Proc that takes a
-    # single parameter and returns +true+ or +false+ depending on whether the
-    # contents of the file were validated or not.
+    # Create a new ManagedFile with the supplied name. Options that can
+    # be passed in are:
+    # * <tt>:required</tt> whether it is required to exist or not (default
+    #   false).
+    # * <tt>:validation_proc</tt> should be a Proc that takes a single
+    #   parameter, to which will be supplied the contents of the file, and
+    #   returns +true+ or +false+ depending on whether the contents of the
+    #   file were validated or not (default nil).
     #
     # For more complex content validation subclasses may override the validate
     # method.
@@ -54,11 +56,14 @@ module ZipContainer
     # word "Boo!".
     #
     #  valid = Proc.new { |contents| contents == "Boo!" }
-    #  ManagedFile.new("Surprize.txt", false, valid)
-    def initialize(name, required = false, validation_proc = nil)
-      super(name, required)
+    #  ManagedFile.new("Surprize.txt", :required => false,
+    #    :validation_proc => valid)
+    def initialize(name, options = {})
+      options = {:required => false, :validation_proc => nil}.merge(options)
+      super(name, options[:required])
 
-      @validation_proc = validation_proc.is_a?(Proc) ? validation_proc : nil
+      @validation_proc =
+        options[:validation_proc].is_a?(Proc) ? options[:validation_proc] : nil
     end
 
     # :call-seq:

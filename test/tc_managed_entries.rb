@@ -41,10 +41,10 @@ class ManagedZipContainer < ZipContainer::File
 
   def initialize(filename)
     super(filename)
-    register_managed_entry(ZipContainer::ManagedDirectory.new("src", true))
+    register_managed_entry(ZipContainer::ManagedDirectory.new("src", :required => true))
     register_managed_entry(ZipContainer::ManagedDirectory.new("test"))
     register_managed_entry(ZipContainer::ManagedDirectory.new("lib"))
-    register_managed_entry(ZipContainer::ManagedFile.new("index.html", true))
+    register_managed_entry(ZipContainer::ManagedFile.new("index.html", :required => true))
   end
 
 end
@@ -55,8 +55,8 @@ class ExampleZipContainer < ZipContainer::File
 
   def initialize(filename)
     super(filename)
-    register_managed_entry(ZipContainer::ManagedDirectory.new("dir", true))
-    register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt", true))
+    register_managed_entry(ZipContainer::ManagedDirectory.new("dir", :required => true))
+    register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt", :required => true))
   end
 
 end
@@ -70,7 +70,7 @@ class ExampleZipContainer2 < ZipContainer::File
 
     valid = Proc.new { |contents| contents.match(/[Hh]ello/) }
     register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt",
-      true, valid))
+      :required => true, :validation_proc => valid))
   end
 
   def ExampleZipContainer2.create(filename, &block)
