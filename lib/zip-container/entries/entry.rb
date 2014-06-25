@@ -57,7 +57,7 @@ module ZipContainer
     #
     # The fully qualified name of this ManagedEntry.
     def full_name
-      @parent.is_a?(Container) ? @name : "#{@parent.name}/#{@name}"
+      @parent.is_a?(ZipContainer::File) ? @name : "#{@parent.name}/#{@name}"
     end
 
     # :call-seq:
