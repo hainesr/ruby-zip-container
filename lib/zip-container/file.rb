@@ -51,8 +51,7 @@ module ZipContainer
 
     extend Forwardable
     def_delegators :@zipfile, :comment, :comment=, :commit_required?, :each,
-      :entries, :extract, :get_entry, :get_input_stream, :glob, :name, :read,
-      :size
+      :entries, :extract, :get_input_stream, :glob, :name, :read, :size
 
     private_class_method :new
 
@@ -253,6 +252,23 @@ module ZipContainer
       end
 
       @zipfile.find_entry(entry_name)
+    end
+
+    # :call-seq:
+    #   get_entry(entry, options = {}) -> Zip::Entry or nil
+    #
+    # Searches for an entry like find_entry, but throws Errno::ENOENT if no
+    # entry is found or if the specified entry is hidden for normal use. You
+    # can specify <tt>:include_hidden => true</tt> to include hidden entries
+    # in the search.
+    def get_entry(entry, options = {})
+      options = {:include_hidden => false}.merge(options)
+
+      unless options[:include_hidden]
+        raise Errno::ENOENT, entry if hidden_entry?(entry)
+      end
+
+      @zipfile.get_entry(entry)
     end
 
     # :call-seq:

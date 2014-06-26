@@ -242,6 +242,43 @@ class TestManagedEntries < Test::Unit::TestCase
     end
   end
 
+  def test_get_entry
+    ManagedZipContainer.open($subclass) do |c|
+      assert_nothing_raised(Errno::ENOENT) do
+        c.get_entry("src")
+      end
+      assert_nothing_raised(Errno::ENOENT) do
+        c.get_entry("src", :include_hidden => true)
+      end
+
+      assert_raise(Errno::ENOENT) do
+        c.get_entry("test")
+      end
+      assert_raise(Errno::ENOENT) do
+        c.get_entry("test/test.txt")
+      end
+      assert_nothing_raised(Errno::ENOENT) do
+        c.get_entry("test", :include_hidden => true)
+      end
+      assert_nothing_raised(Errno::ENOENT) do
+        c.get_entry("test/test.txt", :include_hidden => true)
+      end
+
+      assert_raise(Errno::ENOENT) do
+        c.get_entry("test/deep")
+      end
+      assert_raise(Errno::ENOENT) do
+        c.get_entry("test/deep/deep.txt")
+      end
+      assert_nothing_raised(Errno::ENOENT) do
+        c.get_entry("test/deep", :include_hidden => true)
+      end
+      assert_nothing_raised(Errno::ENOENT) do
+        c.get_entry("test/deep/deep.txt", :include_hidden => true)
+      end
+    end
+  end
+
   def test_create_subclassed_mimetype
     Dir.mktmpdir do |dir|
       filename = File.join(dir, "test.container")
