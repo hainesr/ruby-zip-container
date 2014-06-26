@@ -46,8 +46,11 @@ module ZipContainer
     #
     # Return the list of managed directories.
     def managed_directories
+      return @managed_directories if @managed_directories
+
       dirs = @directories.values
-      dirs + dirs.map { |d| d.managed_directories }.flatten
+      @managed_directories = dirs +
+        dirs.map { |d| d.managed_directories }.flatten
     end
 
     # :call-seq:
@@ -55,7 +58,7 @@ module ZipContainer
     #
     # Return the list of managed directory names.
     def managed_directory_names
-      managed_directories.map { |d| d.full_name }
+      @managed_directory_names ||= managed_directories.map { |d| d.full_name }
     end
 
     # :call-seq:
@@ -71,7 +74,7 @@ module ZipContainer
     #
     # Return the list of managed files and directories.
     def managed_entries
-      managed_files + managed_directories
+      @managed_entries ||= managed_files + managed_directories
     end
 
     # :call-seq:
@@ -79,7 +82,7 @@ module ZipContainer
     #
     # Return the list of managed file and directory names.
     def managed_entry_names
-      managed_file_names + managed_directory_names
+      @managed_entry_names ||= managed_file_names + managed_directory_names
     end
 
     # :call-seq:
@@ -130,7 +133,8 @@ module ZipContainer
     #
     # Return the list of managed files.
     def managed_files
-      @files.values + @directories.values.map { |d| d.managed_files }.flatten
+      @managed_files ||= @files.values +
+        @directories.values.map { |d| d.managed_files }.flatten
     end
 
     # :call-seq:
@@ -138,7 +142,7 @@ module ZipContainer
     #
     # Return the list of managed file names.
     def managed_file_names
-      managed_files.map { |f| f.full_name }
+      @managed_file_names ||= managed_files.map { |f| f.full_name }
     end
 
     # :call-seq:
