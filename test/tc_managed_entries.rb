@@ -208,8 +208,6 @@ class TestManagedEntries < Test::Unit::TestCase
         refute(c.hidden_entry?("src"))
         refute(c.hidden_file?("src"))
         refute(c.hidden_directory?("src"))
-        assert_not_nil(c.find_entry("src"))
-        assert_not_nil(c.find_entry("src", :include_hidden => true))
 
         assert(c.hidden_entry?("test"))
         assert(c.hidden_directory?("test"))
@@ -217,15 +215,24 @@ class TestManagedEntries < Test::Unit::TestCase
         assert(c.hidden_directory?("test/"))
         refute(c.hidden_file?("test"))
 
-        assert_nil(c.find_entry("test"))
-        assert_nil(c.find_entry("test/test.txt"))
-        assert_not_nil(c.find_entry("test", :include_hidden => true))
-        assert_not_nil(c.find_entry("test/test.txt", :include_hidden => true))
-
         assert(c.hidden_entry?("test/deep"))
         assert(c.hidden_directory?("test/deep"))
         assert(c.hidden_entry?("test/deep/deep.txt"))
         assert(c.hidden_file?("test/deep/deep.txt"))
+      end
+    end
+  end
+
+  def test_find_entry
+    assert_nothing_raised do
+      ManagedZipContainer.open($subclass) do |c|
+        assert_not_nil(c.find_entry("src"))
+        assert_not_nil(c.find_entry("src", :include_hidden => true))
+
+        assert_nil(c.find_entry("test"))
+        assert_nil(c.find_entry("test/test.txt"))
+        assert_not_nil(c.find_entry("test", :include_hidden => true))
+        assert_not_nil(c.find_entry("test/test.txt", :include_hidden => true))
 
         assert_nil(c.find_entry("test/deep"))
         assert_nil(c.find_entry("test/deep/deep.txt"))
