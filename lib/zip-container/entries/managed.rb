@@ -105,7 +105,7 @@ module ZipContainer
     # Is the supplied entry/name a hidden directory?
     def hidden_directory?(entry)
       name = entry_name(entry)
-      managed_directory?(name) ? @directories[name].hidden? : false
+      managed_directory?(name) ? all_managed_entries[name].hidden? : false
     end
 
     # :call-seq:
@@ -114,7 +114,7 @@ module ZipContainer
     # Is the supplied entry/name a hidden file?
     def hidden_file?(entry)
       name = entry_name(entry)
-      managed_file?(name) ? @files[name].hidden? : false
+      managed_file?(name) ? all_managed_entries[name].hidden? : false
     end
 
     # :call-seq:
@@ -197,6 +197,16 @@ module ZipContainer
       @directories[entry.name] = entry if entry.is_a? ManagedDirectory
       @files[entry.name] = entry if entry.is_a? ManagedFile
     end
+
+    # :stopdoc:
+    def all_managed_entries
+      return @entries unless @entries.nil?
+
+      all = {}
+      managed_entries.each { |e| all[e.full_name] = e }
+      @entries = all
+    end
+    # :startdoc:
 
   end
 end

@@ -41,8 +41,13 @@ class ManagedZipContainer < ZipContainer::File
 
   def initialize(filename)
     super(filename)
+    test_file = ZipContainer::ManagedFile.new("test.txt")
+    deep_file = ZipContainer::ManagedFile.new("deep.txt")
+    deep_dir = ZipContainer::ManagedDirectory.new("deep",
+      :entries => [deep_file])
     register_managed_entry(ZipContainer::ManagedDirectory.new("src", :required => true))
-    register_managed_entry(ZipContainer::ManagedDirectory.new("test", :hidden => true))
+    register_managed_entry(ZipContainer::ManagedDirectory.new("test",
+      :hidden => true, :entries => [deep_dir, test_file]))
     register_managed_entry(ZipContainer::ManagedDirectory.new("lib"))
     register_managed_entry(ZipContainer::ManagedFile.new("index.html", :required => true))
   end
@@ -168,10 +173,25 @@ class TestManagedEntries < Test::Unit::TestCase
             f.puts "<html />"
           end
 
-          # Test a hidden entry before and after creation.
+          # Test hidden entries before and after creation.
           assert_nil(c.find_entry("test", :include_hidden => true))
+          assert_nil(c.find_entry("test/test.txt", :include_hidden => true))
           c.dir.mkdir("test")
+          c.file.open("test/test.txt", "w") do |f|
+            f.puts "A test!"
+          end
           assert_not_nil(c.find_entry("test", :include_hidden => true))
+          assert_not_nil(c.find_entry("test/test.txt", :include_hidden => true))
+
+          # Test deep hidden entries before and after creation.
+          assert_nil(c.find_entry("test/deep", :include_hidden => true))
+          assert_nil(c.find_entry("test/deep/deep.txt", :include_hidden => true))
+          c.dir.mkdir("test/deep")
+          c.file.open("test/deep/deep.txt", "w") do |f|
+            f.puts "A deep test!"
+          end
+          assert_not_nil(c.find_entry("test/deep", :include_hidden => true))
+          assert_not_nil(c.find_entry("test/deep/deep.txt", :include_hidden => true))
         end
       end
 
@@ -188,16 +208,29 @@ class TestManagedEntries < Test::Unit::TestCase
         refute(c.hidden_entry?("src"))
         refute(c.hidden_file?("src"))
         refute(c.hidden_directory?("src"))
+        assert_not_nil(c.find_entry("src"))
+        assert_not_nil(c.find_entry("src", :include_hidden => true))
+
         assert(c.hidden_entry?("test"))
         assert(c.hidden_directory?("test"))
         assert(c.hidden_entry?("test/"))
         assert(c.hidden_directory?("test/"))
         refute(c.hidden_file?("test"))
 
-        assert_not_nil(c.find_entry("src"))
         assert_nil(c.find_entry("test"))
-        assert_not_nil(c.find_entry("src", :include_hidden => true))
+        assert_nil(c.find_entry("test/test.txt"))
         assert_not_nil(c.find_entry("test", :include_hidden => true))
+        assert_not_nil(c.find_entry("test/test.txt", :include_hidden => true))
+
+        assert(c.hidden_entry?("test/deep"))
+        assert(c.hidden_directory?("test/deep"))
+        assert(c.hidden_entry?("test/deep/deep.txt"))
+        assert(c.hidden_file?("test/deep/deep.txt"))
+
+        assert_nil(c.find_entry("test/deep"))
+        assert_nil(c.find_entry("test/deep/deep.txt"))
+        assert_not_nil(c.find_entry("test/deep", :include_hidden => true))
+        assert_not_nil(c.find_entry("test/deep/deep.txt", :include_hidden => true))
       end
     end
   end
