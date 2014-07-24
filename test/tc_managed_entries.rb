@@ -1,4 +1,4 @@
-# Copyright (c) 2013 The University of Manchester, UK.
+# Copyright (c) 2013, 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -33,6 +33,7 @@
 require 'test/unit'
 require 'tmpdir'
 require 'zip-container'
+require 'helpers/entry_lists'
 
 # Classes to test managed entries.
 class ManagedZipContainer < ZipContainer::File
@@ -276,6 +277,18 @@ class TestManagedEntries < Test::Unit::TestCase
       assert_nothing_raised(Errno::ENOENT) do
         c.get_entry("test/deep/deep.txt", :include_hidden => true)
       end
+    end
+  end
+
+  def test_glob
+    ManagedZipContainer.open($subclass) do |c|
+      assert_equal(["index.html"], entry_list_names(c.glob("in*")))
+      assert_equal([], c.glob("test/**/*"))
+      assert_equal(["test/test.txt", "test/deep", "test/deep/deep.txt"],
+        entry_list_names(c.glob("test/**/*", :include_hidden => true)))
+      assert_equal(["test/test.txt", "test/deep/deep.txt"],
+        entry_list_names(c.glob("**/*.TXT", ::File::FNM_CASEFOLD,
+          :include_hidden => true)))
     end
   end
 

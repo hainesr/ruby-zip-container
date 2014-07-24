@@ -51,7 +51,7 @@ module ZipContainer
 
     extend Forwardable
     def_delegators :@zipfile, :comment, :comment=, :commit_required?, :each,
-      :entries, :extract, :get_input_stream, :glob, :name, :read, :size
+      :entries, :extract, :get_input_stream, :name, :read, :size
 
     private_class_method :new
 
@@ -287,6 +287,41 @@ module ZipContainer
       end
 
       @zipfile.get_output_stream(entry, permission, &block)
+    end
+
+    # :call-seq:
+    #   glob(pattern) -> Array
+    #   glob(pattern) { |entry| ... }
+    #   glob(pattern, *parameters) -> Array
+    #   glob(pattern, *parameters) { |entry| ... }
+    #
+    # Searches for entries given a glob. Hidden files are ignored by default.
+    #
+    # The parameters that can be supplied are:
+    # * +flags+ - A bitwise OR of the <tt>FNM_xxx</tt> parameters defined in
+    #   File::Constants. The default value is
+    #   <tt>::File::FNM_PATHNAME | ::File::FNM_DOTMATCH</tt>
+    # * +options+ - <tt>:include_hidden => true</tt> will include hidden
+    #   entries in the search.
+    def glob(pattern, *params, &block)
+      flags = ::File::FNM_PATHNAME | ::File::FNM_DOTMATCH
+      options = { :include_hidden => false }
+
+      params.each do |param|
+        case param
+        when Hash
+          options = options.merge(param)
+        else
+          flags = param
+        end
+      end
+
+      entries.map do |entry|
+        next if !options[:include_hidden] && hidden_entry?(entry)
+        next unless ::File.fnmatch(pattern, entry.name.chomp('/'), flags)
+        yield(entry) if block_given?
+        entry
+      end.compact
     end
 
     # :call-seq:
