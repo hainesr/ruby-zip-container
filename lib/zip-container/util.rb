@@ -44,7 +44,10 @@ module ZipContainer
     # parameters.
     def entry_name(entry)
       name = entry.kind_of?(::Zip::Entry) ? entry.name : entry
-      name.chop! if name.end_with? "/"
+
+      if name.respond_to?(:end_with?) && name.respond_to?(:chop!)
+        name.chop! if name.end_with?("/")
+      end
 
       name
     end

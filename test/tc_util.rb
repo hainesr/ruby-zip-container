@@ -59,4 +59,9 @@ class TestUtil < Test::Unit::TestCase
       @util.entry_name(Zip::Entry.new("fake.zip", "test/test/")))
   end
 
+  def test_entry_name_odd_things
+    uri = URI.parse("http://www.example.com/path")
+    assert_equal(uri, @util.entry_name(uri))
+  end
+
 end
