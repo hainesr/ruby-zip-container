@@ -42,6 +42,9 @@ module ZipContainer
     # A lot of methods can take either a String or a Zip::Entry object to
     # represent an item in a Zip file so this method normalizes these
     # parameters.
+    #
+    # In common with rubyzip this method also removes a trailing slash (/)
+    # from a name if it can.
     def entry_name(entry)
       name = entry.kind_of?(::Zip::Entry) ? entry.name : entry
 
