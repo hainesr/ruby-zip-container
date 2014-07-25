@@ -52,6 +52,4 @@ require 'zip-container/file'
 # {UCF}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
 # specifications for more details.
 module ZipContainer
-  # For compatibility until we fully switch.
-  Container = File
 end
