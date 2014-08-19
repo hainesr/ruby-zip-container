@@ -1,5 +1,28 @@
 = Changes log for the ZIP Container Ruby Gem
 
+== Version 2.0.0
+
+* Change API: Container => File.
+* Refactor exceptions so we can shadow rubyzip exceptions.
+* Use the shadowed ZipError in the tests.
+* Use the shadowed ZipError in the example scripts.
+* Update the exceptions to use Zip::Error.
+* Refactor managed file and directory initializers.
+* Add the new Util module with a helper method.
+* Toggle managed files as hidden in normal use.
+* Update find_entry to take hidden files into account.
+* Fix the managed files and directories lists.
+* Update the hidden file detection code.
+* Cache managed entry lists.
+* Split up the hidden entry/find_entry tests.
+* Update get_entry to take hidden files into account.
+* Mixin the Util module to the ManagedEntry class.
+* Update glob to take hidden files into account.
+* Improve Util::entry_name to be more robust.
+* Remove old Container compatibility.
+* Document removal of ZipContainer::Container in the ReadMe.
+* Update rubyzip version to latest (1.1.6).
+
 == Version 1.1.0
 
 * Bump version of rubyzip to 1.1.4.
