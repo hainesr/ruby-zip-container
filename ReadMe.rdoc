@@ -19,6 +19,9 @@ This is a Ruby library for working with ZIP Container files. See the
 {UDF}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
 specifications for more details.
 
+We follow the principles of {Semantic Versioning}[http://semver.org/] for our
+releases.
+
 == Backwards incompatibility warnings!
 
 === ZipContainer
