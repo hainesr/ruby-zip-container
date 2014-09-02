@@ -63,6 +63,15 @@ module ZipContainer
     end
     # :startdoc:
 
+    # :call-seq:
+    #   verify!
+    #
+    # Verify the contents of this ZipContainer file. All managed files and
+    # directories are checked to make sure that they exist, if required.
+    def verify!
+      verify_managed_entries!
+    end
+
     private
 
     def check_mimetype!
