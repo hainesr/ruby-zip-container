@@ -63,6 +63,13 @@ module ZipContainer
     end
     # :startdoc:
 
+    private
+
+    def check_mimetype!
+      message = verify_mimetype
+      raise MalformedContainerError.new(message) unless message.nil?
+    end
+
   end
 
 end
