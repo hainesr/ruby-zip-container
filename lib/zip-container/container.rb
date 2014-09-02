@@ -39,6 +39,18 @@ module ZipContainer
   class Container
     include ReservedNames
     include ManagedEntries
+
+    private_class_method :new
+
+    # :stopdoc:
+    # The reserved mimetype file name for standard ZipContainers.
+    MIMETYPE_FILE = "mimetype"
+
+    def initialize(location)
+      @container = open_container(location)
+    end
+    # :startdoc:
+
   end
 
 end
