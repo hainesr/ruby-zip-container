@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,27 +30,15 @@
 #
 # Author: Robert Haines
 
-require 'rubygems'
-require 'bundler/setup'
-
-require 'zip/filesystem'
-
-require 'zip-container/util'
-require 'zip-container/version'
-require 'zip-container/exceptions'
-require 'zip-container/entries/reserved'
-require 'zip-container/entries/managed'
-require 'zip-container/entries/entry'
-require 'zip-container/entries/file'
-require 'zip-container/entries/directory'
-require 'zip-container/container'
-require 'zip-container/file'
-
-# This is a ruby library to read and write ZIP Container Format files. See the
-# ZipContainer::Container class for more information.
 #
-# See the {OCF}[http://www.idpf.org/epub/30/spec/epub30-ocf.html] and
-# {UCF}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
-# specifications for more details.
 module ZipContainer
+
+  # The superclass of anything that represents a Zip Container. That
+  # representation could be as a Zip file (most commonly), as a directory or
+  # something else.
+  class Container
+    include ReservedNames
+    include ManagedEntries
+  end
+
 end

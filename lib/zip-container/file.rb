@@ -45,9 +45,7 @@ module ZipContainer
   # alongside these pages.
   #
   # There are code examples available with the source code of this library.
-  class File
-    include ReservedNames
-    include ManagedEntries
+  class File < Container
 
     extend Forwardable
     def_delegators :@zipfile, :comment, :comment=, :commit_required?, :each,
