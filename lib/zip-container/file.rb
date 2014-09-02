@@ -59,12 +59,6 @@ module ZipContainer
 
       @on_disk = true
 
-      # Reserved entry names. Just the mimetype file by default.
-      register_reserved_name(MIMETYPE_FILE)
-
-      # Initialize the managed entry tables.
-      initialize_managed_entries
-
       # Here we fake up the connection to the rubyzip filesystem classes so
       # that they also respect the reserved names that we define.
       mapped_zip = ::Zip::FileSystem::ZipFileNameMapper.new(self)

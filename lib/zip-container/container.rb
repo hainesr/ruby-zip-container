@@ -54,6 +54,12 @@ module ZipContainer
 
       check_mimetype!
       @mimetype = read_mimetype
+
+      # Reserved entry names. Just the mimetype file by default.
+      register_reserved_name(MIMETYPE_FILE)
+
+      # Initialize the managed entry tables.
+      initialize_managed_entries
     end
     # :startdoc:
 
