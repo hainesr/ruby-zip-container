@@ -42,12 +42,18 @@ module ZipContainer
 
     private_class_method :new
 
+    # The mime-type of this ZipContainer.
+    attr_reader :mimetype
+
     # :stopdoc:
     # The reserved mimetype file name for standard ZipContainers.
     MIMETYPE_FILE = "mimetype"
 
     def initialize(location)
       @container = open_container(location)
+
+      check_mimetype!
+      @mimetype = read_mimetype
     end
     # :startdoc:
 

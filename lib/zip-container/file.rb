@@ -53,16 +53,10 @@ module ZipContainer
 
     private_class_method :new
 
-    # The mime-type of this ZipContainer file.
-    attr_reader :mimetype
-
     # :stopdoc:
     def initialize(location)
       super(location)
 
-      check_mimetype!
-
-      @mimetype = read_mimetype
       @on_disk = true
 
       # Reserved entry names. Just the mimetype file by default.
