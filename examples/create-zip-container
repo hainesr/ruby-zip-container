@@ -49,7 +49,7 @@ if File.exists?(container_file)
 end
 
 begin
-  ZipContainer::Container.create(container_file, "application/epub+zip") do |c|
+  ZipContainer::File.create(container_file, "application/epub+zip") do |c|
 
     # Add a cheery greeting file from a string.
     c.file.open("greeting.txt", "w") do |f|

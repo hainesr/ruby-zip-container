@@ -44,7 +44,7 @@ usage unless ARGV.length == 1
 container_file = ARGV[0]
 
 begin
-  container = ZipContainer::Container.open(container_file)
+  container = ZipContainer::File.open(container_file)
 rescue ZipContainer::MalformedContainerError, ZipContainer::ZipError => err
   puts err.to_s
   exit 1
