@@ -116,33 +116,6 @@ module ZipContainer
     end
 
     # :call-seq:
-    #   File.verify(filename) -> boolean
-    #
-    # Verify that the specified ZipContainer file conforms to the
-    # specification. This method returns +false+ if there are any problems at
-    # all with the file (including if it cannot be found).
-    def self.verify(filename)
-      begin
-        new(filename).verify!
-      rescue
-        return false
-      end
-
-      true
-    end
-
-    # :call-seq:
-    #   File.verify!(filename)
-    #
-    # Verify that the specified ZipContainer file conforms to the
-    # specification. This method raises exceptions when errors are found or if
-    # there is something fundamental wrong with the file itself (e.g. it
-    # cannot be found).
-    def self.verify!(filename)
-      new(filename).verify!
-    end
-
-    # :call-seq:
     #   add(entry, src_path, &continue_on_exists_proc)
     #
     # Convenience method for adding the contents of a file to the ZipContainer
