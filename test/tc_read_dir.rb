@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,27 +30,27 @@
 #
 # Author: Robert Haines
 
-require 'coveralls'
-Coveralls.wear!
+require 'test/unit'
+require 'zip-container'
 
-# Example default mimetype
-$mimetype = "application/epub+zip"
+class TestRead < Test::Unit::TestCase
 
-# Example data files
-$dir_null = "test/data/dirs/null"
-$dir_empty = "test/data/dirs/empty"
-$file_null = "test/data/null.file"
-$empty = "test/data/empty.container"
-$empty_zip = "test/data/empty.zip"
-$compressed_mimetype = "test/data/compressed_mimetype.container"
-$example = "test/data/example.container"
-$subclass = "test/data/subclassed.container"
+  # Check that the empty directory does not verify.
+  def test_verify_empty_directory
+    assert_raise(ZipContainer::MalformedContainerError) do
+      ZipContainer::Dir.verify!($dir_null)
+    end
 
-# Run test cases.
-require 'tc_util'
-require 'tc_exceptions'
-require 'tc_create_file'
-require 'tc_read_dir'
-require 'tc_read_file'
-require 'tc_reserved_names'
-require 'tc_managed_entries'
+    refute(ZipContainer::Dir.verify($dir_null))
+  end
+
+  # Check that the empty container directory does verify.
+  def test_verify_empty_container
+    assert_nothing_raised(ZipContainer::MalformedContainerError) do
+      ZipContainer::Dir.verify!($dir_empty)
+    end
+
+    assert(ZipContainer::Dir.verify($dir_empty))
+  end
+
+end
