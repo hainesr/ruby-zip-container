@@ -116,26 +116,6 @@ module ZipContainer
     end
 
     # :call-seq:
-    #   File.open(filename) -> document
-    #   File.open(filename) {|document| ...}
-    #
-    # Open an existing ZipContainer file from disk. It will be checked for
-    # conformance upon first access.
-    def self.open(filename, &block)
-      c = new(filename)
-
-      if block_given?
-        begin
-          yield c
-        ensure
-          c.close
-        end
-      end
-
-      c
-    end
-
-    # :call-seq:
     #   File.verify(filename) -> boolean
     #
     # Verify that the specified ZipContainer file conforms to the

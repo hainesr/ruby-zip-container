@@ -64,6 +64,26 @@ module ZipContainer
     # :startdoc:
 
     # :call-seq:
+    #   open(filename) -> container
+    #   open(filename) {|container| ...}
+    #
+    # Open an existing ZipContainer. It will be checked for conformance upon
+    # first access.
+    def self.open(filename, &block)
+      c = new(filename)
+
+      if block_given?
+        begin
+          yield c
+        ensure
+          c.close
+        end
+      end
+
+      c
+    end
+
+    # :call-seq:
     #   verify!
     #
     # Verify the contents of this ZipContainer file. All managed files and
