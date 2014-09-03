@@ -47,7 +47,7 @@ $subclass = "test/data/subclassed.container"
 # Run test cases.
 require 'tc_util'
 require 'tc_exceptions'
-require 'tc_create'
-require 'tc_read'
+require 'tc_create_file'
+require 'tc_read_file'
 require 'tc_reserved_names'
 require 'tc_managed_entries'
