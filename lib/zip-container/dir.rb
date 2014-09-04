@@ -67,7 +67,7 @@ module ZipContainer
     # the specified mimetype.
     def self.create(pathname, mimetype, &block)
       ::Dir.mkdir(pathname) unless ::File.directory?(pathname)
-      ::File.write(::File.join(pathname, MIMETYPE_FILE), mimetype)
+      ::File.write(full_path(MIMETYPE_FILE), mimetype)
 
       # Now open the newly created container.
       c = new(pathname)
@@ -85,12 +85,19 @@ module ZipContainer
 
     private
 
+    # Prepend the full path of the directory name to whatever is passed in
+    # here. This is for internal use to ensure we are always operating on
+    # files within our container directory.
+    def full_path(path)
+      ::File.join(@container.path, path)
+    end
+
     def open_container(location)
       ::Dir.new(location)
     end
 
     def verify_mimetype
-      mime_path = ::File.join(@container.path, MIMETYPE_FILE)
+      mime_path = full_path(MIMETYPE_FILE)
       if ::File.exist?(mime_path)
         return "'mimetype' is not a regular file" unless ::File.file?(mime_path)
         return "'mimetype' is not readable." unless ::File.readable?(mime_path)
@@ -100,7 +107,7 @@ module ZipContainer
     end
 
     def read_mimetype
-      ::File.read(::File.join(@container.path, MIMETYPE_FILE))
+      ::File.read(full_path(MIMETYPE_FILE))
     end
 
   end
