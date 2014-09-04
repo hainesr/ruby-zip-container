@@ -110,6 +110,83 @@ module ZipContainer
       ::File.read(full_path(MIMETYPE_FILE))
     end
 
+    public
+
+    # Lots of extra docs out of the way at the end here...
+
+    ##
+    # :method: close
+    # :call-seq:
+    #   close -> nil
+    #
+    # Equal to
+    # {::Dir.close}[http://ruby-doc.org/core-1.9.3/Dir.html#method-i-close]
+
+    ##
+    # :method: each
+    # :call-seq:
+    #   each { |filename| ... } -> dir
+    #   each -> an_enumerator
+    #
+    # Equal to
+    # {::Dir.each}[http://ruby-doc.org/core-1.9.3/Dir.html#method-i-each]
+
+    ##
+    # :method: path
+    # :call-seq:
+    #   path -> string or nil
+    #
+    # Equal to
+    # {::Dir.path}[http://ruby-doc.org/core-1.9.3/Dir.html#method-i-path]
+
+    ##
+    # :method: pos
+    # :call-seq:
+    #   pos -> integer
+    #
+    # Equal to
+    # {::Dir.pos}[http://ruby-doc.org/core-1.9.3/Dir.html#method-i-pos]
+
+    ##
+    # :method: pos=
+    # :call-seq:
+    #   pos = integer -> integer
+    #
+    # Equal to
+    # {::Dir.pos=}[http://ruby-doc.org/core-1.9.3/Dir.html#method-i-pos-3D]
+
+    ##
+    # :method: read
+    # :call-seq:
+    #   read -> string or nil
+    #
+    # Equal to
+    # {::Dir.read}[http://ruby-doc.org/core-1.9.3/Dir.html#method-i-read]
+
+    ##
+    # :method: rewind
+    # :call-seq:
+    #   rewind -> dir
+    #
+    # Equal to
+    # {::Dir.rewind}[http://ruby-doc.org/core-1.9.3/Dir.html#method-i-rewind]
+
+    ##
+    # :method: seek
+    # :call-seq:
+    #   seek(integer) -> dir
+    #
+    # Equal to
+    # {::Dir.seek}[http://ruby-doc.org/core-1.9.3/Dir.html#method-i-seek]
+
+    ##
+    # :method: tell
+    # :call-seq:
+    #   tell -> integer
+    #
+    # Equal to
+    # {::Dir.tell}[http://ruby-doc.org/core-1.9.3/Dir.html#method-i-tell]
+
   end
 
 end
