@@ -53,4 +53,13 @@ class TestRead < Test::Unit::TestCase
     assert(ZipContainer::Dir.verify($dir_empty))
   end
 
+  # Check that a mimetype entry that is a directory does not verify.
+  def test_verify_mimetype_directory
+    assert_raise(ZipContainer::MalformedContainerError) do
+      ZipContainer::Dir.verify!($dir_dir_mimetype)
+    end
+
+    refute(ZipContainer::Dir.verify($dir_dir_mimetype))
+  end
+
 end

@@ -39,6 +39,7 @@ $mimetype = "application/epub+zip"
 # Example data files
 $dir_null = "test/data/dirs/null"
 $dir_empty = "test/data/dirs/empty"
+$dir_dir_mimetype = "test/data/dirs/dir-mimetype"
 $file_null = "test/data/null.file"
 $empty = "test/data/empty.container"
 $empty_zip = "test/data/empty.zip"
