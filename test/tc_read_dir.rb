@@ -31,6 +31,7 @@
 # Author: Robert Haines
 
 require 'test/unit'
+require 'tmpdir'
 require 'zip-container'
 
 class TestRead < Test::Unit::TestCase
@@ -60,6 +61,26 @@ class TestRead < Test::Unit::TestCase
     end
 
     refute(ZipContainer::Dir.verify($dir_dir_mimetype))
+  end
+
+  # Check that a mimetype which is not readable does not verify. We have to
+  # build this fixture programmatically as there's no way to add a file
+  # without read permissions into git.
+  def test_verify_unreadable_mimetype
+    Dir.mktmpdir do |dir|
+      container = File.join(dir, "unreadable")
+      Dir.mkdir(container)
+      mime_path = File.join(container, ZipContainer::Container::MIMETYPE_FILE)
+      File.open(mime_path, "w") { |file| file.write "MIMETYPE" }
+      File.chmod(0000, mime_path)
+
+      refute File.readable?(mime_path)
+      assert_raise(ZipContainer::MalformedContainerError) do
+        ZipContainer::Dir.verify!(container)
+      end
+
+      refute(ZipContainer::Dir.verify(container))
+    end
   end
 
 end
