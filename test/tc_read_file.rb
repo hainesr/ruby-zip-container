@@ -33,7 +33,7 @@
 require 'test/unit'
 require 'zip-container'
 
-class TestRead < Test::Unit::TestCase
+class TestReadFile < Test::Unit::TestCase
 
   # Check that the null file does not verify.
   def test_verify_null_file

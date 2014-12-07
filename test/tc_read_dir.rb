@@ -34,7 +34,7 @@ require 'test/unit'
 require 'tmpdir'
 require 'zip-container'
 
-class TestRead < Test::Unit::TestCase
+class TestReadDir < Test::Unit::TestCase
 
   # Check that the empty directory does not verify.
   def test_verify_empty_directory
