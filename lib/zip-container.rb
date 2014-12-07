@@ -43,7 +43,9 @@ require 'zip-container/entries/managed'
 require 'zip-container/entries/entry'
 require 'zip-container/entries/file'
 require 'zip-container/entries/directory'
+require 'zip-container/container'
 require 'zip-container/file'
+require 'zip-container/dir'
 
 # This is a ruby library to read and write ZIP Container Format files. See the
 # ZipContainer::Container class for more information.

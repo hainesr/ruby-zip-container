@@ -45,35 +45,19 @@ module ZipContainer
   # alongside these pages.
   #
   # There are code examples available with the source code of this library.
-  class File
-    include ReservedNames
-    include ManagedEntries
+  class File < Container
 
     extend Forwardable
-    def_delegators :@zipfile, :comment, :comment=, :commit_required?, :each,
+    def_delegators :@container, :comment, :comment=, :commit_required?, :each,
       :entries, :extract, :get_input_stream, :name, :read, :size
 
     private_class_method :new
 
-    # The mime-type of this ZipContainer file.
-    attr_reader :mimetype
-
     # :stopdoc:
-    # The reserved mimetype file name for standard ZipContainer documents.
-    MIMETYPE_FILE = "mimetype"
+    def initialize(location)
+      super(location)
 
-    def initialize(document)
-      @zipfile = open_document(document)
-      check_mimetype!
-
-      @mimetype = read_mimetype
       @on_disk = true
-
-      # Reserved entry names. Just the mimetype file by default.
-      register_reserved_name(MIMETYPE_FILE)
-
-      # Initialize the managed entry tables.
-      initialize_managed_entries
 
       # Here we fake up the connection to the rubyzip filesystem classes so
       # that they also respect the reserved names that we define.
@@ -132,53 +116,6 @@ module ZipContainer
     end
 
     # :call-seq:
-    #   File.open(filename) -> document
-    #   File.open(filename) {|document| ...}
-    #
-    # Open an existing ZipContainer file from disk. It will be checked for
-    # conformance upon first access.
-    def self.open(filename, &block)
-      c = new(filename)
-
-      if block_given?
-        begin
-          yield c
-        ensure
-          c.close
-        end
-      end
-
-      c
-    end
-
-    # :call-seq:
-    #   File.verify(filename) -> boolean
-    #
-    # Verify that the specified ZipContainer file conforms to the
-    # specification. This method returns +false+ if there are any problems at
-    # all with the file (including if it cannot be found).
-    def self.verify(filename)
-      begin
-        new(filename).verify!
-      rescue
-        return false
-      end
-
-      true
-    end
-
-    # :call-seq:
-    #   File.verify!(filename)
-    #
-    # Verify that the specified ZipContainer file conforms to the
-    # specification. This method raises exceptions when errors are found or if
-    # there is something fundamental wrong with the file itself (e.g. it
-    # cannot be found).
-    def self.verify!(filename)
-      new(filename).verify!
-    end
-
-    # :call-seq:
     #   add(entry, src_path, &continue_on_exists_proc)
     #
     # Convenience method for adding the contents of a file to the ZipContainer
@@ -193,7 +130,7 @@ module ZipContainer
         raise ReservedNameClashError.new(entry.to_s)
       end
 
-      @zipfile.add(entry, src_path, &continue_on_exists_proc)
+      @container.add(entry, src_path, &continue_on_exists_proc)
     end
 
     # :call-seq:
@@ -207,7 +144,7 @@ module ZipContainer
       return false unless commit_required?
 
       if on_disk?
-        @zipfile.commit
+        @container.commit
       end
     end
 
@@ -251,7 +188,7 @@ module ZipContainer
         return if hidden_entry?(entry_name)
       end
 
-      @zipfile.find_entry(entry_name)
+      @container.find_entry(entry_name)
     end
 
     # :call-seq:
@@ -268,7 +205,7 @@ module ZipContainer
         raise Errno::ENOENT, entry if hidden_entry?(entry)
       end
 
-      @zipfile.get_entry(entry)
+      @container.get_entry(entry)
     end
 
     # :call-seq:
@@ -286,7 +223,7 @@ module ZipContainer
         raise ReservedNameClashError.new(entry.to_s)
       end
 
-      @zipfile.get_output_stream(entry, permission, &block)
+      @container.get_output_stream(entry, permission, &block)
     end
 
     # :call-seq:
@@ -347,7 +284,7 @@ module ZipContainer
         raise ReservedNameClashError.new(name)
       end
 
-      @zipfile.mkdir(name, permission)
+      @container.mkdir(name, permission)
     end
 
     # :call-seq:
@@ -366,7 +303,7 @@ module ZipContainer
     # method will do nothing.
     def remove(entry)
       return if reserved_entry?(entry)
-      @zipfile.remove(entry)
+      @container.remove(entry)
     end
 
     # :call-seq:
@@ -383,7 +320,7 @@ module ZipContainer
       return if reserved_entry?(entry)
       raise ReservedNameClashError.new(new_name) if reserved_entry?(new_name)
 
-      @zipfile.rename(entry, new_name, &continue_on_exists_proc)
+      @container.rename(entry, new_name, &continue_on_exists_proc)
     end
 
     # :call-seq:
@@ -395,7 +332,7 @@ module ZipContainer
     # nothing.
     def replace(entry, src_path)
       return if reserved_entry?(entry)
-      @zipfile.replace(entry, src_path)
+      @container.replace(entry, src_path)
     end
 
     # :call-seq:
@@ -403,41 +340,30 @@ module ZipContainer
     #
     # Return a textual summary of this ZipContainer file.
     def to_s
-      @zipfile.to_s + " - #{@mimetype}"
-    end
-
-    # :call-seq:
-    #   verify!
-    #
-    # Verify the contents of this ZipContainer file. All managed files and
-    # directories are checked to make sure that they exist, if required.
-    def verify!
-      verify_managed_entries!
+      @container.to_s + " - #{@mimetype}"
     end
 
     private
 
-    def open_document(document)
+    def open_container(document)
       ::Zip::File.new(document)
     end
 
-    def check_mimetype!
+    def verify_mimetype
       # Check mimetype file is present and correct.
-      entry = @zipfile.find_entry(MIMETYPE_FILE)
+      entry = @container.find_entry(MIMETYPE_FILE)
 
-      raise MalformedContainerError.new("'mimetype' file is missing.") if entry.nil?
+      return "'mimetype' file is missing." if entry.nil?
       if entry.local_header_offset != 0
-        raise MalformedContainerError.new("'mimetype' file is not at offset 0 in the archive.")
+        return "'mimetype' file is not at offset 0 in the archive."
       end
       if entry.compression_method != ::Zip::Entry::STORED
-        raise MalformedContainerError.new("'mimetype' file is compressed.")
+        return "'mimetype' file is compressed."
       end
-
-      true
     end
 
     def read_mimetype
-      @zipfile.read(MIMETYPE_FILE)
+      @container.read(MIMETYPE_FILE)
     end
 
     public
