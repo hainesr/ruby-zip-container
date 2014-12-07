@@ -1,5 +1,22 @@
 = Changes log for the ZIP Container Ruby Gem
 
+== Version 2.1.0
+
+* Set up the Container superclass.
+* Open the container from the superclass.
+* Check and read the mimetype file in the superclass.
+* Initialize reserved names and managed entries in the superclass.
+* Refactor mimetype verification.
+* Move container verification into the superclass.
+* Update the example scripts to the new API.
+* Move ::open to the Container superclass.
+* Move ::verify and ::verify! to the superclass.
+* Add the ZipContainer::Dir class.
+* Add a test for a mimetype entry that is a directory.
+* Add a test for an unreadable mimetype file.
+* Update dependencies.
+* Disambiguate the two test classes for File and Dir.
+
 == Version 2.0.0
 
 * Change API: Container => File.
