@@ -26,12 +26,15 @@ releases.
 
 === ZipContainer
 
-The ZipContainer::Container class is deprecated in favour of
-ZipContainer::File. These classes are functionally identical; it is just a
-change of name. The new name brings this API into closer alignment with the
-underlying rubyzip API (Zip::File).
+The ZipContainer::Container class is now a common superclass of
+ZipContainer::Dir and ZipContainer::File. You can use ZipContainer::File as a
+direct replacement for ZipContainer::Container as the functionality is
+preserved. The new names bring this API into closer alignment with the
+underlying rubyzip API (Zip::File) and allows this library to work with
+"exploded" or unpacked containers directly.
 
-ZipContainer::Container is unavailable from version 2.0.0 onwards.
+ZipContainer::Container should not be used directly from version 2.0.0
+onwards.
 
 === Rubyzip
 
