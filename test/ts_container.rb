@@ -50,6 +50,7 @@ $subclass = "test/data/subclassed.container"
 # Run test cases.
 require 'tc_util'
 require 'tc_exceptions'
+require 'tc_create_dir'
 require 'tc_create_file'
 require 'tc_read_dir'
 require 'tc_read_file'

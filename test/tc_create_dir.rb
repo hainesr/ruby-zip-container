@@ -31,35 +31,29 @@
 # Author: Robert Haines
 
 require 'test/unit'
+require 'tmpdir'
 require 'zip-container'
 
-class TestReadDir < Test::Unit::TestCase
+class TestCreateDir < Test::Unit::TestCase
 
-  # Check that the empty directory does not verify.
-  def test_verify_empty_directory
-    assert_raise(ZipContainer::MalformedContainerError) do
-      ZipContainer::Dir.verify!($dir_null)
+  # Check that a mimetype which is not readable does not verify. We have to
+  # build this fixture programmatically as there's no way to add a file
+  # without read permissions into git.
+  def test_verify_unreadable_mimetype
+    Dir.mktmpdir do |dir|
+      container = File.join(dir, "unreadable")
+      Dir.mkdir(container)
+      mime_path = File.join(container, ZipContainer::Container::MIMETYPE_FILE)
+      File.open(mime_path, "w") { |file| file.write "MIMETYPE" }
+      File.chmod(0000, mime_path)
+
+      refute File.readable?(mime_path)
+      assert_raise(ZipContainer::MalformedContainerError) do
+        ZipContainer::Dir.verify!(container)
+      end
+
+      refute(ZipContainer::Dir.verify(container))
     end
-
-    refute(ZipContainer::Dir.verify($dir_null))
-  end
-
-  # Check that the empty container directory does verify.
-  def test_verify_empty_container
-    assert_nothing_raised(ZipContainer::MalformedContainerError) do
-      ZipContainer::Dir.verify!($dir_empty)
-    end
-
-    assert(ZipContainer::Dir.verify($dir_empty))
-  end
-
-  # Check that a mimetype entry that is a directory does not verify.
-  def test_verify_mimetype_directory
-    assert_raise(ZipContainer::MalformedContainerError) do
-      ZipContainer::Dir.verify!($dir_dir_mimetype)
-    end
-
-    refute(ZipContainer::Dir.verify($dir_dir_mimetype))
   end
 
 end
