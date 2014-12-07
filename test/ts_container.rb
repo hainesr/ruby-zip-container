@@ -37,6 +37,9 @@ Coveralls.wear!
 $mimetype = "application/epub+zip"
 
 # Example data files
+$dir_null = "test/data/dirs/null"
+$dir_empty = "test/data/dirs/empty"
+$dir_dir_mimetype = "test/data/dirs/dir-mimetype"
 $file_null = "test/data/null.file"
 $empty = "test/data/empty.container"
 $empty_zip = "test/data/empty.zip"
@@ -47,7 +50,8 @@ $subclass = "test/data/subclassed.container"
 # Run test cases.
 require 'tc_util'
 require 'tc_exceptions'
-require 'tc_create'
-require 'tc_read'
+require 'tc_create_file'
+require 'tc_read_dir'
+require 'tc_read_file'
 require 'tc_reserved_names'
 require 'tc_managed_entries'
