@@ -34,7 +34,7 @@ require 'test/unit'
 require 'tmpdir'
 require 'zip-container'
 
-class TestCreation < Test::Unit::TestCase
+class TestCreateFile < Test::Unit::TestCase
 
   # Check creation of standard empty container files.
   def test_create_standard_file
