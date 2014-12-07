@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class ZipContainer::File -  ZIP Container Format Ruby Library version 2.1.0</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="Container.html">ZipContainer::Container</a>
+  
+</div>
+
+    
+    <div id="extends-section" class="nav-section">
+  <h3>Extended With Modules</h3>
+
+  <ul class="link-list">
+    
+  
+    <li><span class="extend">Forwardable</span>
+  
+  
+  </ul>
+</div>
+
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-create">::create</a>
+    
+    <li ><a href="#method-c-each_entry">::each_entry</a>
+    
+    <li ><a href="#method-i-add">#add</a>
+    
+    <li ><a href="#method-i-close">#close</a>
+    
+    <li ><a href="#method-i-comment">#comment</a>
+    
+    <li ><a href="#method-i-comment-3D">#comment=</a>
+    
+    <li ><a href="#method-i-commit">#commit</a>
+    
+    <li ><a href="#method-i-commit_required-3F">#commit_required?</a>
+    
+    <li ><a href="#method-i-dir">#dir</a>
+    
+    <li ><a href="#method-i-each">#each</a>
+    
+    <li ><a href="#method-i-entries">#entries</a>
+    
+    <li ><a href="#method-i-extract">#extract</a>
+    
+    <li ><a href="#method-i-file">#file</a>
+    
+    <li ><a href="#method-i-find_entry">#find_entry</a>
+    
+    <li ><a href="#method-i-get_entry">#get_entry</a>
+    
+    <li ><a href="#method-i-get_input_stream">#get_input_stream</a>
+    
+    <li ><a href="#method-i-get_output_stream">#get_output_stream</a>
+    
+    <li ><a href="#method-i-glob">#glob</a>
+    
+    <li ><a href="#method-i-in_memory-3F">#in_memory?</a>
+    
+    <li ><a href="#method-i-mkdir">#mkdir</a>
+    
+    <li ><a href="#method-i-name">#name</a>
+    
+    <li ><a href="#method-i-on_disk-3F">#on_disk?</a>
+    
+    <li ><a href="#method-i-read">#read</a>
+    
+    <li ><a href="#method-i-remove">#remove</a>
+    
+    <li ><a href="#method-i-rename">#rename</a>
+    
+    <li ><a href="#method-i-replace">#replace</a>
+    
+    <li ><a href="#method-i-size">#size</a>
+    
+    <li ><a href="#method-i-to_s">#to_s</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-ZipContainer::File">
+  <h1 id="class-ZipContainer::File" class="class">
+    class ZipContainer::File
+  </h1>
+
+  <section class="description">
+    
+<p>This class represents a <a href="../ZipContainer.html">ZipContainer</a>
+file in PK Zip format. See the <a
+href="http://www.idpf.org/epub/30/spec/epub30-ocf.html">OCF</a> and <a
+href="https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format">UCF</a>
+specifications for more details.</p>
+
+<p>This class provides most of the facilities of the <code>Zip::File</code>
+class in the rubyzip gem. Please also consult the <a
+href="http://rubydoc.info/gems/rubyzip/1.1.0/frames">rubyzip
+documentation</a> alongside these pages.</p>
+
+<p>There are code examples available with the source code of this library.</p>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-create" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            create(filename, mimetype) &rarr; document
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            create(filename, mimetype) {|document| ...}
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Create a new <a href="../ZipContainer.html">ZipContainer</a> file on disk
+with the specified mimetype.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="create-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 77</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-identifier">mimetype</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-operator">::</span><span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">OutputStream</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">filename</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">stream</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">stream</span>.<span class="ruby-identifier">put_next_entry</span>(<span class="ruby-constant">MIMETYPE_FILE</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-operator">::</span><span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Entry</span><span class="ruby-operator">::</span><span class="ruby-constant">STORED</span>)
+    <span class="ruby-identifier">stream</span>.<span class="ruby-identifier">write</span> <span class="ruby-identifier">mimetype</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># Now open the newly created container.</span>
+  <span class="ruby-identifier">c</span> = <span class="ruby-identifier">new</span>(<span class="ruby-identifier">filename</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-keyword">yield</span> <span class="ruby-identifier">c</span>
+    <span class="ruby-keyword">ensure</span>
+      <span class="ruby-identifier">c</span>.<span class="ruby-identifier">close</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">c</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-each_entry" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            each_entry &rarr; Enumerator
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            each_entry {|entry| ...}
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Iterate over the entries in the <a
+href="../ZipContainer.html">ZipContainer</a> file. The entry objects
+returned by this method are Zip::Entry objects. Please see the rubyzip
+documentation for details.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="each_entry-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 104</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">each_entry</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">c</span> = <span class="ruby-identifier">new</span>(<span class="ruby-identifier">filename</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-identifier">c</span>.<span class="ruby-identifier">each</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+    <span class="ruby-keyword">ensure</span>
+      <span class="ruby-identifier">c</span>.<span class="ruby-identifier">close</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">c</span>.<span class="ruby-identifier">each</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-add" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            add(entry, src_path, &amp;continue_on_exists_proc)
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Convenience method for adding the contents of a file to the <a
+href="../ZipContainer.html">ZipContainer</a> file. If asked to add a file
+with a reserved name, such as the special mimetype header file, this method
+will raise a <a
+href="ReservedNameClashError.html">ReservedNameClashError</a>.</p>
+
+<p>See the rubyzip documentation for details of the
+<code>continue_on_exists_proc</code> parameter.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="add-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 128</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">add</span>(<span class="ruby-identifier">entry</span>, <span class="ruby-identifier">src_path</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">continue_on_exists_proc</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">reserved_entry?</span>(<span class="ruby-identifier">entry</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">managed_directory?</span>(<span class="ruby-identifier">entry</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ReservedNameClashError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">entry</span>.<span class="ruby-identifier">to_s</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-ivar">@container</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">entry</span>, <span class="ruby-identifier">src_path</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">continue_on_exists_proc</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-close" class="method-detail method-alias">
+        
+        <div class="method-heading">
+          <span class="method-name">close</span><span
+            class="method-args">()</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+        </div>
+
+        
+
+        
+        <div class="aliases">
+          Alias for: <a href="File.html#method-i-commit">commit</a>
+        </div>
+        
+      </div>
+
+    
+      <div id="method-i-comment" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            comment &rarr; String
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Returns the <a href="../ZipContainer.html">ZipContainer</a> file comment,
+if it has one.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="comment-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 380</span>
+    </pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-comment-3D" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            comment = comment
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Set the <a href="../ZipContainer.html">ZipContainer</a> file comment to the
+new value.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="comment-3D-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 387</span>
+    </pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-commit" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            commit &rarr; boolean
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            close &rarr; boolean
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Commits changes that have been made since the previous commit to the <a
+href="../ZipContainer.html">ZipContainer</a> file. Returns
+<code>true</code> if anything was actually done, <code>false</code>
+otherwise.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="commit-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 143</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">commit</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">commit_required?</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">on_disk?</span>
+    <span class="ruby-ivar">@container</span>.<span class="ruby-identifier">commit</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+        <div class="aliases">
+          Also aliased as: <a href="File.html#method-i-close">close</a>
+        </div>
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-commit_required-3F" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            commit_required? &rarr; boolean
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Returns <code>true</code> if any changes have been made to this <a
+href="../ZipContainer.html">ZipContainer</a> file since the last commit,
+<code>false</code> otherwise.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="commit_required-3F-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 395</span>
+    </pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-dir" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            dir &rarr; Zip::ZipFsDir
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Returns an object which can be used like ruby’s built in <code>Dir</code>
+(class) object, except that it works on the <a
+href="../ZipContainer.html">ZipContainer</a> file on which this method is
+invoked.</p>
+
+<p>See the rubyzip documentation for details.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="dir-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 161</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dir</span>
+  <span class="ruby-ivar">@fs_dir</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-each" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            each &rarr; Enumerator
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            each {|entry| ...}
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Iterate over the entries in the <a
+href="../ZipContainer.html">ZipContainer</a> file. The entry objects
+returned by this method are Zip::Entry objects. Please see the rubyzip
+documentation for details.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="each-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 405</span>
+    </pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-entries" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            entries &rarr; Enumerable
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Returns an Enumerable containing all the entries in the <a
+href="../ZipContainer.html">ZipContainer</a> file The entry objects
+returned by this method are Zip::Entry objects. Please see the rubyzip
+documentation for details.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="entries-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 414</span>
+    </pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-extract" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            extract(entry, dest_path, &amp;on_exists_proc)
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Extracts the specified entry of the <a
+href="../ZipContainer.html">ZipContainer</a> file to
+<code>dest_path</code>.</p>
+
+<p>See the rubyzip documentation for details of the
+<code>on_exists_proc</code> parameter.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="extract-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 424</span>
+    </pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-file" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            file &rarr; Zip::ZipFsFile
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Returns an object which can be used like ruby’s built in <code>File</code>
+(class) object, except that it works on the <a
+href="../ZipContainer.html">ZipContainer</a> file on which this method is
+invoked.</p>
+
+<p>See the rubyzip documentation for details.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="file-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 173</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">file</span>
+  <span class="ruby-ivar">@fs_file</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-find_entry" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            find_entry(entry_name, options = {}) &rarr; Zip::Entry or nil
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Searches for the entry with the specified name. Returns <code>nil</code> if
+no entry is found or if the specified entry is hidden for normal use. You
+can specify <code>:include_hidden =&gt; true</code> to include hidden
+entries in the search.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="find_entry-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 184</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">find_entry</span>(<span class="ruby-identifier">entry_name</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-identifier">options</span> = {<span class="ruby-value">:include_hidden</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>}.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">options</span>)
+
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:include_hidden</span>]
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">hidden_entry?</span>(<span class="ruby-identifier">entry_name</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-ivar">@container</span>.<span class="ruby-identifier">find_entry</span>(<span class="ruby-identifier">entry_name</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_entry" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            get_entry(entry, options = {}) &rarr; Zip::Entry or nil
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Searches for an entry like <a
+href="File.html#method-i-find_entry">#find_entry</a>, but throws
+Errno::ENOENT if no entry is found or if the specified entry is hidden for
+normal use. You can specify <code>:include_hidden =&gt; true</code> to
+include hidden entries in the search.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="get_entry-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 201</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_entry</span>(<span class="ruby-identifier">entry</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-identifier">options</span> = {<span class="ruby-value">:include_hidden</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>}.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">options</span>)
+
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:include_hidden</span>]
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">ENOENT</span>, <span class="ruby-identifier">entry</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">hidden_entry?</span>(<span class="ruby-identifier">entry</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-ivar">@container</span>.<span class="ruby-identifier">get_entry</span>(<span class="ruby-identifier">entry</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_input_stream" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            get_input_stream(entry) &rarr; stream
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            get_input_stream(entry) {|stream| ...}
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Returns an input stream to the specified entry. If a block is passed the
+stream object is passed to the block and the stream is automatically closed
+afterwards just as with ruby’s built in <code>File.open</code> method.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="get_input_stream-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 450</span>
+    </pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_output_stream" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            get_output_stream(entry, permission = nil) &rarr; stream
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            get_output_stream(entry, permission = nil) {|stream| ...}
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Returns an output stream to the specified entry. If a block is passed the
+stream object is passed to the block and the stream is automatically closed
+afterwards just as with ruby’s built-in <code>File.open</code> method.</p>
+
+<p>See the rubyzip documentation for details of the
+<code>permission_int</code> parameter.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="get_output_stream-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 221</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_output_stream</span>(<span class="ruby-identifier">entry</span>, <span class="ruby-identifier">permission</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">reserved_entry?</span>(<span class="ruby-identifier">entry</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">managed_directory?</span>(<span class="ruby-identifier">entry</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ReservedNameClashError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">entry</span>.<span class="ruby-identifier">to_s</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-ivar">@container</span>.<span class="ruby-identifier">get_output_stream</span>(<span class="ruby-identifier">entry</span>, <span class="ruby-identifier">permission</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-glob" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            glob(pattern) &rarr; Array
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            glob(pattern) { |entry| ... }
+          </span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            glob(pattern, *parameters) &rarr; Array
+          </span>
+          
+        </div>
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            glob(pattern, *parameters) { |entry| ... }
+          </span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Searches for entries given a glob. Hidden files are ignored by default.</p>
+
+<p>The parameters that can be supplied are:</p>
+<ul><li>
+<p><code>flags</code> - A bitwise OR of the <code>FNM_xxx</code> parameters
+defined in File::Constants. The default value is <code>::File::FNM_PATHNAME
+| ::File::FNM_DOTMATCH</code></p>
+</li><li>
+<p><code>options</code> - <code>:include_hidden =&gt; true</code> will include
+hidden entries in the search.</p>
+</li></ul>
+          
+          
+
+          
+          <div class="method-source-code" id="glob-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 243</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">glob</span>(<span class="ruby-identifier">pattern</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">params</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+  <span class="ruby-identifier">flags</span> = <span class="ruby-operator">::</span><span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">FNM_PATHNAME</span> <span class="ruby-operator">|</span> <span class="ruby-operator">::</span><span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">FNM_DOTMATCH</span>
+  <span class="ruby-identifier">options</span> = { <span class="ruby-value">:include_hidden</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span> }
+
+  <span class="ruby-identifier">params</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">param</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">case</span> <span class="ruby-identifier">param</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-constant">Hash</span>
+      <span class="ruby-identifier">options</span> = <span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">param</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">flags</span> = <span class="ruby-identifier">param</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">entries</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">entry</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">next</span> <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">options</span>[<span class="ruby-value">:include_hidden</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">hidden_entry?</span>(<span class="ruby-identifier">entry</span>)
+    <span class="ruby-keyword">next</span> <span class="ruby-keyword">unless</span> <span class="ruby-operator">::</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">fnmatch</span>(<span class="ruby-identifier">pattern</span>, <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">name</span>.<span class="ruby-identifier">chomp</span>(<span class="ruby-string">'/'</span>), <span class="ruby-identifier">flags</span>)
+    <span class="ruby-keyword">yield</span>(<span class="ruby-identifier">entry</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+    <span class="ruby-identifier">entry</span>
+  <span class="ruby-keyword">end</span>.<span class="ruby-identifier">compact</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-in_memory-3F" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            in_memory? &rarr; boolean
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Is this <a href="../ZipContainer.html">ZipContainer</a> file memory
+resident as opposed to stored on disk?</p>
+          
+          
+
+          
+          <div class="method-source-code" id="in_memory-3F-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 268</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">in_memory?</span>
+  <span class="ruby-operator">!</span><span class="ruby-ivar">@on_disk</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-mkdir" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            mkdir(name, permission = 0755)
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Creates a directory in the <a href="../ZipContainer.html">ZipContainer</a>
+file. If asked to create a directory with a name reserved for use by a file
+this method will raise a <a
+href="ReservedNameClashError.html">ReservedNameClashError</a>.</p>
+
+<p>The new directory will be created with the supplied unix-style permissions.
+The default (<code>0755</code>) is owner read, write and list; group read
+and list; and world read and list.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="mkdir-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 282</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">mkdir</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">permission</span> = <span class="ruby-value">0755</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">reserved_entry?</span>(<span class="ruby-identifier">name</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">managed_file?</span>(<span class="ruby-identifier">name</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ReservedNameClashError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">name</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-ivar">@container</span>.<span class="ruby-identifier">mkdir</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">permission</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-name" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            name &rarr; String
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Returns the filename of this <a
+href="../ZipContainer.html">ZipContainer</a> file.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="name-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 469</span>
+    </pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_disk-3F" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            on_disk? &rarr; boolean
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Is this <a href="../ZipContainer.html">ZipContainer</a> file stored on disk
+as opposed to memory resident?</p>
+          
+          
+
+          
+          <div class="method-source-code" id="on_disk-3F-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 294</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_disk?</span>
+  <span class="ruby-ivar">@on_disk</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-read" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            read(entry) &rarr; String
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Returns a string containing the contents of the specified entry.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="read-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 476</span>
+    </pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-remove" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            remove(entry)
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Removes the specified entry from the <a
+href="../ZipContainer.html">ZipContainer</a> file. If asked to remove any
+reserved files such as the special mimetype header file this method will do
+nothing.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="remove-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 304</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">remove</span>(<span class="ruby-identifier">entry</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">reserved_entry?</span>(<span class="ruby-identifier">entry</span>)
+  <span class="ruby-ivar">@container</span>.<span class="ruby-identifier">remove</span>(<span class="ruby-identifier">entry</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-rename" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            rename(entry, new_name, &amp;continue_on_exists_proc)
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Renames the specified entry in the <a
+href="../ZipContainer.html">ZipContainer</a> file. If asked to rename any
+reserved files such as the special mimetype header file this method will do
+nothing. If asked to rename a file <em>to</em> one of the reserved names a
+<a href="ReservedNameClashError.html">ReservedNameClashError</a> is raised.</p>
+
+<p>See the rubyzip documentation for details of the
+<code>continue_on_exists_proc</code> parameter.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="rename-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 319</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">rename</span>(<span class="ruby-identifier">entry</span>, <span class="ruby-identifier">new_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">continue_on_exists_proc</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">reserved_entry?</span>(<span class="ruby-identifier">entry</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">ReservedNameClashError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">new_name</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">reserved_entry?</span>(<span class="ruby-identifier">new_name</span>)
+
+  <span class="ruby-ivar">@container</span>.<span class="ruby-identifier">rename</span>(<span class="ruby-identifier">entry</span>, <span class="ruby-identifier">new_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">continue_on_exists_proc</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-replace" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            replace(entry, src_path)
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Replaces the specified entry of the <a
+href="../ZipContainer.html">ZipContainer</a> file with the contents of
+<code>src_path</code> (from the file system). If asked to replace any
+reserved files such as the special mimetype header file this method will do
+nothing.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="replace-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 333</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">replace</span>(<span class="ruby-identifier">entry</span>, <span class="ruby-identifier">src_path</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">reserved_entry?</span>(<span class="ruby-identifier">entry</span>)
+  <span class="ruby-ivar">@container</span>.<span class="ruby-identifier">replace</span>(<span class="ruby-identifier">entry</span>, <span class="ruby-identifier">src_path</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-size" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            size &rarr; int
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Returns the number of entries in the <a
+href="../ZipContainer.html">ZipContainer</a> file.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="size-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 483</span>
+  </pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-to_s" class="method-detail ">
+        
+        
+        <div class="method-heading">
+          <span class="method-callseq">
+            to_s &rarr; String
+          </span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+        
+
+        <div class="method-description">
+          
+          <p>Return a textual summary of this <a
+href="../ZipContainer.html">ZipContainer</a> file.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="to_s-source">
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 342</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
+  <span class="ruby-ivar">@container</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-node">&quot; - #{@mimetype}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+
