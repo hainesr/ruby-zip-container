@@ -67,7 +67,7 @@ module ZipContainer
     # the specified mimetype.
     def self.create(pathname, mimetype, &block)
       ::Dir.mkdir(pathname) unless ::File.directory?(pathname)
-      ::File.write(full_path(MIMETYPE_FILE), mimetype)
+      ::File.write(::File.join(pathname, MIMETYPE_FILE), mimetype)
 
       # Now open the newly created container.
       c = new(pathname)
