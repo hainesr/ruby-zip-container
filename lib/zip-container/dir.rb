@@ -60,8 +60,8 @@ module ZipContainer
     # :startdoc:
 
     # :call-seq:
-    #   create(pathname, mimetype) -> document
-    #   create(pathname, mimetype) {|document| ...}
+    #   create(pathname, mimetype) -> container
+    #   create(pathname, mimetype) {|container| ...}
     #
     # Create a new (or convert an existing) directory as a ZipContainer with
     # the specified mimetype.

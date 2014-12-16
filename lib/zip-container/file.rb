@@ -70,8 +70,8 @@ module ZipContainer
     # :startdoc:
 
     # :call-seq:
-    #   File.create(filename, mimetype) -> document
-    #   File.create(filename, mimetype) {|document| ...}
+    #   File.create(filename, mimetype) -> container
+    #   File.create(filename, mimetype) {|container| ...}
     #
     # Create a new ZipContainer file on disk with the specified mimetype.
     def self.create(filename, mimetype, &block)
