@@ -1,5 +1,13 @@
 = Changes log for the ZIP Container Ruby Gem
 
+== Version 2.2.0
+
+* Fix pathname bug in ZipContainer::Dir.
+* Fixup docs to refer to containers rather than documents.
+* Fix the base class in the recursive methods.
+* Add an internal compatibility method Dir#entries.
+* Add a compatibility method Dir#read.
+
 == Version 2.1.0
 
 * Set up the Container superclass.
