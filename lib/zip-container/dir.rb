@@ -48,8 +48,8 @@ module ZipContainer
   class Dir < Container
 
     extend Forwardable
-    def_delegators :@container, :close, :each, :path, :pos, :pos=, :read,
-      :rewind, :seek, :tell
+    def_delegators :@container, :close, :each, :path, :pos, :pos=, :rewind,
+      :seek, :tell
 
     private_class_method :new
 
@@ -81,6 +81,23 @@ module ZipContainer
       end
 
       c
+    end
+
+    # :call-seq:
+    #   read
+    #   read(path) -> file contents
+    #
+    # Provides compatibility between directory and zip containers. If called
+    # without any parameters it acts like
+    # {::Dir.read}[http://ruby-doc.org/core-1.9.3/Dir.html#method-i-read] but
+    # if called with a path then it acts like
+    # {Zip::File#read}[http://www.rubydoc.info/gems/rubyzip/1.1.6/Zip/File#read-instance_method].
+    #
+    # Please see the documentation of the relevant method for more details.
+    def read(name = nil)
+      return @container.read if name.nil?
+
+      ::File.read(full_path(name))
     end
 
     # :stopdoc:
@@ -184,14 +201,6 @@ module ZipContainer
     #
     # Equal to
     # {::Dir.pos=}[http://ruby-doc.org/core-1.9.3/Dir.html#method-i-pos-3D]
-
-    ##
-    # :method: read
-    # :call-seq:
-    #   read -> string or nil
-    #
-    # Equal to
-    # {::Dir.read}[http://ruby-doc.org/core-1.9.3/Dir.html#method-i-read]
 
     ##
     # :method: rewind

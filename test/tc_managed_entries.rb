@@ -85,6 +85,28 @@ class ExampleZipContainer2 < ZipContainer::File
 
 end
 
+class ExampleDirContainer < ZipContainer::Dir
+
+  private_class_method :new
+
+  def initialize(filename)
+    super(filename)
+
+    valid = Proc.new { |contents| contents.match(/[Hh]ello/) }
+
+    test_file = ZipContainer::ManagedFile.new("test.txt")
+    register_managed_entry(ZipContainer::ManagedDirectory.new("dir",
+      :required => true, :entries => [test_file]))
+    register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt",
+      :required => true, :validation_proc => valid))
+  end
+
+  #def ExampleDirContainer.create(filename, &block)
+  #  super(filename, "application/example+zip", &block)
+  #end
+
+end
+
 class TestManagedEntries < Test::Unit::TestCase
 
   # Check that the example ZipContainer file does not validate as a
@@ -136,6 +158,38 @@ class TestManagedEntries < Test::Unit::TestCase
 
       assert_nothing_raised(ZipContainer::MalformedContainerError) do
         ZipContainer::File.verify!(filename)
+      end
+    end
+  end
+
+  # Check that a subclassed container with managed files verifies correctly.
+  def test_verify_subclassed_dir_container
+    assert_nothing_raised do
+      ExampleDirContainer.verify!($dir_managed)
+    end
+  end
+
+  # Create a subclassed container. Check it doesn't verify at first; satisfy
+  # the conditions; then assert that it verifies correctly.
+  def test_create_subclassed_dir_container
+    Dir.mktmpdir do |dir|
+      filename = File.join(dir, "test.container")
+
+      assert_nothing_raised do
+        ExampleDirContainer.create(filename, $mimetype) do |c|
+          assert_raises(ZipContainer::MalformedContainerError) do
+            c.verify!
+          end
+
+          Dir.mkdir(File.join(filename, "dir"))
+          File.open(File.join(filename, "greeting.txt"), "w") do |f|
+            f.puts "Yo means hello."
+          end
+
+          assert_nothing_raised(ZipContainer::MalformedContainerError) do
+            c.verify!
+          end
+        end
       end
     end
   end
