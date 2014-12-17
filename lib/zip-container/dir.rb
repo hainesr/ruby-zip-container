@@ -83,6 +83,36 @@ module ZipContainer
       c
     end
 
+    # :stopdoc:
+    # For internal use only!
+    # This method and the Entry and Entries classes provide compatibility
+    # between zip-style and dir-style entries
+    def entries
+      Entries.new(@container)
+    end
+
+    class Entries
+      include Enumerable
+
+      Entry = Struct.new(:name, :ftype)
+
+      def initialize(dir)
+        @entries = []
+
+        dir.each do |name|
+          type = ::File.directory?(name) ? :directory : :file
+          @entries << Entry.new(name, type)
+        end
+      end
+
+      def each(&block)
+        @entries.each do |entry|
+          yield entry
+        end
+      end
+    end
+    # :startdoc:
+
     private
 
     # Prepend the full path of the directory name to whatever is passed in
