@@ -103,37 +103,42 @@ module ZipContainer
     # :startdoc:
 
     # :call-seq:
-    #   verify -> true or false
+    #   verify -> Array
+    #
+    # Verify this ManagedEntry returning a list of reasons why it fails if it
+    # does so. The empty list is returned if verification passes.
+    #
+    # Subclasses should override this method if they require more complex
+    # verification to be done.
+    def verify
+      unless !@required || exists?
+        ["Entry '#{full_name}' is required but missing."]
+      else
+        []
+      end
+    end
+
+    # :call-seq:
+    #   verify? -> true or false
     #
     # Verify this ManagedEntry by checking that it exists if it is required
     # according to its Container specification and validating its contents if
     # necessary.
-    def verify
-      begin
-        verify!
-      rescue
-        return false
-      end
-
-      true
+    def verify?
+      verify.empty?
     end
-
-    protected
 
     # :call-seq:
     #   verify!
     #
     # Verify this ManagedEntry raising a MalformedContainerError if it
     # fails.
-    #
-    # Subclasses should override this method if they require more complex
-    # verification to be done.
     def verify!
-      unless !@required || exists?
-        raise MalformedContainerError.new("Entry '#{full_name}' is required "\
-          "but missing.")
-      end
+      messages = verify
+      raise MalformedContainerError.new(messages) unless messages.empty?
     end
+
+    protected
 
     # :call-seq:
     #   container -> Container

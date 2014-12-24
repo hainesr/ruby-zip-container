@@ -66,15 +66,18 @@ module ZipContainer
     end
 
     # :call-seq:
-    #   verify!
+    #   verify
     #
     # Verify this ManagedDirectory for correctness. ManagedFiles registered
     # within it are verified recursively.
     #
     # A MalformedContainerError is raised if it does not pass verification.
-    def verify!
-      super
-      @files.values.each { |f| f.verify! }
+    def verify
+      messages = super
+
+      @files.values.each { |f| messages + f.verify }
+
+      messages
     end
 
   end
