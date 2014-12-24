@@ -46,13 +46,18 @@ module ZipContainer
     include ContainerError
 
     # :call-seq:
-    #   new(reason = "")
+    #   new
+    #   new(reason)
+    #   new(reason_list)
     #
-    # Create a new MalformedContainerError with an optional reason for why
-    # the Container file is malformed.
+    # Create a new MalformedContainerError with an optional reason or list of
+    # reasons for why the Container file is malformed.
     def initialize(reason = nil)
-      if reason.nil?
+      if reason.nil? || reason.empty?
         super("Malformed Container File.")
+      elsif reason.is_a?(Array)
+        reasons = reason.map { |r| " * #{r}\n" }
+        super("Malformed Container File:\n#{reasons}")
       else
         super("Malformed Container File: #{reason}")
       end
