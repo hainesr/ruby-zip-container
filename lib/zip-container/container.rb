@@ -1,4 +1,4 @@
-# Copyright (c) 2014 The University of Manchester, UK.
+# Copyright (c) 2014, 2015 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -123,7 +123,7 @@ module ZipContainer
     # Verify the contents of this ZipContainer file. All managed files and
     # directories are checked to make sure that they exist, if required.
     def verify
-      @mimetype_error || verify_managed_entries
+      @mimetype_error.nil? ? verify_managed_entries : [@mimetype_error]
     end
 
     # :call-seq:
