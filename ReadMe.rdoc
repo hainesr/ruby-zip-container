@@ -51,10 +51,17 @@ in the rubyzip readme for a workaround.
 
 == Usage
 
-This library largely mimics the rubyzip Zip::File API so much of what you can
-do with that is supported for ZIP Containers. There is also
-{API documentation}[http://mygrid.github.io/ruby-zip-container/] with much more
-detail and any differences explained.
+This library has two entry points.
+
+The main ZipContainer::File class largely mimics the rubyzip
+{Zip::File}[http://www.rubydoc.info/gems/rubyzip/1.1.6/Zip/File] and
+{Zip::FileSystem}[http://www.rubydoc.info/gems/rubyzip/1.1.6/Zip/FileSystem]
+APIs so much of what you can do with them are supported for ZIP Containers.
+There is also {API documentation}[http://mygrid.github.io/ruby-zip-container/]
+with much more detail and any differences explained.
+
+The ZipContainer::Dir class mimics, where possible, the core ruby
+{Dir API}[http://ruby-doc.org/core-1.9.3/Dir.html].
 
 There are some examples of how to use the library provided in the examples
 directory. See the contents of the tests directory for even more.
