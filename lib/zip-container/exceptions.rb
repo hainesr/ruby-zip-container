@@ -34,16 +34,16 @@
 module ZipContainer
 
   # The base of all exceptions raised by this library.
-  module ContainerError
+  module Error
   end
 
   # Shadow Zip::Error so the rubyzip API doesn't leak out.
   ZipError = ::Zip::Error
-  ZipError.send(:include, ContainerError)
+  ZipError.send(:include, Error)
 
   # This exception is raised when a bad Container is detected.
   class MalformedContainerError < RuntimeError
-    include ContainerError
+    include Error
 
     # :call-seq:
     #   new(reason = "")
@@ -62,7 +62,7 @@ module ZipContainer
   # This exception is raised when a clash occurs with a reserved or managed
   # name.
   class ReservedNameClashError < RuntimeError
-    include ContainerError
+    include Error
 
     # :call-seq:
     #   new(name)
