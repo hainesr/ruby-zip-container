@@ -1,5 +1,19 @@
 = Changes log for the ZIP Container Ruby Gem
 
+== Version 3.0.0
+
+* Refactor the malformed container error constructor.
+* Verifying entries only raises errors at the last moment.
+* Redesign the verification system.
+* Update badges to use SVG versions.
+* Fix the documentation for updated verify methods.
+* Fix Container#verify so that it returns consistent types.
+* Rename ContainerError -> Error.
+* Reword the exceptions so they don't specify "file".
+* Add ruby 2.2.0 to the Travis test matrix.
+* Add a compatibility note about ContainerError.
+* Improve the Usage information in the ReadMe.
+
 == Version 2.2.0
 
 * Fix pathname bug in ZipContainer::Dir.
