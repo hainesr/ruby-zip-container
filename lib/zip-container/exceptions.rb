@@ -51,15 +51,15 @@ module ZipContainer
     #   new(reason_list)
     #
     # Create a new MalformedContainerError with an optional reason or list of
-    # reasons for why the Container file is malformed.
+    # reasons for why the Container is malformed.
     def initialize(reason = nil)
       if reason.nil? || reason.empty?
-        super("Malformed Container File.")
+        super("Malformed Container.")
       elsif reason.is_a?(Array)
         reasons = reason.map { |r| " * #{r}\n" }
-        super("Malformed Container File:\n#{reasons}")
+        super("Malformed Container:\n#{reasons}")
       else
-        super("Malformed Container File: #{reason}")
+        super("Malformed Container: #{reason}")
       end
     end
   end
@@ -74,7 +74,7 @@ module ZipContainer
     #
     # Create a new ReservedNameClashError with the name of the clash supplied.
     def initialize(name)
-      super("'#{name}' is reserved for internal use in this ZipContainer file.")
+      super("'#{name}' is reserved for internal use in this ZipContainer.")
     end
   end
 
