@@ -36,6 +36,11 @@ underlying rubyzip API (Zip::File) and allows this library to work with
 ZipContainer::Container should not be used directly from version 2.0.0
 onwards.
 
+=== ContainerError
+
+This class has been renamed in version 3.0.0. It is now simply called Error so
+that it's fully qualified name is the more sensible ZipContainer::Error.
+
 === Rubyzip
 
 Version 1.0.0 and up of this gem uses version 1.0.0 and up of the
