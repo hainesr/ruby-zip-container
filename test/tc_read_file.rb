@@ -38,10 +38,16 @@ class TestReadFile < Test::Unit::TestCase
   # Check that the null file does not verify.
   def test_verify_null_file
     assert_raise(ZipContainer::ZipError) do
+      ZipContainer::File.verify($file_null)
+    end
+
+    assert_raise(ZipContainer::ZipError) do
       ZipContainer::File.verify!($file_null)
     end
 
-    refute(ZipContainer::File.verify($file_null))
+    assert_raise(ZipContainer::ZipError) do
+      ZipContainer::File.verify?($file_null)
+    end
   end
 
   # Check that the empty container file does verify.
@@ -50,7 +56,8 @@ class TestReadFile < Test::Unit::TestCase
       ZipContainer::File.verify!($empty)
     end
 
-    assert(ZipContainer::File.verify($empty))
+    assert(ZipContainer::File.verify($empty).empty?)
+    assert(ZipContainer::File.verify?($empty))
   end
 
   # Check that the empty zip file does not verify.
@@ -59,7 +66,8 @@ class TestReadFile < Test::Unit::TestCase
       ZipContainer::File.verify!($empty_zip)
     end
 
-    refute(ZipContainer::File.verify($empty_zip))
+    refute(ZipContainer::File.verify($empty_zip).empty?)
+    refute(ZipContainer::File.verify?($empty_zip))
   end
 
   # Check that a compressed mimetype file is detected.
@@ -68,7 +76,8 @@ class TestReadFile < Test::Unit::TestCase
       ZipContainer::File.verify!($compressed_mimetype)
     end
 
-    refute(ZipContainer::File.verify($compressed_mimetype))
+    refute(ZipContainer::File.verify($compressed_mimetype).empty?)
+    refute(ZipContainer::File.verify?($compressed_mimetype))
   end
 
   # Check the raw mimetype bytes

@@ -146,20 +146,32 @@ module ZipContainer
     end
 
     # :call-seq:
-    #   verify_managed_entries!
+    #   verify_managed_entries -> Array
     #
     # All managed files and directories are checked to make sure that they
-    # exist, if required.
-    def verify_managed_entries!
+    # exist and validate, if required.
+    def verify_managed_entries
+      messages = []
+
       @directories.each_value do |dir|
-        dir.verify!
+        messages += dir.verify
       end
 
       @files.each_value do |file|
-        file.verify!
+        messages += file.verify
       end
 
-      true
+      messages
+    end
+
+    # :call-seq:
+    #   verify_managed_entries!
+    #
+    # All managed files and directories are checked to make sure that they
+    # exist and validate, if required.
+    def verify_managed_entries!
+      messages = verify_managed_entries
+      raise MalformedContainerError.new(messages) unless messages.empty?
     end
 
     protected

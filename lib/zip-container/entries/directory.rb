@@ -1,4 +1,4 @@
-# Copyright (c) 2013 The University of Manchester, UK.
+# Copyright (c) 2013-2015 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -66,15 +66,19 @@ module ZipContainer
     end
 
     # :call-seq:
-    #   verify!
+    #   verify -> Array
     #
     # Verify this ManagedDirectory for correctness. ManagedFiles registered
     # within it are verified recursively.
     #
-    # A MalformedContainerError is raised if it does not pass verification.
-    def verify!
-      super
-      @files.values.each { |f| f.verify! }
+    # If it does not pass verification a list of reasons why it fails is
+    # returned. The empty list is returned if verification passes.
+    def verify
+      messages = super
+
+      @files.values.each { |f| messages + f.verify }
+
+      messages
     end
 
   end

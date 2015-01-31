@@ -1,4 +1,4 @@
-# Copyright (c) 2014 The University of Manchester, UK.
+# Copyright (c) 2014, 2015 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -52,8 +52,8 @@ module ZipContainer
     def initialize(location)
       @container = open_container(location)
 
-      check_mimetype!
-      @mimetype = read_mimetype
+      @mimetype_error = verify_mimetype
+      @mimetype = read_mimetype if @mimetype_error.nil?
 
       # Reserved entry names. Just the mimetype file by default.
       register_reserved_name(MIMETYPE_FILE)
@@ -84,19 +84,26 @@ module ZipContainer
     end
 
     # :call-seq:
-    #   verify(filename) -> boolean
+    #   verify(filename) -> Array
+    #
+    # Verify that the specified ZipContainer conforms to the specification.
+    # This method returns a list of problems with the container.
+    #
+    # Exceptions are still raised for fundamental file system errors.
+    def self.verify(filename)
+      new(filename).verify
+    end
+
+    # :call-seq:
+    #   verify?(filename) -> boolean
     #
     # Verify that the specified ZipContainer conforms to the specification.
     # This method returns +false+ if there are any problems at all with the
-    # container (including if it cannot be found).
-    def self.verify(filename)
-      begin
-        new(filename).verify!
-      rescue
-        return false
-      end
-
-      true
+    # container.
+    #
+    # Exceptions are still raised for fundamental file system errors.
+    def self.verify?(filename)
+      new(filename).verify?
     end
 
     # :call-seq:
@@ -111,19 +118,40 @@ module ZipContainer
     end
 
     # :call-seq:
+    #   verify -> Array
+    #
+    # Verify the contents of this ZipContainer file. All managed files and
+    # directories are checked to make sure that they exist, if required.
+    def verify
+      @mimetype_error.nil? ? verify_managed_entries : [@mimetype_error]
+    end
+
+    # :call-seq:
+    #   verify? -> true or false
+    #
+    # Verify the contents of this ZipContainer file. All managed files and
+    # directories are checked to make sure that they exist, if required.
+    #
+    # This method returns +false+ if there are any problems at all with the
+    # container.
+    def verify?
+      verify.empty? ? true : false
+    end
+
+    # :call-seq:
     #   verify!
     #
     # Verify the contents of this ZipContainer file. All managed files and
     # directories are checked to make sure that they exist, if required.
+    #
+    # This method raises a MalformedContainerError if there are any problems
+    # with the container.
     def verify!
+      unless @mimetype_error.nil?
+        raise MalformedContainerError.new(@mimetype_error)
+      end
+
       verify_managed_entries!
-    end
-
-    private
-
-    def check_mimetype!
-      message = verify_mimetype
-      raise MalformedContainerError.new(message) unless message.nil?
     end
 
   end
