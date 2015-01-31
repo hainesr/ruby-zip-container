@@ -36,21 +36,70 @@ require 'zip-container'
 class TestExceptions < Test::Unit::TestCase
 
   def test_rescue_container_errors
-    assert_raise(ZipContainer::ContainerError) do
+    assert_raise(ZipContainer::Error) do
       raise ZipContainer::ZipError.new
     end
 
-    assert_raise(ZipContainer::ContainerError) do
+    assert_raise(ZipContainer::Error) do
       raise ZipContainer::MalformedContainerError.new
     end
 
-    assert_raise(ZipContainer::ContainerError) do
+    assert_raise(ZipContainer::Error) do
       raise ZipContainer::ReservedNameClashError.new("test")
     end
 
-    assert_raise(ZipContainer::ContainerError) do
+    assert_raise(ZipContainer::Error) do
       raise Zip::ZipError.new
     end
+  end
+
+  def test_malformed_container_error_nil
+    mce = nil
+
+    assert_nothing_raised do
+      mce = ZipContainer::MalformedContainerError.new(nil)
+    end
+
+    refute mce.message.empty?
+    refute mce.message.include?(':')
+  end
+
+  def test_malformed_container_error_empty_string
+    mce = nil
+
+    assert_nothing_raised do
+      mce = ZipContainer::MalformedContainerError.new("")
+    end
+
+    refute mce.message.empty?
+    refute mce.message.include?(':')
+  end
+
+  def test_malformed_container_error_string
+    mce = nil
+    message = "test"
+
+    assert_nothing_raised do
+      mce = ZipContainer::MalformedContainerError.new(message)
+    end
+
+    refute mce.message.empty?
+    assert mce.message.include?(':')
+    assert mce.message.include?(message)
+  end
+
+  def test_malformed_container_error_list
+    mce = nil
+    message = %w(test1 test2)
+
+    assert_nothing_raised do
+      mce = ZipContainer::MalformedContainerError.new(message)
+    end
+
+    refute mce.message.empty?
+    assert mce.message.include?(':')
+    assert mce.message.include?(' * test1')
+    assert mce.message.include?(' * test2')
   end
 
 end

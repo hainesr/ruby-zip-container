@@ -42,7 +42,8 @@ class TestReadDir < Test::Unit::TestCase
       ZipContainer::Dir.verify!($dir_null)
     end
 
-    refute(ZipContainer::Dir.verify($dir_null))
+    refute(ZipContainer::Dir.verify($dir_null).empty?)
+    refute(ZipContainer::Dir.verify?($dir_null))
   end
 
   # Check that the empty container directory does verify.
@@ -51,7 +52,8 @@ class TestReadDir < Test::Unit::TestCase
       ZipContainer::Dir.verify!($dir_empty)
     end
 
-    assert(ZipContainer::Dir.verify($dir_empty))
+    assert(ZipContainer::Dir.verify($dir_empty).empty?)
+    assert(ZipContainer::Dir.verify?($dir_empty))
   end
 
   # Check that a mimetype entry that is a directory does not verify.
@@ -60,7 +62,8 @@ class TestReadDir < Test::Unit::TestCase
       ZipContainer::Dir.verify!($dir_dir_mimetype)
     end
 
-    refute(ZipContainer::Dir.verify($dir_dir_mimetype))
+    refute(ZipContainer::Dir.verify($dir_dir_mimetype).empty?)
+    refute(ZipContainer::Dir.verify?($dir_dir_mimetype))
   end
 
   # Check that a mimetype which is not readable does not verify. We have to
@@ -79,7 +82,8 @@ class TestReadDir < Test::Unit::TestCase
         ZipContainer::Dir.verify!(container)
       end
 
-      refute(ZipContainer::Dir.verify(container))
+      refute(ZipContainer::Dir.verify(container).empty?)
+      refute(ZipContainer::Dir.verify?(container))
     end
   end
 

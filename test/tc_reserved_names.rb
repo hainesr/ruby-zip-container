@@ -56,7 +56,7 @@ class TestReservedNames < Test::Unit::TestCase
 
   # Check that the reserved names verify correctly.
   def test_verify_reserved_name
-    assert(NewZipContainer.verify($example))
+    assert(NewZipContainer.verify?($example))
 
     assert_nothing_raised(ZipContainer::MalformedContainerError) do
       NewZipContainer.verify!($example)

@@ -1,4 +1,4 @@
-# Copyright (c) 2013 The University of Manchester, UK.
+# Copyright (c) 2013-2015 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -73,18 +73,21 @@ module ZipContainer
     end
 
     # :call-seq:
-    #   verify!
+    #   verify -> Array
     #
     # Verify this ManagedFile for correctness. The contents are validated if
     # required.
     #
-    # A MalformedContainerError is raised if it does not pass verification.
-    def verify!
-      super
+    # If it does not pass verification a list of reasons why it fails is
+    # returned. The empty list is returned if verification passes.
+    def verify
+      messages = super
+
       unless (exists? ? validate : true)
-        raise MalformedContainerError.new("The contents of file "\
-          "'#{full_name}' do not pass validation.")
+        messages << "The contents of file '#{full_name}' do not pass validation."
       end
+
+      messages
     end
 
     protected

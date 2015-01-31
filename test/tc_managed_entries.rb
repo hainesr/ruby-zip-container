@@ -112,7 +112,7 @@ class TestManagedEntries < Test::Unit::TestCase
   # Check that the example ZipContainer file does not validate as a
   # ManagedZipContainer.
   def test_fail_verification
-    refute(ManagedZipContainer.verify($example))
+    refute(ManagedZipContainer.verify?($example))
 
     assert_raises(ZipContainer::MalformedContainerError) do
       ManagedZipContainer.verify!($example)
@@ -122,7 +122,7 @@ class TestManagedEntries < Test::Unit::TestCase
   # Check that the example ZipContainer file does validate as an
   # ExampleZipContainer.
   def test_pass_verification
-    assert(ExampleZipContainer.verify($example))
+    assert(ExampleZipContainer.verify?($example))
 
     assert_nothing_raised(ZipContainer::MalformedContainerError) do
       ExampleZipContainer.verify!($example)
@@ -132,7 +132,7 @@ class TestManagedEntries < Test::Unit::TestCase
   # Check that the example ZipContainer file does validate as an
   # ExampleZipContainer2.
   def test_pass_verification_2
-    assert(ExampleZipContainer2.verify($example))
+    assert(ExampleZipContainer2.verify?($example))
 
     assert_nothing_raised(ZipContainer::MalformedContainerError) do
       ExampleZipContainer2.verify!($example)
@@ -208,7 +208,7 @@ class TestManagedEntries < Test::Unit::TestCase
         end
       end
 
-      refute(ManagedZipContainer.verify(filename))
+      refute(ManagedZipContainer.verify?(filename))
       assert_raises(ZipContainer::MalformedContainerError) do
         ManagedZipContainer.verify!(filename)
       end
@@ -250,7 +250,7 @@ class TestManagedEntries < Test::Unit::TestCase
         end
       end
 
-      assert(ManagedZipContainer.verify(filename))
+      assert(ManagedZipContainer.verify?(filename))
       assert_nothing_raised(ZipContainer::MalformedContainerError) do
         ManagedZipContainer.verify!(filename)
       end
@@ -389,7 +389,7 @@ class TestManagedEntries < Test::Unit::TestCase
         end
       end
 
-      assert(ExampleZipContainer2.verify(filename))
+      assert(ExampleZipContainer2.verify?(filename))
       assert_nothing_raised(ZipContainer::MalformedContainerError) do
         ExampleZipContainer2.verify!(filename)
       end

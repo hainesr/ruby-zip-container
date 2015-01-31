@@ -34,27 +34,32 @@
 module ZipContainer
 
   # The base of all exceptions raised by this library.
-  module ContainerError
+  module Error
   end
 
   # Shadow Zip::Error so the rubyzip API doesn't leak out.
   ZipError = ::Zip::Error
-  ZipError.send(:include, ContainerError)
+  ZipError.send(:include, Error)
 
   # This exception is raised when a bad Container is detected.
   class MalformedContainerError < RuntimeError
-    include ContainerError
+    include Error
 
     # :call-seq:
-    #   new(reason = "")
+    #   new
+    #   new(reason)
+    #   new(reason_list)
     #
-    # Create a new MalformedContainerError with an optional reason for why
-    # the Container file is malformed.
+    # Create a new MalformedContainerError with an optional reason or list of
+    # reasons for why the Container is malformed.
     def initialize(reason = nil)
-      if reason.nil?
-        super("Malformed Container File.")
+      if reason.nil? || reason.empty?
+        super("Malformed Container.")
+      elsif reason.is_a?(Array)
+        reasons = reason.map { |r| " * #{r}\n" }
+        super("Malformed Container:\n#{reasons}")
       else
-        super("Malformed Container File: #{reason}")
+        super("Malformed Container: #{reason}")
       end
     end
   end
@@ -62,14 +67,14 @@ module ZipContainer
   # This exception is raised when a clash occurs with a reserved or managed
   # name.
   class ReservedNameClashError < RuntimeError
-    include ContainerError
+    include Error
 
     # :call-seq:
     #   new(name)
     #
     # Create a new ReservedNameClashError with the name of the clash supplied.
     def initialize(name)
-      super("'#{name}' is reserved for internal use in this ZipContainer file.")
+      super("'#{name}' is reserved for internal use in this ZipContainer.")
     end
   end
 
