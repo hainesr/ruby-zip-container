@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2013-2015 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -100,10 +100,6 @@ class ExampleDirContainer < ZipContainer::Dir
     register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt",
       :required => true, :validation_proc => valid))
   end
-
-  #def ExampleDirContainer.create(filename, &block)
-  #  super(filename, "application/example+zip", &block)
-  #end
 
 end
 
@@ -359,7 +355,7 @@ class TestManagedEntries < Test::Unit::TestCase
     end
   end
 
-  # Check that a ExampleZipContainer2 will only verify when required objects
+  # Check that an ExampleZipContainer2 will only verify when required objects
   # are added with the correct contents.
   def test_create_subclassed_container_with_content_verification
     Dir.mktmpdir do |dir|
