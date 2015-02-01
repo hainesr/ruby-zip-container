@@ -77,6 +77,11 @@ class ExampleZipContainer2 < ZipContainer::File
     valid = Proc.new { |contents| contents.match(/[Hh]ello/) }
     register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt",
       :required => true, :validation_proc => valid))
+
+    deep_greet = ZipContainer::ManagedFile.new("greet.txt",
+      :validation_proc => valid)
+    register_managed_entry(ZipContainer::ManagedDirectory.new("dir",
+      :entries => [deep_greet]))
   end
 
   def ExampleZipContainer2.create(filename, &block)
@@ -377,6 +382,52 @@ class TestManagedEntries < Test::Unit::TestCase
 
           c.file.open("greeting.txt", "w") do |f|
             f.puts "Hello, Y'All!"
+          end
+
+          assert_nothing_raised(ZipContainer::MalformedContainerError) do
+            c.verify!
+          end
+        end
+      end
+
+      assert(ExampleZipContainer2.verify?(filename))
+      assert_nothing_raised(ZipContainer::MalformedContainerError) do
+        ExampleZipContainer2.verify!(filename)
+      end
+    end
+  end
+
+  # Check that an ExampleZipContainer2 will verify when deep objects are added
+  # with the correct contents.
+  def test_create_subclassed_container_with_deep_content_verification
+    Dir.mktmpdir do |dir|
+      filename = File.join(dir, "test.container")
+
+      assert_nothing_raised do
+        ExampleZipContainer2.create(filename) do |c|
+          assert_raises(ZipContainer::MalformedContainerError) do
+            c.verify!
+          end
+
+          c.file.open("greeting.txt", "w") do |f|
+            f.puts "Hello, Y'All!"
+          end
+
+          assert_nothing_raised(ZipContainer::MalformedContainerError) do
+            c.verify!
+          end
+
+          c.mkdir("dir")
+          c.file.open("dir/greet.txt", "w") do |f|
+            f.puts "Goodbye!"
+          end
+
+          assert_raises(ZipContainer::MalformedContainerError) do
+            c.verify!
+          end
+
+          c.file.open("dir/greet.txt", "w") do |f|
+            f.puts "hello everyone."
           end
 
           assert_nothing_raised(ZipContainer::MalformedContainerError) do
