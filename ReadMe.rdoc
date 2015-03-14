@@ -39,7 +39,7 @@ onwards.
 === ContainerError
 
 This class has been renamed in version 3.0.0. It is now simply called Error so
-that it's fully qualified name is the more sensible ZipContainer::Error.
+that its fully qualified name is the more sensible ZipContainer::Error.
 
 === Rubyzip
 
