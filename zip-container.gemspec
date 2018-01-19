@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2013, 2014, 2018 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -37,7 +37,7 @@ require "zip-container/version"
 Gem::Specification.new do |s|
   s.name             = "zip-container"
   s.version          = ZipContainer::Version::STRING
-  s.authors          = ["Robert Haines"]
+  s.authors          = ["Robert Haines", "Finn Bacall"]
   s.email            = ["support@mygrid.org.uk"]
   s.homepage         = "http://mygrid.github.io/ruby-zip-container/"
   s.platform         = Gem::Platform::RUBY
@@ -60,5 +60,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rdoc", "~> 4.1"
   s.add_development_dependency "test-unit", "~> 3.0"
   s.add_development_dependency "coveralls"
-  s.add_runtime_dependency "rubyzip", "~> 1.1.6"
+  s.add_runtime_dependency "rubyzip", "~> 1.2.1"
 end
