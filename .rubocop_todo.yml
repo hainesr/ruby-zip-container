@@ -172,12 +172,6 @@ Style/IfUnlessModifier:
     - 'lib/zip-container/container.rb'
     - 'lib/zip-container/file.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/MutableConstant:
-  Exclude:
-    - 'lib/zip-container/container.rb'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 # Configuration parameters: AutoCorrect, EnforcedStyle, IgnoredMethods.

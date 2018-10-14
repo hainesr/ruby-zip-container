@@ -47,7 +47,7 @@ module ZipContainer
 
     # :stopdoc:
     # The reserved mimetype file name for standard ZipContainers.
-    MIMETYPE_FILE = "mimetype"
+    MIMETYPE_FILE = "mimetype".freeze
 
     def initialize(location)
       @container = open_container(location)
