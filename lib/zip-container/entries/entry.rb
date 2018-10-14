@@ -30,7 +30,7 @@
 #
 # Author: Robert Haines
 
-#
+##
 module ZipContainer
 
   # ManagedEntry is the superclass of ManagedDirectory and ManagedFile. It

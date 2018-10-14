@@ -30,7 +30,7 @@
 #
 # Author: Robert Haines
 
-#
+##
 module ZipContainer
 
   # The base of all exceptions raised by this library.

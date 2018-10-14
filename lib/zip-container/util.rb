@@ -30,7 +30,7 @@
 #
 # Author: Robert Haines
 
-#
+##
 module ZipContainer
 
   # Utility methods useful throughout the rest of the ZipContainer library.
