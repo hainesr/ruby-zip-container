@@ -45,12 +45,12 @@ class ManagedZipContainer < ZipContainer::File
     test_file = ZipContainer::ManagedFile.new("test.txt")
     deep_file = ZipContainer::ManagedFile.new("deep.txt")
     deep_dir = ZipContainer::ManagedDirectory.new("deep",
-      :entries => [deep_file])
-    register_managed_entry(ZipContainer::ManagedDirectory.new("src", :required => true))
+      entries: [deep_file])
+    register_managed_entry(ZipContainer::ManagedDirectory.new("src", required: true))
     register_managed_entry(ZipContainer::ManagedDirectory.new("test",
-      :hidden => true, :entries => [deep_dir, test_file]))
+      hidden: true, entries: [deep_dir, test_file]))
     register_managed_entry(ZipContainer::ManagedDirectory.new("lib"))
-    register_managed_entry(ZipContainer::ManagedFile.new("index.html", :required => true))
+    register_managed_entry(ZipContainer::ManagedFile.new("index.html", required: true))
   end
 
 end
@@ -61,8 +61,8 @@ class ExampleZipContainer < ZipContainer::File
 
   def initialize(filename)
     super(filename)
-    register_managed_entry(ZipContainer::ManagedDirectory.new("dir", :required => true))
-    register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt", :required => true))
+    register_managed_entry(ZipContainer::ManagedDirectory.new("dir", required: true))
+    register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt", required: true))
   end
 
 end
@@ -76,12 +76,12 @@ class ExampleZipContainer2 < ZipContainer::File
 
     valid = Proc.new { |contents| contents.match(/[Hh]ello/) }
     register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt",
-      :required => true, :validation_proc => valid))
+      required: true, validation_proc: valid))
 
     deep_greet = ZipContainer::ManagedFile.new("greet.txt",
-      :validation_proc => valid)
+      validation_proc: valid)
     register_managed_entry(ZipContainer::ManagedDirectory.new("dir",
-      :entries => [deep_greet]))
+      entries: [deep_greet]))
   end
 
   def ExampleZipContainer2.create(filename, &block)
@@ -101,9 +101,9 @@ class ExampleDirContainer < ZipContainer::Dir
 
     test_file = ZipContainer::ManagedFile.new("test.txt")
     register_managed_entry(ZipContainer::ManagedDirectory.new("dir",
-      :required => true, :entries => [test_file]))
+      required: true, entries: [test_file]))
     register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt",
-      :required => true, :validation_proc => valid))
+      required: true, validation_proc: valid))
   end
 
 end
@@ -230,24 +230,24 @@ class TestManagedEntries < Test::Unit::TestCase
           end
 
           # Test hidden entries before and after creation.
-          assert_nil(c.find_entry("test", :include_hidden => true))
-          assert_nil(c.find_entry("test/test.txt", :include_hidden => true))
+          assert_nil(c.find_entry("test", include_hidden: true))
+          assert_nil(c.find_entry("test/test.txt", include_hidden: true))
           c.dir.mkdir("test")
           c.file.open("test/test.txt", "w") do |f|
             f.puts "A test!"
           end
-          assert_not_nil(c.find_entry("test", :include_hidden => true))
-          assert_not_nil(c.find_entry("test/test.txt", :include_hidden => true))
+          assert_not_nil(c.find_entry("test", include_hidden: true))
+          assert_not_nil(c.find_entry("test/test.txt", include_hidden: true))
 
           # Test deep hidden entries before and after creation.
-          assert_nil(c.find_entry("test/deep", :include_hidden => true))
-          assert_nil(c.find_entry("test/deep/deep.txt", :include_hidden => true))
+          assert_nil(c.find_entry("test/deep", include_hidden: true))
+          assert_nil(c.find_entry("test/deep/deep.txt", include_hidden: true))
           c.dir.mkdir("test/deep")
           c.file.open("test/deep/deep.txt", "w") do |f|
             f.puts "A deep test!"
           end
-          assert_not_nil(c.find_entry("test/deep", :include_hidden => true))
-          assert_not_nil(c.find_entry("test/deep/deep.txt", :include_hidden => true))
+          assert_not_nil(c.find_entry("test/deep", include_hidden: true))
+          assert_not_nil(c.find_entry("test/deep/deep.txt", include_hidden: true))
         end
       end
 
@@ -283,17 +283,17 @@ class TestManagedEntries < Test::Unit::TestCase
     assert_nothing_raised do
       ManagedZipContainer.open($subclass) do |c|
         assert_not_nil(c.find_entry("src"))
-        assert_not_nil(c.find_entry("src", :include_hidden => true))
+        assert_not_nil(c.find_entry("src", include_hidden: true))
 
         assert_nil(c.find_entry("test"))
         assert_nil(c.find_entry("test/test.txt"))
-        assert_not_nil(c.find_entry("test", :include_hidden => true))
-        assert_not_nil(c.find_entry("test/test.txt", :include_hidden => true))
+        assert_not_nil(c.find_entry("test", include_hidden: true))
+        assert_not_nil(c.find_entry("test/test.txt", include_hidden: true))
 
         assert_nil(c.find_entry("test/deep"))
         assert_nil(c.find_entry("test/deep/deep.txt"))
-        assert_not_nil(c.find_entry("test/deep", :include_hidden => true))
-        assert_not_nil(c.find_entry("test/deep/deep.txt", :include_hidden => true))
+        assert_not_nil(c.find_entry("test/deep", include_hidden: true))
+        assert_not_nil(c.find_entry("test/deep/deep.txt", include_hidden: true))
       end
     end
   end
@@ -304,7 +304,7 @@ class TestManagedEntries < Test::Unit::TestCase
         c.get_entry("src")
       end
       assert_nothing_raised(Errno::ENOENT) do
-        c.get_entry("src", :include_hidden => true)
+        c.get_entry("src", include_hidden: true)
       end
 
       assert_raise(Errno::ENOENT) do
@@ -314,10 +314,10 @@ class TestManagedEntries < Test::Unit::TestCase
         c.get_entry("test/test.txt")
       end
       assert_nothing_raised(Errno::ENOENT) do
-        c.get_entry("test", :include_hidden => true)
+        c.get_entry("test", include_hidden: true)
       end
       assert_nothing_raised(Errno::ENOENT) do
-        c.get_entry("test/test.txt", :include_hidden => true)
+        c.get_entry("test/test.txt", include_hidden: true)
       end
 
       assert_raise(Errno::ENOENT) do
@@ -327,10 +327,10 @@ class TestManagedEntries < Test::Unit::TestCase
         c.get_entry("test/deep/deep.txt")
       end
       assert_nothing_raised(Errno::ENOENT) do
-        c.get_entry("test/deep", :include_hidden => true)
+        c.get_entry("test/deep", include_hidden: true)
       end
       assert_nothing_raised(Errno::ENOENT) do
-        c.get_entry("test/deep/deep.txt", :include_hidden => true)
+        c.get_entry("test/deep/deep.txt", include_hidden: true)
       end
     end
   end
@@ -340,10 +340,10 @@ class TestManagedEntries < Test::Unit::TestCase
       assert_equal(["index.html"], entry_list_names(c.glob("in*")))
       assert_equal([], c.glob("test/**/*"))
       assert_equal(["test/test.txt", "test/deep", "test/deep/deep.txt"],
-        entry_list_names(c.glob("test/**/*", :include_hidden => true)))
+        entry_list_names(c.glob("test/**/*", include_hidden: true)))
       assert_equal(["test/test.txt", "test/deep/deep.txt"],
         entry_list_names(c.glob("**/*.TXT", ::File::FNM_CASEFOLD,
-          :include_hidden => true)))
+          include_hidden: true)))
     end
   end
 
