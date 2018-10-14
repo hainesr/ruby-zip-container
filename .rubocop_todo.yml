@@ -6,19 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 17
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: with_first_parameter, with_fixed_indentation
-Layout/AlignParameters:
-  Exclude:
-    - 'lib/zip-container/dir.rb'
-    - 'lib/zip-container/file.rb'
-    - 'lib/zip-container/version.rb'
-    - 'test/tc_managed_entries.rb'
-    - 'test/tc_reserved_names.rb'
-    - 'test/tc_util.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Lint/DeprecatedClassMethods:

@@ -89,8 +89,9 @@ class TestReservedNames < Test::Unit::TestCase
   def test_subclass_reserved_names
     NewZipContainer.open($example) do |c|
       assert_equal(3, c.reserved_names.length)
-      assert_equal(["mimetype", "META-INF", "reserved_dir"],
-        c.reserved_names)
+      assert_equal(
+        ["mimetype", "META-INF", "reserved_dir"], c.reserved_names
+      )
 
       assert_equal(2, c.managed_files.length)
       assert_equal(["index.html", "greeting.txt"], c.managed_file_names)
@@ -115,8 +116,10 @@ class TestReservedNames < Test::Unit::TestCase
       refute(c.reserved_entry?("lib"))
 
       assert_equal(5, c.managed_entries.length)
-      assert_equal(["index.html", "greeting.txt", "src", "test", "lib"],
-        c.managed_entry_names)
+      assert_equal(
+        ["index.html", "greeting.txt", "src", "test", "lib"],
+        c.managed_entry_names
+      )
 
       refute(c.managed_entry?("This_should_fail"))
       refute(c.reserved_entry?("META_INF"))

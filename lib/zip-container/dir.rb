@@ -49,7 +49,7 @@ module ZipContainer
 
     extend Forwardable
     def_delegators :@container, :close, :each, :path, :pos, :pos=, :rewind,
-      :seek, :tell
+                   :seek, :tell
 
     private_class_method :new
 

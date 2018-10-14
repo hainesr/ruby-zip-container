@@ -44,11 +44,16 @@ class ManagedZipContainer < ZipContainer::File
     super(filename)
     test_file = ZipContainer::ManagedFile.new("test.txt")
     deep_file = ZipContainer::ManagedFile.new("deep.txt")
-    deep_dir = ZipContainer::ManagedDirectory.new("deep",
-      entries: [deep_file])
-    register_managed_entry(ZipContainer::ManagedDirectory.new("src", required: true))
-    register_managed_entry(ZipContainer::ManagedDirectory.new("test",
-      hidden: true, entries: [deep_dir, test_file]))
+    deep_dir =
+      ZipContainer::ManagedDirectory.new("deep", entries: [deep_file])
+    register_managed_entry(
+      ZipContainer::ManagedDirectory.new("src", required: true)
+    )
+    register_managed_entry(
+      ZipContainer::ManagedDirectory.new(
+        "test", hidden: true, entries: [deep_dir, test_file]
+      )
+    )
     register_managed_entry(ZipContainer::ManagedDirectory.new("lib"))
     register_managed_entry(ZipContainer::ManagedFile.new("index.html", required: true))
   end
@@ -73,13 +78,17 @@ class ExampleZipContainer2 < ZipContainer::File
     super(filename)
 
     valid = Proc.new { |contents| contents.match(/[Hh]ello/) }
-    register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt",
-      required: true, validation_proc: valid))
+    register_managed_entry(
+      ZipContainer::ManagedFile.new(
+        "greeting.txt", required: true, validation_proc: valid
+      )
+    )
 
-    deep_greet = ZipContainer::ManagedFile.new("greet.txt",
-      validation_proc: valid)
-    register_managed_entry(ZipContainer::ManagedDirectory.new("dir",
-      entries: [deep_greet]))
+    deep_greet =
+      ZipContainer::ManagedFile.new("greet.txt", validation_proc: valid)
+    register_managed_entry(
+      ZipContainer::ManagedDirectory.new("dir", entries: [deep_greet])
+    )
   end
 
   def ExampleZipContainer2.create(filename, &block)
@@ -97,10 +106,16 @@ class ExampleDirContainer < ZipContainer::Dir
     valid = Proc.new { |contents| contents.match(/[Hh]ello/) }
 
     test_file = ZipContainer::ManagedFile.new("test.txt")
-    register_managed_entry(ZipContainer::ManagedDirectory.new("dir",
-      required: true, entries: [test_file]))
-    register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt",
-      required: true, validation_proc: valid))
+    register_managed_entry(
+      ZipContainer::ManagedDirectory.new(
+        "dir", required: true, entries: [test_file]
+      )
+    )
+    register_managed_entry(
+      ZipContainer::ManagedFile.new(
+        "greeting.txt", required: true, validation_proc: valid
+      )
+    )
   end
 end
 
@@ -335,11 +350,15 @@ class TestManagedEntries < Test::Unit::TestCase
     ManagedZipContainer.open($subclass) do |c|
       assert_equal(["index.html"], entry_list_names(c.glob("in*")))
       assert_equal([], c.glob("test/**/*"))
-      assert_equal(["test/test.txt", "test/deep", "test/deep/deep.txt"],
-        entry_list_names(c.glob("test/**/*", include_hidden: true)))
-      assert_equal(["test/test.txt", "test/deep/deep.txt"],
+      assert_equal(
+        ["test/test.txt", "test/deep", "test/deep/deep.txt"],
+        entry_list_names(c.glob("test/**/*", include_hidden: true))
+      )
+      assert_equal(
+        ["test/test.txt", "test/deep/deep.txt"],
         entry_list_names(c.glob("**/*.TXT", ::File::FNM_CASEFOLD,
-          include_hidden: true)))
+                                include_hidden: true))
+      )
     end
   end
 
