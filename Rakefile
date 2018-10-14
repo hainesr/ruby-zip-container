@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2013-2018 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -33,6 +33,7 @@
 require "bundler/gem_tasks"
 require "rake/testtask"
 require "rdoc/task"
+require "rubocop/rake_task"
 
 task :default => [:test]
 
@@ -51,3 +52,5 @@ RDoc::Task.new do |r|
   r.options << "-N"
   r.options << "--tab-width=2"
 end
+
+RuboCop::RakeTask.new
