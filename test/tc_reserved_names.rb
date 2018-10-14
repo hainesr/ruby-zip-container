@@ -103,7 +103,7 @@ class TestReservedNames < Test::Unit::TestCase
       refute(c.reserved_entry?("index.html"))
 
       assert_equal(3, c.managed_directories.length)
-      assert_equal(["src", "test", "lib"], c.managed_directory_names)
+      assert_equal(%w[src test lib], c.managed_directory_names)
       assert(c.managed_entry?("src"))
       assert(c.managed_entry?("SRC"))
       assert(c.managed_entry?("test"))
