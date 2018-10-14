@@ -109,6 +109,7 @@ module ZipContainer
     end
 
     class Entries
+
       include Enumerable
 
       Entry = Struct.new(:name, :ftype)
@@ -225,7 +226,6 @@ module ZipContainer
     #
     # Equal to
     # {::Dir.tell}[http://ruby-doc.org/core-1.9.3/Dir.html#method-i-tell]
-
   end
 
 end

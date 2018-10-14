@@ -43,6 +43,7 @@ module ZipContainer
 
   # This exception is raised when a bad Container is detected.
   class MalformedContainerError < RuntimeError
+
     include Error
 
     # :call-seq:
@@ -67,6 +68,7 @@ module ZipContainer
   # This exception is raised when a clash occurs with a reserved or managed
   # name.
   class ReservedNameClashError < RuntimeError
+
     include Error
 
     # :call-seq:

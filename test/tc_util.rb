@@ -34,6 +34,7 @@ require 'test/unit'
 require 'zip-container'
 
 class Util
+
   include ZipContainer::Util
 end
 
@@ -63,5 +64,4 @@ class TestUtil < Test::Unit::TestCase
     uri = URI.parse("http://www.example.com/path")
     assert_equal(uri, @util.entry_name(uri))
   end
-
 end

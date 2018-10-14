@@ -480,6 +480,5 @@ module ZipContainer
     #   size -> int
     #
     # Returns the number of entries in the ZipContainer file.
-
   end
 end

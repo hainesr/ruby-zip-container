@@ -19,27 +19,6 @@ Layout/AlignParameters:
     - 'test/tc_reserved_names.rb'
     - 'test/tc_util.rb'
 
-# Offense count: 35
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty_lines, empty_lines_except_namespace, empty_lines_special, no_empty_lines, beginning_only, ending_only
-Layout/EmptyLinesAroundClassBody:
-  Exclude:
-    - 'lib/zip-container/container.rb'
-    - 'lib/zip-container/dir.rb'
-    - 'lib/zip-container/entries/directory.rb'
-    - 'lib/zip-container/entries/entry.rb'
-    - 'lib/zip-container/entries/file.rb'
-    - 'lib/zip-container/file.rb'
-    - 'test/tc_create_dir.rb'
-    - 'test/tc_create_file.rb'
-    - 'test/tc_exceptions.rb'
-    - 'test/tc_managed_entries.rb'
-    - 'test/tc_read_dir.rb'
-    - 'test/tc_read_file.rb'
-    - 'test/tc_reserved_names.rb'
-    - 'test/tc_util.rb'
-
 # Offense count: 17
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.

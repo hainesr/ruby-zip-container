@@ -40,6 +40,7 @@ module ZipContainer
   # Once a ManagedDirectory is registered in a Container then only it can be
   # used to write to its contents.
   class ManagedDirectory < ManagedEntry
+
     include ReservedNames
     include ManagedEntries
 
@@ -80,6 +81,5 @@ module ZipContainer
 
       messages
     end
-
   end
 end

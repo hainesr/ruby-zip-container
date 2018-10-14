@@ -49,7 +49,6 @@ class NewZipContainer < ZipContainer::File
     register_reserved_name("META-INF")
     register_reserved_name("reserved_dir")
   end
-
 end
 
 class TestReservedNames < Test::Unit::TestCase
@@ -330,5 +329,4 @@ class TestReservedNames < Test::Unit::TestCase
       end
     end
   end
-
 end
