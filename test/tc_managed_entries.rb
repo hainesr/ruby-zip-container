@@ -77,7 +77,7 @@ class ExampleZipContainer2 < ZipContainer::File
   def initialize(filename)
     super(filename)
 
-    valid = Proc.new { |contents| contents.match(/[Hh]ello/) }
+    valid = proc { |contents| contents.match(/[Hh]ello/) }
     register_managed_entry(
       ZipContainer::ManagedFile.new(
         "greeting.txt", required: true, validation_proc: valid
@@ -103,7 +103,7 @@ class ExampleDirContainer < ZipContainer::Dir
   def initialize(filename)
     super(filename)
 
-    valid = Proc.new { |contents| contents.match(/[Hh]ello/) }
+    valid = proc { |contents| contents.match(/[Hh]ello/) }
 
     test_file = ZipContainer::ManagedFile.new("test.txt")
     register_managed_entry(
