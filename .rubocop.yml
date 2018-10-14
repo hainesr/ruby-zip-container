@@ -15,3 +15,9 @@ Lint/UselessAccessModifier:
 # Force ruby19 style hash keys, but be consistent within a hash.
 Style/HashSyntax:
   EnforcedStyle: ruby19_no_mixed_keys
+
+# Allow long lines in the tests.
+Metrics/LineLength:
+  Exclude:
+    - 'lib/zip-container/dir.rb'
+    - 'test/**/*.rb'

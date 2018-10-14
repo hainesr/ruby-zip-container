@@ -143,9 +143,7 @@ module ZipContainer
     def commit
       return false unless commit_required?
 
-      if on_disk?
-        @container.commit
-      end
+      @container.commit if on_disk?
     end
 
     alias :close :commit

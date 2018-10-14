@@ -60,7 +60,11 @@ module ZipContainer
     #
     # The fully qualified name of this ManagedEntry.
     def full_name
-      @parent.is_a?(ZipContainer::Container) ? @name : "#{@parent.full_name}/#{@name}"
+      if @parent.is_a?(ZipContainer::Container)
+        @name
+      else
+        "#{@parent.full_name}/#{@name}"
+      end
     end
 
     # :call-seq:
@@ -78,7 +82,11 @@ module ZipContainer
     # Is this ManagedEntry hidden for normal operations?
     def hidden?
       # An entry is hidden if its parent is hidden.
-      @parent.is_a?(ZipContainer::Container) ? @hidden : @hidden || @parent.hidden?
+      if @parent.is_a?(ZipContainer::Container)
+        @hidden
+      else
+        @hidden || @parent.hidden?
+      end
     end
 
     # :call-seq:
