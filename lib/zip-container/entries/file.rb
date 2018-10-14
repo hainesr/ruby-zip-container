@@ -84,7 +84,8 @@ module ZipContainer
       messages = super
 
       unless (exists? ? validate : true)
-        messages << "The contents of file '#{full_name}' do not pass validation."
+        messages <<
+          "The contents of file '#{full_name}' do not pass validation."
       end
 
       messages
