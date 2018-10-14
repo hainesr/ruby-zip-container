@@ -33,15 +33,6 @@ Layout/EmptyComment:
     - 'lib/zip-container/exceptions.rb'
     - 'lib/zip-container/util.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty_lines, no_empty_lines
-Layout/EmptyLinesAroundBlockBody:
-  Exclude:
-    - 'examples/create-zip-container'
-    - 'test/tc_create_dir.rb'
-
 # Offense count: 35
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
