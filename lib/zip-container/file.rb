@@ -146,7 +146,7 @@ module ZipContainer
       @container.commit if on_disk?
     end
 
-    alias :close :commit
+    alias close commit
 
     # :call-seq:
     #   dir -> Zip::ZipFsDir
