@@ -42,7 +42,7 @@ class TestCreateDir < Test::Unit::TestCase
 
       assert_nothing_raised do
         ZipContainer::Dir.create(container, $mimetype) do
-          assert File.exists?(File.join(container, "mimetype"))
+          assert File.exist?(File.join(container, "mimetype"))
         end
       end
 
