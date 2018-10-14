@@ -21,12 +21,6 @@ Naming/FileName:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Style/ClassMethods:
-  Exclude:
-    - 'test/tc_managed_entries.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: format, sprintf, percent
 Style/FormatString:
