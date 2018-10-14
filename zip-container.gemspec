@@ -49,8 +49,9 @@ Gem::Specification.new do |s|
     "for the UCF specification."
   s.license          = "BSD"
   s.require_path     = "lib"
-  s.files            = `git ls-files`.split($/)
-  s.test_files       = `git ls-files -- test/*`.split($/)
+  s.files            = `git ls-files -z`.split("\x0").reject do |f|
+    f.match(%r{^((test|spec|features)/|\.)})
+  end
   s.required_ruby_version = ">= 1.9.3"
   s.add_development_dependency "bundler", "~> 1.5"
   s.add_development_dependency "rake", "~> 10.1"
