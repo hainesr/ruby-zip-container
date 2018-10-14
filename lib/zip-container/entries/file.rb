@@ -57,13 +57,13 @@ module ZipContainer
     # word "Boo!".
     #
     #  valid = Proc.new { |contents| contents == "Boo!" }
-    #  ManagedFile.new("Surprize.txt", :required => false,
-    #    :validation_proc => valid)
+    #  ManagedFile.new("Surprize.txt", required: false,
+    #    validation_proc: valid)
     def initialize(name, options = {})
       options = {
-        :required => false,
-        :hidden => false,
-        :validation_proc => nil
+        required: false,
+        hidden: false,
+        validation_proc: nil
       }.merge(options)
 
       super(name, options[:required], options[:hidden])
