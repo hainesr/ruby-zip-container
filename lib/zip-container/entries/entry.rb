@@ -100,7 +100,7 @@ module ZipContainer
     # Does this ManagedEntry exist in the Container?
     def exists?
       container.entries.each do |entry|
-        test = (entry.ftype == :directory) ? "#{full_name}/" : full_name
+        test = entry.ftype == :directory ? "#{full_name}/" : full_name
         return true if entry.name == test
       end
 
