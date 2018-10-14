@@ -43,6 +43,10 @@ module ZipContainer
     # full_name.
     attr_reader :name
 
+    # Allows the object in which this entry has been registered to tell it
+    # who it is.
+    attr_writer :parent # :nodoc:
+
     # :call-seq:
     #   new(name, required) -> ManagedEntry
     #
@@ -102,14 +106,6 @@ module ZipContainer
 
       false
     end
-
-    # :stopdoc:
-    # Allows the object in which this entry has been registered in to tell it
-    # who it is.
-    def parent=(parent)
-      @parent = parent
-    end
-    # :startdoc:
 
     # :call-seq:
     #   verify -> Array
