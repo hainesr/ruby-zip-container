@@ -47,8 +47,8 @@ RDoc::Task.new do |r|
   r.main = "ReadMe.rdoc"
   lib = Dir.glob("lib/**/*.rb")
   r.rdoc_files.include("ReadMe.rdoc", "Licence.rdoc", "Changes.rdoc", lib)
-  r.options << "-t ZIP Container Format Ruby Library version " +
-               "#{ZipContainer::Version::STRING}"
+  r.options << "-t ZIP Container Format Ruby Library version " \
+    "#{ZipContainer::Version::STRING}"
   r.options << "-N"
   r.options << "--tab-width=2"
 end
