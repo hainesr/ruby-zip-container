@@ -49,7 +49,6 @@ class TestCreateDir < Test::Unit::TestCase
       assert_nothing_raised(ZipContainer::MalformedContainerError, ZipContainer::ZipError) do
         ZipContainer::Dir.verify!(container)
       end
-
     end
   end
 
