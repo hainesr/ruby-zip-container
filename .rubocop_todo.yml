@@ -174,12 +174,6 @@ Style/IfUnlessModifier:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Style/LineEndConcatenation:
-  Exclude:
-    - 'Rakefile'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 Style/MutableConstant:
   Exclude:
     - 'lib/zip-container/container.rb'
