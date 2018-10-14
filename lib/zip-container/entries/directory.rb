@@ -30,7 +30,7 @@
 #
 # Author: Robert Haines
 
-#
+##
 module ZipContainer
 
   # A ManagedDirectory acts as the interface to a set of (possibly) managed

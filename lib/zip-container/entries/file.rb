@@ -30,7 +30,7 @@
 #
 # Author: Robert Haines
 
-#
+##
 module ZipContainer
 
   # A ManagedFile is used to reserve a filename in a Container namespace.

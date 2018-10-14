@@ -30,7 +30,7 @@
 #
 # Author: Robert Haines
 
-#
+##
 module ZipContainer
 
   # The superclass of anything that represents a Zip Container. That

@@ -19,20 +19,6 @@ Layout/AlignParameters:
     - 'test/tc_reserved_names.rb'
     - 'test/tc_util.rb'
 
-# Offense count: 8
-# Cop supports --auto-correct.
-# Configuration parameters: AllowBorderComment, AllowMarginComment.
-Layout/EmptyComment:
-  Exclude:
-    - 'lib/zip-container/container.rb'
-    - 'lib/zip-container/entries/directory.rb'
-    - 'lib/zip-container/entries/entry.rb'
-    - 'lib/zip-container/entries/file.rb'
-    - 'lib/zip-container/entries/managed.rb'
-    - 'lib/zip-container/entries/reserved.rb'
-    - 'lib/zip-container/exceptions.rb'
-    - 'lib/zip-container/util.rb'
-
 # Offense count: 35
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
