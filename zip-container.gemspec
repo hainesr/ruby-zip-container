@@ -51,9 +51,6 @@ Gem::Specification.new do |s|
   s.require_path     = "lib"
   s.files            = `git ls-files`.split($/)
   s.test_files       = `git ls-files -- test/*`.split($/)
-  s.has_rdoc         = true
-  s.extra_rdoc_files = [ "Changes.rdoc", "Licence.rdoc", "ReadMe.rdoc" ]
-  s.rdoc_options     = [ "-N", "--tab-width=2", "--main=ReadMe.rdoc" ]
   s.required_ruby_version = ">= 1.9.3"
   s.add_development_dependency "bundler", "~> 1.5"
   s.add_development_dependency "rake", "~> 10.1"
