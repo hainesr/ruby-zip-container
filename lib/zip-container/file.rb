@@ -49,7 +49,7 @@ module ZipContainer
 
     extend Forwardable
     def_delegators :@container, :comment, :comment=, :commit_required?, :each,
-      :entries, :extract, :get_input_stream, :name, :read, :size
+                   :entries, :extract, :get_input_stream, :name, :read, :size
 
     private_class_method :new
 
