@@ -46,7 +46,7 @@ module ZipContainer
     # In common with rubyzip this method also removes a trailing slash (/)
     # from a name if it can.
     def entry_name(entry)
-      name = entry.kind_of?(::Zip::Entry) ? entry.name : entry
+      name = entry.is_a?(::Zip::Entry) ? entry.name : entry
 
       if name.respond_to?(:end_with?) && name.respond_to?(:chop!)
         name.chop! if name.end_with?("/")
