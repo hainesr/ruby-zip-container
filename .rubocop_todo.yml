@@ -188,13 +188,6 @@ Style/NumericPredicate:
     - 'examples/zip-container-info'
     - 'test/tc_create_file.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: PreferredDelimiters.
-Style/PercentLiteralDelimiters:
-  Exclude:
-    - 'test/tc_exceptions.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Style/Proc:

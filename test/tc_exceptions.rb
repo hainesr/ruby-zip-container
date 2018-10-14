@@ -90,7 +90,7 @@ class TestExceptions < Test::Unit::TestCase
 
   def test_malformed_container_error_list
     mce = nil
-    message = %w(test1 test2)
+    message = %w[test1 test2]
 
     assert_nothing_raised do
       mce = ZipContainer::MalformedContainerError.new(message)
