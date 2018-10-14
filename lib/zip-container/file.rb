@@ -256,6 +256,7 @@ module ZipContainer
       entries.map do |entry|
         next if !options[:include_hidden] && hidden_entry?(entry)
         next unless ::File.fnmatch(pattern, entry.name.chomp('/'), flags)
+
         yield(entry) if block_given?
         entry
       end.compact
@@ -303,6 +304,7 @@ module ZipContainer
     # method will do nothing.
     def remove(entry)
       return if reserved_entry?(entry)
+
       @container.remove(entry)
     end
 
@@ -332,6 +334,7 @@ module ZipContainer
     # nothing.
     def replace(entry, src_path)
       return if reserved_entry?(entry)
+
       @container.replace(entry, src_path)
     end
 
