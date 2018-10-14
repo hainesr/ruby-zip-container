@@ -79,12 +79,6 @@ Style/IfUnlessModifier:
     - 'lib/zip-container/container.rb'
     - 'lib/zip-container/file.rb'
 
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/Proc:
-  Exclude:
-    - 'test/tc_managed_entries.rb'
-
 # Offense count: 12
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
