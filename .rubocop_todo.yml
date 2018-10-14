@@ -13,12 +13,6 @@ Naming/FileName:
   Exclude:
     - 'lib/zip-container.rb'
 
-# Offense count: 3
-# Configuration parameters: .
-# SupportedStyles: annotated, template, unannotated
-Style/FormatStringToken:
-  EnforcedStyle: unannotated
-
 # Offense count: 28
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
