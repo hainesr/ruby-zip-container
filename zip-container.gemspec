@@ -52,7 +52,7 @@ Gem::Specification.new do |s|
   s.files            = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^((test|spec|features)/|\.)})
   end
-  s.required_ruby_version = ">= 1.9.3"
+  s.required_ruby_version = ">= 2.2.0"
   s.add_development_dependency "bundler", "~> 1.5"
   s.add_development_dependency "rake", "~> 10.1"
   s.add_development_dependency "rdoc", "~> 4.1"
