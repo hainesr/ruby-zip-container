@@ -55,9 +55,9 @@ module ZipContainer
     #   that are within this directory (default []).
     def initialize(name, options = {})
       options = {
-        :required => false,
-        :hidden => false,
-        :entries => []
+        required: false,
+        hidden: false,
+        entries: []
       }.merge(options)
 
       super(name, options[:required], options[:hidden])
