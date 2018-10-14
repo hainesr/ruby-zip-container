@@ -37,6 +37,7 @@ module ZipContainer
   # representation could be as a Zip file (most commonly), as a directory or
   # something else.
   class Container
+
     include ReservedNames
     include ManagedEntries
 
@@ -153,7 +154,6 @@ module ZipContainer
 
       verify_managed_entries!
     end
-
   end
 
 end

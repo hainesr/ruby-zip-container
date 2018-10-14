@@ -52,7 +52,6 @@ class ManagedZipContainer < ZipContainer::File
     register_managed_entry(ZipContainer::ManagedDirectory.new("lib"))
     register_managed_entry(ZipContainer::ManagedFile.new("index.html", required: true))
   end
-
 end
 
 class ExampleZipContainer < ZipContainer::File
@@ -64,7 +63,6 @@ class ExampleZipContainer < ZipContainer::File
     register_managed_entry(ZipContainer::ManagedDirectory.new("dir", required: true))
     register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt", required: true))
   end
-
 end
 
 class ExampleZipContainer2 < ZipContainer::File
@@ -87,7 +85,6 @@ class ExampleZipContainer2 < ZipContainer::File
   def ExampleZipContainer2.create(filename, &block)
     super(filename, "application/example+zip", &block)
   end
-
 end
 
 class ExampleDirContainer < ZipContainer::Dir
@@ -105,7 +102,6 @@ class ExampleDirContainer < ZipContainer::Dir
     register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt",
       required: true, validation_proc: valid))
   end
-
 end
 
 class TestManagedEntries < Test::Unit::TestCase
@@ -442,5 +438,4 @@ class TestManagedEntries < Test::Unit::TestCase
       end
     end
   end
-
 end

@@ -86,5 +86,4 @@ class TestReadDir < Test::Unit::TestCase
       refute(ZipContainer::Dir.verify?(container))
     end
   end
-
 end

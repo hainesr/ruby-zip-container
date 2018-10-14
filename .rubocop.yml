@@ -20,6 +20,10 @@ Style/HashSyntax:
 Style/PreferredHashMethods:
   EnforcedStyle: verbose
 
+# Enforce empty lines at the beginning of classes.
+Layout/EmptyLinesAroundClassBody:
+  EnforcedStyle: beginning_only
+
 # Allow long lines in the tests.
 Metrics/LineLength:
   Exclude:

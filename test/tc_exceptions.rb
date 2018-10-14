@@ -101,5 +101,4 @@ class TestExceptions < Test::Unit::TestCase
     assert mce.message.include?(' * test1')
     assert mce.message.include?(' * test2')
   end
-
 end

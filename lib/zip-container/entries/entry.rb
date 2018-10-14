@@ -36,6 +36,7 @@ module ZipContainer
   # ManagedEntry is the superclass of ManagedDirectory and ManagedFile. It
   # should not be used directly but may be subclassed if necessary.
   class ManagedEntry
+
     include Util
 
     # The name of the ManagedEntry. For the full path name of this entry use
@@ -155,6 +156,5 @@ module ZipContainer
     def container
       @parent.is_a?(ZipContainer::Container) ? @parent : @parent.container
     end
-
   end
 end

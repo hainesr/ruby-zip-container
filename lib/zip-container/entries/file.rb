@@ -112,6 +112,5 @@ module ZipContainer
     def contents
       container.read(full_name)
     end
-
   end
 end
