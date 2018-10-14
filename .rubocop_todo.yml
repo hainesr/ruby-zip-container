@@ -28,14 +28,6 @@ Naming/FileName:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: is_a?, kind_of?
-Style/ClassCheck:
-  Exclude:
-    - 'lib/zip-container/util.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 Style/ClassMethods:
   Exclude:
     - 'test/tc_managed_entries.rb'
