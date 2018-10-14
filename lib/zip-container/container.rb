@@ -70,7 +70,7 @@ module ZipContainer
     #
     # Open an existing ZipContainer. It will be checked for conformance upon
     # first access.
-    def self.open(filename, &block)
+    def self.open(filename)
       c = new(filename)
 
       if block_given?

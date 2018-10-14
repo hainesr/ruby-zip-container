@@ -65,7 +65,7 @@ module ZipContainer
     #
     # Create a new (or convert an existing) directory as a ZipContainer with
     # the specified mimetype.
-    def self.create(pathname, mimetype, &block)
+    def self.create(pathname, mimetype)
       ::Dir.mkdir(pathname) unless ::File.directory?(pathname)
       ::File.write(::File.join(pathname, MIMETYPE_FILE), mimetype)
 
@@ -123,7 +123,7 @@ module ZipContainer
         end
       end
 
-      def each(&block)
+      def each
         @entries.each do |entry|
           yield entry
         end

@@ -74,7 +74,7 @@ module ZipContainer
     #   File.create(filename, mimetype) {|container| ...}
     #
     # Create a new ZipContainer file on disk with the specified mimetype.
-    def self.create(filename, mimetype, &block)
+    def self.create(filename, mimetype)
       ::Zip::OutputStream.open(filename) do |stream|
         stream.put_next_entry(MIMETYPE_FILE, nil, nil, ::Zip::Entry::STORED)
         stream.write mimetype
@@ -238,7 +238,7 @@ module ZipContainer
     #   <tt>::File::FNM_PATHNAME | ::File::FNM_DOTMATCH</tt>
     # * +options+ - <tt>:include_hidden => true</tt> will include hidden
     #   entries in the search.
-    def glob(pattern, *params, &block)
+    def glob(pattern, *params)
       flags = ::File::FNM_PATHNAME | ::File::FNM_DOTMATCH
       options = { include_hidden: false }
 
