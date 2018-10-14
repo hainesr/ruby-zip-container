@@ -4,3 +4,10 @@ inherit_from: .rubocop_todo.yml
 Gemspec/RequiredRubyVersion:
   Exclude:
     - 'zip-container.gemspec'
+
+# Turn this off for certain files where we have extra documentation
+# towards the end of the file, after a block of private methods.
+Lint/UselessAccessModifier:
+  Exclude:
+    - 'lib/zip-container/file.rb'
+    - 'lib/zip-container/dir.rb'
