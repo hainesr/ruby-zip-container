@@ -43,7 +43,7 @@ usage unless ARGV.length == 1
 
 container_file = ARGV[0]
 
-if File.exists?(container_file)
+if File.exist?(container_file)
   puts "File '#{container_file}' already exists. Exiting."
   exit 1
 end
