@@ -66,7 +66,5 @@ container.each do |entry|
 end
 
 ratio = ((total_size - total_comp) / total_size.to_f) * 100
-puts format(
-  "%d files, %d bytes uncompressed, %d bytes compressed: %.1f%%",
-  container.size, total_size, total_comp, ratio
-)
+puts "#{container.size} files, #{total_size} bytes uncompressed, "\
+  "#{total_comp} bytes compressed: #{ratio.round(1)}%"
