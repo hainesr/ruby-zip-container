@@ -50,7 +50,7 @@ rescue ZipContainer::MalformedContainerError, ZipContainer::ZipError => err
   exit 1
 end
 
-puts "Archive: #{container.to_s}"
+puts "Archive: #{container}"
 puts "Container file size: #{File.size(container_file)} bytes, "\
   "number of entries: #{container.size}"
 
