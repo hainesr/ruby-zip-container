@@ -21,3 +21,8 @@ Metrics/LineLength:
   Exclude:
     - 'lib/zip-container/dir.rb'
     - 'test/**/*.rb'
+
+# Ignore ABC failures in the tests.
+Metrics/AbcSize:
+  Exclude:
+    - 'test/**/*.rb'
