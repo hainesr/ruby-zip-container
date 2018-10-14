@@ -91,7 +91,7 @@ class ExampleZipContainer2 < ZipContainer::File
     )
   end
 
-  def ExampleZipContainer2.create(filename, &block)
+  def self.create(filename, &block)
     super(filename, "application/example+zip", &block)
   end
 end
