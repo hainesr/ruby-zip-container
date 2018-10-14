@@ -70,7 +70,7 @@ module ZipContainer
     # Zip::Entry object can be passed in here.
     def reserved_entry?(entry)
       name = entry_name(entry)
-      reserved_names.map { |n| n.downcase }.include? name.downcase
+      reserved_names.map(&:downcase).include? name.downcase
     end
 
     protected
