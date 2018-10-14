@@ -31,5 +31,5 @@
 # Author: Robert Haines
 
 def entry_list_names(entries)
-  entries.map { |entry| entry.name }
+  entries.map(&:name)
 end

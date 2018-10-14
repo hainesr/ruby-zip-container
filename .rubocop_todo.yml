@@ -78,13 +78,3 @@ Style/RaiseArgs:
 # SupportedStyles: single_quotes, double_quotes
 Style/StringLiterals:
   Enabled: false
-
-# Offense count: 7
-# Cop supports --auto-correct.
-# Configuration parameters: IgnoredMethods.
-# IgnoredMethods: respond_to, define_method
-Style/SymbolProc:
-  Exclude:
-    - 'lib/zip-container/entries/managed.rb'
-    - 'lib/zip-container/entries/reserved.rb'
-    - 'test/helpers/entry_lists.rb'
