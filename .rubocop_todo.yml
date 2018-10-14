@@ -80,13 +80,6 @@ Lint/StringConversionInInterpolation:
   Exclude:
     - 'examples/zip-container-info'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: IgnoreEmptyBlocks, AllowUnusedKeywordArguments.
-Lint/UnusedBlockArgument:
-  Exclude:
-    - 'test/tc_create_dir.rb'
-
 # Offense count: 5
 # Cop supports --auto-correct.
 # Configuration parameters: AllowUnusedKeywordArguments, IgnoreEmptyMethods.
