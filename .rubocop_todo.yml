@@ -121,9 +121,3 @@ Style/SymbolProc:
 Style/TernaryParentheses:
   Exclude:
     - 'lib/zip-container/entries/entry.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/UnlessElse:
-  Exclude:
-    - 'lib/zip-container/entries/entry.rb'

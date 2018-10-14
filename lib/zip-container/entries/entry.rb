@@ -116,7 +116,7 @@ module ZipContainer
     # Subclasses should override this method if they require more complex
     # verification to be done.
     def verify
-      unless !@required || exists?
+      if @required && !exists?
         ["Entry '#{full_name}' is required but missing."]
       else
         []
