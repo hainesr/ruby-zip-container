@@ -108,7 +108,7 @@ module ZipContainer
       Entries.new(@container)
     end
 
-    class Entries
+    class Entries # :nodoc:
 
       include Enumerable
 

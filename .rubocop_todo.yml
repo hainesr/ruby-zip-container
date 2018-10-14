@@ -49,13 +49,6 @@ Style/ClassMethods:
     - 'test/tc_managed_entries.rb'
 
 # Offense count: 1
-Style/Documentation:
-  Exclude:
-    - 'spec/**/*'
-    - 'test/**/*'
-    - 'lib/zip-container/dir.rb'
-
-# Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: format, sprintf, percent
