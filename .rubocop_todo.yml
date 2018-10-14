@@ -172,16 +172,6 @@ Style/IfUnlessModifier:
     - 'lib/zip-container/container.rb'
     - 'lib/zip-container/file.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-# Configuration parameters: AutoCorrect, EnforcedStyle, IgnoredMethods.
-# SupportedStyles: predicate, comparison
-Style/NumericPredicate:
-  Exclude:
-    - 'spec/**/*'
-    - 'examples/zip-container-info'
-    - 'test/tc_create_file.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 Style/Proc:
