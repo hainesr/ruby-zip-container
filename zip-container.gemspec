@@ -53,7 +53,7 @@ Gem::Specification.new do |s|
     f.match(%r{^((test|spec|features)/|\.)})
   end
   s.required_ruby_version = ">= 2.2.0"
-  s.add_development_dependency "bundler", "~> 1.5"
+  s.add_development_dependency "bundler", "~> 1.16"
   s.add_development_dependency "rake", "~> 10.1"
   s.add_development_dependency "rdoc", "~> 4.1"
   s.add_development_dependency "test-unit", "~> 3.0"
