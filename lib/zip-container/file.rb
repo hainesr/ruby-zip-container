@@ -180,7 +180,7 @@ module ZipContainer
     # can specify <tt>:include_hidden => true</tt> to include hidden entries
     # in the search.
     def find_entry(entry_name, options = {})
-      options = {include_hidden: false}.merge(options)
+      options = { include_hidden: false }.merge(options)
 
       unless options[:include_hidden]
         return if hidden_entry?(entry_name)
@@ -197,7 +197,7 @@ module ZipContainer
     # can specify <tt>:include_hidden => true</tt> to include hidden entries
     # in the search.
     def get_entry(entry, options = {})
-      options = {include_hidden: false}.merge(options)
+      options = { include_hidden: false }.merge(options)
 
       unless options[:include_hidden]
         raise Errno::ENOENT, entry if hidden_entry?(entry)
