@@ -33,12 +33,6 @@ Layout/EmptyComment:
     - 'lib/zip-container/exceptions.rb'
     - 'lib/zip-container/util.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Layout/EmptyLineAfterGuardClause:
-  Exclude:
-    - 'lib/zip-container/file.rb'
-
 # Offense count: 2
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle.
