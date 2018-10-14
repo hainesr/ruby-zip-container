@@ -236,13 +236,6 @@ Style/RaiseArgs:
 Style/StringLiterals:
   Enabled: false
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: MinSize.
-# SupportedStyles: percent, brackets
-Style/SymbolArray:
-  EnforcedStyle: brackets
-
 # Offense count: 7
 # Cop supports --auto-correct.
 # Configuration parameters: IgnoredMethods.

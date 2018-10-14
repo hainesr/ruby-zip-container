@@ -41,6 +41,6 @@ module ZipContainer
       "version.yml"))
 
     # Version number as a String
-    STRING = [:major, :minor, :patch].map { |d| INFO[d] }.compact.join('.')
+    STRING = %i[major minor patch].map { |d| INFO[d] }.compact.join('.')
   end
 end
