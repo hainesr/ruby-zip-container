@@ -75,7 +75,7 @@ class TestReadDir < Test::Unit::TestCase
       Dir.mkdir(container)
       mime_path = File.join(container, ZipContainer::Container::MIMETYPE_FILE)
       File.open(mime_path, "w") { |file| file.write "MIMETYPE" }
-      File.chmod(0000, mime_path)
+      File.chmod(0o0000, mime_path)
 
       refute File.readable?(mime_path)
       assert_raise(ZipContainer::MalformedContainerError) do

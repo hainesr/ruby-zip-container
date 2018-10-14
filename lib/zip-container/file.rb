@@ -278,7 +278,7 @@ module ZipContainer
     # The new directory will be created with the supplied unix-style
     # permissions. The default (+0755+) is owner read, write and list; group
     # read and list; and world read and list.
-    def mkdir(name, permission = 0755)
+    def mkdir(name, permission = 0o0755)
       if reserved_entry?(name) || managed_file?(name)
         raise ReservedNameClashError.new(name)
       end
