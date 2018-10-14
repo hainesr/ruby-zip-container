@@ -89,12 +89,6 @@ Lint/UnusedMethodArgument:
     - 'lib/zip-container/dir.rb'
     - 'lib/zip-container/file.rb'
 
-# Offense count: 6
-# Configuration parameters: CountComments, ExcludedMethods.
-# ExcludedMethods: refine
-Metrics/BlockLength:
-  Max: 40
-
 # Offense count: 3
 # Configuration parameters: CountComments.
 Metrics/ClassLength:

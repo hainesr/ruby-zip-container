@@ -26,3 +26,8 @@ Metrics/LineLength:
 Metrics/AbcSize:
   Exclude:
     - 'test/**/*.rb'
+
+# Ignore block length failures in the tests.
+Metrics/BlockLength:
+  Exclude:
+    - 'test/**/*.rb'
