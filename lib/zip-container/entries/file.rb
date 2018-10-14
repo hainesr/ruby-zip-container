@@ -83,7 +83,8 @@ module ZipContainer
     def verify
       messages = super
 
-      unless (exists? ? validate : true)
+      valid = exists? ? validate : true
+      unless valid
         messages <<
           "The contents of file '#{full_name}' do not pass validation."
       end
