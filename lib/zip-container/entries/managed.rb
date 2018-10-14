@@ -50,7 +50,7 @@ module ZipContainer
 
       dirs = @directories.values
       @managed_directories = dirs +
-        dirs.map { |d| d.managed_directories }.flatten
+                             dirs.map { |d| d.managed_directories }.flatten
     end
 
     # :call-seq:
@@ -133,7 +133,8 @@ module ZipContainer
     #
     # Return the list of managed files.
     def managed_files
-      @managed_files ||= @files.values +
+      @managed_files ||=
+        @files.values +
         @directories.values.map { |d| d.managed_files }.flatten
     end
 
