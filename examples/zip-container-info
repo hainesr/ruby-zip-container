@@ -67,4 +67,4 @@ end
 
 ratio = ((total_size - total_comp) / total_size.to_f) * 100
 puts "%d files, %d bytes uncompressed, %d bytes compressed: %.1f%%" %
-  [container.size, total_size, total_comp, ratio]
+     [container.size, total_size, total_comp, ratio]
