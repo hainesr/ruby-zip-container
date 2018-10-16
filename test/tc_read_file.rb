@@ -83,10 +83,10 @@ class TestReadFile < Test::Unit::TestCase
   # Check the raw mimetype bytes
   def test_raw_mimetypes
     empty_container = File.read($empty)
-    assert_equal("application/epub+zip", empty_container[38..57])
+    assert_equal('application/epub+zip', empty_container[38..57])
 
     compressed_mimetype = File.read($compressed_mimetype)
-    assert_not_equal("application/epub+zip", compressed_mimetype[38..57])
+    assert_not_equal('application/epub+zip', compressed_mimetype[38..57])
   end
 
   # Check reading files out of a container file and make sure we don't change
@@ -97,17 +97,17 @@ class TestReadFile < Test::Unit::TestCase
         assert(c.on_disk?)
         refute(c.in_memory?)
 
-        assert(c.file.exists?("greeting.txt"))
+        assert(c.file.exists?('greeting.txt'))
 
-        greeting = c.file.read("greeting.txt")
+        greeting = c.file.read('greeting.txt')
         assert_equal("Hello, World!\n", greeting)
 
-        assert(c.file.exists?("dir"))
-        assert(c.file.directory?("dir"))
+        assert(c.file.exists?('dir'))
+        assert(c.file.directory?('dir'))
 
-        assert(c.file.exists?("dir/code.rb"))
+        assert(c.file.exists?('dir/code.rb'))
 
-        assert_equal("This is an example Container file!", c.comment)
+        assert_equal('This is an example Container file!', c.comment)
 
         refute(c.commit_required?)
         refute(c.commit)

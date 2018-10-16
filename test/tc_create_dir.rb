@@ -38,11 +38,11 @@ class TestCreateDir < Test::Unit::TestCase
 
   def test_create_container
     Dir.mktmpdir do |dir|
-      container = File.join(dir, "empty.container")
+      container = File.join(dir, 'empty.container')
 
       assert_nothing_raised do
         ZipContainer::Dir.create(container, $mimetype) do
-          assert File.exist?(File.join(container, "mimetype"))
+          assert File.exist?(File.join(container, 'mimetype'))
         end
       end
 

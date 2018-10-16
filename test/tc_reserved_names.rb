@@ -40,14 +40,14 @@ class NewZipContainer < ZipContainer::File
 
   def initialize(filename)
     super(filename)
-    register_managed_entry(ZipContainer::ManagedDirectory.new("src"))
-    register_managed_entry(ZipContainer::ManagedDirectory.new("test"))
-    register_managed_entry(ZipContainer::ManagedDirectory.new("lib"))
-    register_managed_entry(ZipContainer::ManagedFile.new("index.html"))
-    register_managed_entry(ZipContainer::ManagedFile.new("greeting.txt"))
+    register_managed_entry(ZipContainer::ManagedDirectory.new('src'))
+    register_managed_entry(ZipContainer::ManagedDirectory.new('test'))
+    register_managed_entry(ZipContainer::ManagedDirectory.new('lib'))
+    register_managed_entry(ZipContainer::ManagedFile.new('index.html'))
+    register_managed_entry(ZipContainer::ManagedFile.new('greeting.txt'))
 
-    register_reserved_name("META-INF")
-    register_reserved_name("reserved_dir")
+    register_reserved_name('META-INF')
+    register_reserved_name('reserved_dir')
   end
 end
 
@@ -67,21 +67,21 @@ class TestReservedNames < Test::Unit::TestCase
   def test_reserved_names
     ZipContainer::File.open($example) do |c|
       assert_equal(1, c.reserved_names.length)
-      assert_equal(["mimetype"], c.reserved_names)
+      assert_equal(['mimetype'], c.reserved_names)
 
       assert_equal(0, c.managed_files.length)
       assert_equal([], c.managed_file_names)
-      assert(c.reserved_entry?("mimetype"))
-      assert(c.reserved_entry?("mimetype/"))
-      assert(c.reserved_entry?("MimeType"))
+      assert(c.reserved_entry?('mimetype'))
+      assert(c.reserved_entry?('mimetype/'))
+      assert(c.reserved_entry?('MimeType'))
 
       assert_equal(0, c.managed_directories.length)
       assert_equal([], c.managed_directory_names)
-      refute(c.reserved_entry?("META-INF"))
+      refute(c.reserved_entry?('META-INF'))
 
       assert_equal(0, c.managed_entries.length)
       assert_equal([], c.managed_entry_names)
-      refute(c.managed_entry?("This_should_fail"))
+      refute(c.managed_entry?('This_should_fail'))
     end
   end
 
@@ -90,61 +90,61 @@ class TestReservedNames < Test::Unit::TestCase
     NewZipContainer.open($example) do |c|
       assert_equal(3, c.reserved_names.length)
       assert_equal(
-        ["mimetype", "META-INF", "reserved_dir"], c.reserved_names
+        ['mimetype', 'META-INF', 'reserved_dir'], c.reserved_names
       )
 
       assert_equal(2, c.managed_files.length)
-      assert_equal(["index.html", "greeting.txt"], c.managed_file_names)
-      assert(c.reserved_entry?("mimetype"))
-      assert(c.reserved_entry?("mimetype/"))
-      assert(c.reserved_entry?("MimeType"))
-      assert(c.managed_entry?("index.html"))
-      assert(c.managed_entry?("Index.HTML"))
-      refute(c.reserved_entry?("index.html"))
+      assert_equal(['index.html', 'greeting.txt'], c.managed_file_names)
+      assert(c.reserved_entry?('mimetype'))
+      assert(c.reserved_entry?('mimetype/'))
+      assert(c.reserved_entry?('MimeType'))
+      assert(c.managed_entry?('index.html'))
+      assert(c.managed_entry?('Index.HTML'))
+      refute(c.reserved_entry?('index.html'))
 
       assert_equal(3, c.managed_directories.length)
       assert_equal(%w[src test lib], c.managed_directory_names)
-      assert(c.managed_entry?("src"))
-      assert(c.managed_entry?("SRC"))
-      assert(c.managed_entry?("test"))
-      assert(c.managed_entry?("lib"))
-      assert(c.managed_entry?("lIb/"))
-      refute(c.managed_entry?("META-INF"))
-      assert(c.reserved_entry?("META-INF"))
-      refute(c.reserved_entry?("src"))
-      refute(c.reserved_entry?("test"))
-      refute(c.reserved_entry?("lib"))
+      assert(c.managed_entry?('src'))
+      assert(c.managed_entry?('SRC'))
+      assert(c.managed_entry?('test'))
+      assert(c.managed_entry?('lib'))
+      assert(c.managed_entry?('lIb/'))
+      refute(c.managed_entry?('META-INF'))
+      assert(c.reserved_entry?('META-INF'))
+      refute(c.reserved_entry?('src'))
+      refute(c.reserved_entry?('test'))
+      refute(c.reserved_entry?('lib'))
 
       assert_equal(5, c.managed_entries.length)
       assert_equal(
-        ["index.html", "greeting.txt", "src", "test", "lib"],
+        ['index.html', 'greeting.txt', 'src', 'test', 'lib'],
         c.managed_entry_names
       )
 
-      refute(c.managed_entry?("This_should_fail"))
-      refute(c.reserved_entry?("META_INF"))
-      refute(c.reserved_entry?("META_INF/"))
-      refute(c.managed_entry?("index.htm"))
-      refute(c.reserved_entry?("index.html"))
+      refute(c.managed_entry?('This_should_fail'))
+      refute(c.reserved_entry?('META_INF'))
+      refute(c.reserved_entry?('META_INF/'))
+      refute(c.managed_entry?('index.htm'))
+      refute(c.reserved_entry?('index.html'))
     end
   end
 
   # Check that nothing happens when trying to delete the mimetype file.
   def test_delete_mimetype
     ZipContainer::File.open($example) do |c|
-      assert(c.file.exists?("mimetype"))
-      assert_nil(c.remove("mimetype"))
-      assert(c.file.exists?("mimetype"))
+      assert(c.file.exists?('mimetype'))
+      assert_nil(c.remove('mimetype'))
+      assert(c.file.exists?('mimetype'))
     end
   end
 
   # Check that nothing happens when trying to rename the mimetype file.
   def test_rename_mimetype
     ZipContainer::File.open($example) do |c|
-      assert(c.file.exists?("mimetype"))
-      assert_nil(c.rename("mimetype", "something-else"))
-      assert(c.file.exists?("mimetype"))
-      refute(c.file.exists?("something-else"))
+      assert(c.file.exists?('mimetype'))
+      assert_nil(c.rename('mimetype', 'something-else'))
+      assert(c.file.exists?('mimetype'))
+      refute(c.file.exists?('something-else'))
     end
   end
 
@@ -152,9 +152,9 @@ class TestReservedNames < Test::Unit::TestCase
   # mimetype file.
   def test_replace_mimetype
     ZipContainer::File.open($example) do |c|
-      assert(c.file.exists?("mimetype"))
-      assert_nil(c.replace("mimetype", $zip_empty))
-      assert_equal("application/epub+zip", c.file.read("mimetype"))
+      assert(c.file.exists?('mimetype'))
+      assert_nil(c.replace('mimetype', $zip_empty))
+      assert_equal('application/epub+zip', c.file.read('mimetype'))
     end
   end
 
@@ -163,7 +163,7 @@ class TestReservedNames < Test::Unit::TestCase
   def test_add_reserved
     ZipContainer::File.open($empty) do |c|
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.add("mimetype", $zip_empty)
+        c.add('mimetype', $zip_empty)
       end
     end
   end
@@ -173,19 +173,19 @@ class TestReservedNames < Test::Unit::TestCase
   def test_subclass_add_reserved
     NewZipContainer.open($empty) do |c|
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.add("mimetype", $zip_empty)
+        c.add('mimetype', $zip_empty)
       end
 
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.add("reserved_dir", $zip_empty)
+        c.add('reserved_dir', $zip_empty)
       end
 
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.add("MimeType", $zip_empty)
+        c.add('MimeType', $zip_empty)
       end
 
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.add("Reserved_Dir", $zip_empty)
+        c.add('Reserved_Dir', $zip_empty)
       end
     end
   end
@@ -195,7 +195,7 @@ class TestReservedNames < Test::Unit::TestCase
   def test_delete_metainf
     ZipContainer::File.open($example) do |c|
       assert_raises(Errno::ENOENT) do
-        c.remove("META-INF")
+        c.remove('META-INF')
       end
     end
   end
@@ -205,7 +205,7 @@ class TestReservedNames < Test::Unit::TestCase
   def test_rename_metainf
     ZipContainer::File.open($example) do |c|
       assert_raises(Errno::ENOENT) do
-        c.rename("META-INF", "something-else")
+        c.rename('META-INF', 'something-else')
       end
     end
   end
@@ -215,7 +215,7 @@ class TestReservedNames < Test::Unit::TestCase
   def test_mkdir_reserved
     ZipContainer::File.open($empty) do |c|
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.mkdir("mimetype")
+        c.mkdir('mimetype')
       end
     end
   end
@@ -225,23 +225,23 @@ class TestReservedNames < Test::Unit::TestCase
   def test_subclass_mkdir_reserved
     NewZipContainer.open($empty) do |c|
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.mkdir("mimetype")
+        c.mkdir('mimetype')
       end
 
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.mkdir("index.html")
+        c.mkdir('index.html')
       end
 
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.mkdir("reserved_dir")
+        c.mkdir('reserved_dir')
       end
 
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.mkdir("Reserved_Dir")
+        c.mkdir('Reserved_Dir')
       end
 
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.mkdir("META-INF")
+        c.mkdir('META-INF')
       end
     end
   end
@@ -250,7 +250,7 @@ class TestReservedNames < Test::Unit::TestCase
   def test_rename_to_reserved
     ZipContainer::File.open($example) do |c|
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.rename("dir/code.rb", "mimetype")
+        c.rename('dir/code.rb', 'mimetype')
       end
     end
   end
@@ -260,11 +260,11 @@ class TestReservedNames < Test::Unit::TestCase
   def test_subclass_rename_to_reserved
     NewZipContainer.open($example) do |c|
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.rename("dir/code.rb", "mimetype")
+        c.rename('dir/code.rb', 'mimetype')
       end
 
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.rename("dir", "reserved_dir")
+        c.rename('dir', 'reserved_dir')
       end
     end
   end
@@ -274,20 +274,20 @@ class TestReservedNames < Test::Unit::TestCase
   def test_file_dir_ops_reserved
     ZipContainer::File.open($empty) do |c|
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.file.open("mimetype", "w") do |f|
-          f.puts "TESTING"
+        c.file.open('mimetype', 'w') do |f|
+          f.puts 'TESTING'
         end
       end
 
       assert_nothing_raised(ZipContainer::ReservedNameClashError) do
-        c.file.open("mimetype") do |f|
-          assert_equal("application/epub+zip", f.read)
+        c.file.open('mimetype') do |f|
+          assert_equal('application/epub+zip', f.read)
         end
       end
 
       assert_nothing_raised(ZipContainer::ReservedNameClashError) do
-        c.file.delete("mimetype")
-        assert(c.file.exists?("mimetype"))
+        c.file.delete('mimetype')
+        assert(c.file.exists?('mimetype'))
       end
     end
   end
@@ -297,38 +297,38 @@ class TestReservedNames < Test::Unit::TestCase
   def test_subclass_file_dir_ops_reserved
     NewZipContainer.open($empty) do |c|
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.file.open("META-INF", "w") do |f|
-          f.puts "TESTING"
+        c.file.open('META-INF', 'w') do |f|
+          f.puts 'TESTING'
         end
       end
 
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.file.open("TEST", "w") do |f|
-          f.puts "TESTING"
-        end
-      end
-
-      assert_nothing_raised(ZipContainer::ReservedNameClashError) do
-        c.file.open("mimetype") do |f|
-          assert_equal("application/epub+zip", f.read)
+        c.file.open('TEST', 'w') do |f|
+          f.puts 'TESTING'
         end
       end
 
       assert_nothing_raised(ZipContainer::ReservedNameClashError) do
-        c.file.delete("mimetype")
-        assert(c.file.exists?("mimetype"))
+        c.file.open('mimetype') do |f|
+          assert_equal('application/epub+zip', f.read)
+        end
+      end
+
+      assert_nothing_raised(ZipContainer::ReservedNameClashError) do
+        c.file.delete('mimetype')
+        assert(c.file.exists?('mimetype'))
       end
 
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.dir.mkdir("index.html")
+        c.dir.mkdir('index.html')
       end
 
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.dir.mkdir("reserved_dir")
+        c.dir.mkdir('reserved_dir')
       end
 
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.dir.mkdir("Reserved_Dir")
+        c.dir.mkdir('Reserved_Dir')
       end
     end
   end

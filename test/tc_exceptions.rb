@@ -45,7 +45,7 @@ class TestExceptions < Test::Unit::TestCase
     end
 
     assert_raise(ZipContainer::Error) do
-      raise ZipContainer::ReservedNameClashError, "test"
+      raise ZipContainer::ReservedNameClashError, 'test'
     end
 
     assert_raise(ZipContainer::Error) do
@@ -68,7 +68,7 @@ class TestExceptions < Test::Unit::TestCase
     mce = nil
 
     assert_nothing_raised do
-      mce = ZipContainer::MalformedContainerError.new("")
+      mce = ZipContainer::MalformedContainerError.new('')
     end
 
     refute mce.message.empty?
@@ -77,7 +77,7 @@ class TestExceptions < Test::Unit::TestCase
 
   def test_malformed_container_error_string
     mce = nil
-    message = "test"
+    message = 'test'
 
     assert_nothing_raised do
       mce = ZipContainer::MalformedContainerError.new(message)

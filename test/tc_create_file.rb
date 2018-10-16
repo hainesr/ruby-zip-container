@@ -39,14 +39,14 @@ class TestCreateFile < Test::Unit::TestCase
   # Check creation of standard empty container files.
   def test_create_standard_file
     Dir.mktmpdir do |dir|
-      filename = File.join(dir, "test.container")
+      filename = File.join(dir, 'test.container')
 
       assert_nothing_raised do
         ZipContainer::File.create(filename, $mimetype) do |c|
           assert(c.on_disk?)
           refute(c.in_memory?)
 
-          assert(c.find_entry("mimetype").local_header_offset.zero?)
+          assert(c.find_entry('mimetype').local_header_offset.zero?)
         end
       end
 
@@ -58,17 +58,17 @@ class TestCreateFile < Test::Unit::TestCase
 
   # Check creation of empty container files with a different mimetype.
   def test_create_mimetype_file
-    mimetype = "application/x-something-really-odd"
+    mimetype = 'application/x-something-really-odd'
 
     Dir.mktmpdir do |dir|
-      filename = File.join(dir, "test.container")
+      filename = File.join(dir, 'test.container')
 
       assert_nothing_raised do
         ZipContainer::File.create(filename, mimetype) do |c|
           assert(c.on_disk?)
           refute(c.in_memory?)
 
-          assert(c.find_entry("mimetype").local_header_offset.zero?)
+          assert(c.find_entry('mimetype').local_header_offset.zero?)
         end
       end
 
@@ -82,15 +82,15 @@ class TestCreateFile < Test::Unit::TestCase
   # times to ensure that what we expect to happen, happens.
   def test_create_contents_file
     Dir.mktmpdir do |dir|
-      filename = File.join(dir, "test.container")
+      filename = File.join(dir, 'test.container')
 
       assert_nothing_raised do
         ZipContainer::File.create(filename, $mimetype) do |c|
           assert(c.on_disk?)
           refute(c.in_memory?)
 
-          c.file.open("test.txt", "w") do |f|
-            f.print "testing"
+          c.file.open('test.txt', 'w') do |f|
+            f.print 'testing'
           end
 
           assert(c.commit_required?)
@@ -98,15 +98,15 @@ class TestCreateFile < Test::Unit::TestCase
           refute(c.commit_required?)
           refute(c.commit)
 
-          c.dir.mkdir("dir1")
-          c.mkdir("dir2")
+          c.dir.mkdir('dir1')
+          c.mkdir('dir2')
 
           assert(c.commit_required?)
           assert(c.commit)
           refute(c.commit_required?)
           refute(c.commit)
 
-          c.comment = "A comment!"
+          c.comment = 'A comment!'
 
           assert(c.commit_required?)
           assert(c.commit)
@@ -120,15 +120,15 @@ class TestCreateFile < Test::Unit::TestCase
           assert(c.on_disk?)
           refute(c.in_memory?)
 
-          assert(c.file.exists?("test.txt"))
-          assert(c.file.exists?("dir1"))
-          assert(c.file.exists?("dir2"))
-          refute(c.file.exists?("dir3"))
+          assert(c.file.exists?('test.txt'))
+          assert(c.file.exists?('dir1'))
+          assert(c.file.exists?('dir2'))
+          refute(c.file.exists?('dir3'))
 
-          text = c.file.read("test.txt")
-          assert_equal("testing", text)
+          text = c.file.read('test.txt')
+          assert_equal('testing', text)
 
-          assert_equal("A comment!", c.comment)
+          assert_equal('A comment!', c.comment)
 
           refute(c.commit_required?)
           refute(c.commit)
