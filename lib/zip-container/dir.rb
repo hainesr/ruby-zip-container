@@ -146,12 +146,9 @@ module ZipContainer
 
     def verify_mimetype
       mime_path = full_path(MIMETYPE_FILE)
-      if ::File.exist?(mime_path)
-        return "'mimetype' is not a regular file" unless ::File.file?(mime_path)
-        return "'mimetype' is not readable." unless ::File.readable?(mime_path)
-      else
-        return "'mimetype' file is missing."
-      end
+      return "'mimetype' file is missing." unless ::File.exist?(mime_path)
+      return "'mimetype' is not a regular file" unless ::File.file?(mime_path)
+      return "'mimetype' is not readable." unless ::File.readable?(mime_path)
     end
 
     def read_mimetype

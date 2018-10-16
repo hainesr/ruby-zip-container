@@ -25,6 +25,12 @@ Style/HashSyntax:
 Style/PreferredHashMethods:
   EnforcedStyle: verbose
 
+# Exclude this file for now. Guard clauses in this file would be
+# overly clunky at the moment.
+Style/GuardClause:
+  Exclude:
+    - 'lib/zip-container/file.rb'
+
 # Enforce empty lines at the beginning of classes.
 Layout/EmptyLinesAroundClassBody:
   EnforcedStyle: beginning_only
