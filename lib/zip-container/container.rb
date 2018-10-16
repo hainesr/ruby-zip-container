@@ -148,9 +148,7 @@ module ZipContainer
     # This method raises a MalformedContainerError if there are any problems
     # with the container.
     def verify!
-      unless @mimetype_error.nil?
-        raise MalformedContainerError, @mimetype_error
-      end
+      raise MalformedContainerError, @mimetype_error unless @mimetype_error.nil?
 
       verify_managed_entries!
     end
