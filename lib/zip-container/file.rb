@@ -127,7 +127,7 @@ module ZipContainer
     # +continue_on_exists_proc+ parameter.
     def add(entry, src_path, &continue_on_exists_proc)
       if reserved_entry?(entry) || managed_directory?(entry)
-        raise ReservedNameClashError.new(entry.to_s)
+        raise ReservedNameClashError, entry.to_s
       end
 
       @container.add(entry, src_path, &continue_on_exists_proc)
@@ -218,7 +218,7 @@ module ZipContainer
     # parameter.
     def get_output_stream(entry, permission = nil, &block)
       if reserved_entry?(entry) || managed_directory?(entry)
-        raise ReservedNameClashError.new(entry.to_s)
+        raise ReservedNameClashError, entry.to_s
       end
 
       @container.get_output_stream(entry, permission, &block)
@@ -280,7 +280,7 @@ module ZipContainer
     # read and list; and world read and list.
     def mkdir(name, permission = 0o0755)
       if reserved_entry?(name) || managed_file?(name)
-        raise ReservedNameClashError.new(name)
+        raise ReservedNameClashError, name
       end
 
       @container.mkdir(name, permission)
@@ -318,7 +318,7 @@ module ZipContainer
     # +continue_on_exists_proc+ parameter.
     def rename(entry, new_name, &continue_on_exists_proc)
       return if reserved_entry?(entry)
-      raise ReservedNameClashError.new(new_name) if reserved_entry?(new_name)
+      raise ReservedNameClashError, new_name if reserved_entry?(new_name)
 
       @container.rename(entry, new_name, &continue_on_exists_proc)
     end

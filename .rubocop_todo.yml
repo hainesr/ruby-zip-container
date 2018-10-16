@@ -46,18 +46,6 @@ Style/IfUnlessModifier:
     - 'lib/zip-container/container.rb'
     - 'lib/zip-container/file.rb'
 
-# Offense count: 12
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: compact, exploded
-Style/RaiseArgs:
-  Exclude:
-    - 'lib/zip-container/container.rb'
-    - 'lib/zip-container/entries/entry.rb'
-    - 'lib/zip-container/entries/managed.rb'
-    - 'lib/zip-container/file.rb'
-    - 'test/tc_exceptions.rb'
-
 # Offense count: 338
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.

@@ -171,7 +171,7 @@ module ZipContainer
     # exist and validate, if required.
     def verify_managed_entries!
       messages = verify_managed_entries
-      raise MalformedContainerError.new(messages) unless messages.empty?
+      raise MalformedContainerError, messages unless messages.empty?
     end
 
     protected
@@ -205,8 +205,8 @@ module ZipContainer
     # managed files within it.
     def register_managed_entry(entry)
       unless entry.is_a?(ManagedDirectory) || entry.is_a?(ManagedFile)
-        raise ArgumentError.new("The supplied entry must be of type "\
-          "ManagedDirectory or ManagedFile or a subclass of either.")
+        raise ArgumentError, "The supplied entry must be of type "\
+          "ManagedDirectory or ManagedFile or a subclass of either."
       end
 
       entry.parent = self
