@@ -30,27 +30,27 @@
 #
 # Author: Robert Haines
 
-require "bundler/gem_tasks"
-require "rake/testtask"
-require "rdoc/task"
-require "rubocop/rake_task"
+require 'bundler/gem_tasks'
+require 'rake/testtask'
+require 'rdoc/task'
+require 'rubocop/rake_task'
 
 task default: :test
 
 Rake::TestTask.new do |t|
-  t.libs << "test"
+  t.libs << 'test'
   t.test_files = FileList['test/ts_container.rb']
   t.verbose = true
 end
 
 RDoc::Task.new do |r|
-  r.main = "ReadMe.rdoc"
-  lib = Dir.glob("lib/**/*.rb")
-  r.rdoc_files.include("ReadMe.rdoc", "Licence.rdoc", "Changes.rdoc", lib)
-  r.options << "-t ZIP Container Format Ruby Library version " \
+  r.main = 'ReadMe.rdoc'
+  lib = Dir.glob('lib/**/*.rb')
+  r.rdoc_files.include('ReadMe.rdoc', 'Licence.rdoc', 'Changes.rdoc', lib)
+  r.options << '-t ZIP Container Format Ruby Library version ' \
     "#{ZipContainer::Version::STRING}"
-  r.options << "-N"
-  r.options << "--tab-width=2"
+  r.options << '-N'
+  r.options << '--tab-width=2'
 end
 
 RuboCop::RakeTask.new
