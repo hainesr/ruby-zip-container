@@ -25,13 +25,6 @@ Style/GlobalVars:
     - 'test/tc_reserved_names.rb'
     - 'test/ts_container.rb'
 
-# Offense count: 3
-# Configuration parameters: MinBodyLength.
-Style/GuardClause:
-  Exclude:
-    - 'lib/zip-container/dir.rb'
-    - 'lib/zip-container/file.rb'
-
 # Offense count: 4
 # Cop supports --auto-correct.
 Style/IfUnlessModifier:
