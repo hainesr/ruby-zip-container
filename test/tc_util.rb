@@ -45,25 +45,25 @@ class TestUtil < Test::Unit::TestCase
   end
 
   def test_entry_name_strings
-    assert_equal("test", @util.entry_name("test"))
-    assert_equal("test", @util.entry_name("test/"))
-    assert_equal("test/test", @util.entry_name("test/test"))
-    assert_equal("test/test", @util.entry_name("test/test/"))
+    assert_equal('test', @util.entry_name('test'))
+    assert_equal('test', @util.entry_name('test/'))
+    assert_equal('test/test', @util.entry_name('test/test'))
+    assert_equal('test/test', @util.entry_name('test/test/'))
   end
 
   def test_entry_name_entries
-    assert_equal("test", @util.entry_name(Zip::Entry.new("fake.zip", "test")))
-    assert_equal("test", @util.entry_name(Zip::Entry.new("fake.zip", "test/")))
+    assert_equal('test', @util.entry_name(Zip::Entry.new('fake.zip', 'test')))
+    assert_equal('test', @util.entry_name(Zip::Entry.new('fake.zip', 'test/')))
     assert_equal(
-      "test/test", @util.entry_name(Zip::Entry.new("fake.zip", "test/test"))
+      'test/test', @util.entry_name(Zip::Entry.new('fake.zip', 'test/test'))
     )
     assert_equal(
-      "test/test", @util.entry_name(Zip::Entry.new("fake.zip", "test/test/"))
+      'test/test', @util.entry_name(Zip::Entry.new('fake.zip', 'test/test/'))
     )
   end
 
   def test_entry_name_odd_things
-    uri = URI.parse("http://www.example.com/path")
+    uri = URI.parse('http://www.example.com/path')
     assert_equal(uri, @util.entry_name(uri))
   end
 end

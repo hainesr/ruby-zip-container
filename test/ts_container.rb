@@ -34,19 +34,19 @@ require 'coveralls'
 Coveralls.wear!
 
 # Example default mimetype
-$mimetype = "application/epub+zip"
+$mimetype = 'application/epub+zip'
 
 # Example data files
-$dir_null = "test/data/dirs/null"
-$dir_empty = "test/data/dirs/empty"
-$dir_dir_mimetype = "test/data/dirs/dir-mimetype"
-$dir_managed = "test/data/dirs/managed"
-$file_null = "test/data/null.file"
-$empty = "test/data/empty.container"
-$empty_zip = "test/data/empty.zip"
-$compressed_mimetype = "test/data/compressed_mimetype.container"
-$example = "test/data/example.container"
-$subclass = "test/data/subclassed.container"
+$dir_null = 'test/data/dirs/null'
+$dir_empty = 'test/data/dirs/empty'
+$dir_dir_mimetype = 'test/data/dirs/dir-mimetype'
+$dir_managed = 'test/data/dirs/managed'
+$file_null = 'test/data/null.file'
+$empty = 'test/data/empty.container'
+$empty_zip = 'test/data/empty.zip'
+$compressed_mimetype = 'test/data/compressed_mimetype.container'
+$example = 'test/data/example.container'
+$subclass = 'test/data/subclassed.container'
 
 # Run test cases.
 require 'tc_util'
