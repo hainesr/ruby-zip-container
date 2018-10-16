@@ -13,13 +13,6 @@ Naming/FileName:
   Exclude:
     - 'lib/zip-container.rb'
 
-# Offense count: 28
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: when_needed, always, never
-Style/FrozenStringLiteralComment:
-  Enabled: false
-
 # Offense count: 76
 # Configuration parameters: AllowedVariables.
 Style/GlobalVars:

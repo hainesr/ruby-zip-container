@@ -5,6 +5,11 @@ Gemspec/RequiredRubyVersion:
   Exclude:
     - 'zip-container.gemspec'
 
+# Turn this off for now. I think we can't enable this until rubyzip
+# does, and respects it, too.
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
 # Turn this off for certain files where we have extra documentation
 # towards the end of the file, after a block of private methods.
 Lint/UselessAccessModifier:
