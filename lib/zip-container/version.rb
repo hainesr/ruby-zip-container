@@ -38,7 +38,7 @@ module ZipContainer
   module Version
     # Version information in a Hash
     INFO = YAML.load_file(
-      File.join(File.dirname(__FILE__), "..", "..", "version.yml")
+      File.join(File.dirname(__FILE__), '..', '..', 'version.yml')
     )
 
     # Version number as a String

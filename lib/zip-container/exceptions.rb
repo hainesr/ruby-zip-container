@@ -55,7 +55,7 @@ module ZipContainer
     # reasons for why the Container is malformed.
     def initialize(reason = nil)
       if reason.nil? || reason.empty?
-        super("Malformed Container.")
+        super('Malformed Container.')
       elsif reason.is_a?(Array)
         reasons = reason.map { |r| " * #{r}\n" }
         super("Malformed Container:\n#{reasons}")

@@ -45,10 +45,3 @@ Style/IfUnlessModifier:
   Exclude:
     - 'lib/zip-container/container.rb'
     - 'lib/zip-container/file.rb'
-
-# Offense count: 338
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  Enabled: false

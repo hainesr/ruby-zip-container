@@ -49,7 +49,7 @@ module ZipContainer
       name = entry.is_a?(::Zip::Entry) ? entry.name : entry
 
       if name.respond_to?(:end_with?) && name.respond_to?(:chop!)
-        name.chop! if name.end_with?("/")
+        name.chop! if name.end_with?('/')
       end
 
       name
