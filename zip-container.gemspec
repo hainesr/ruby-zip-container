@@ -32,36 +32,36 @@
 
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require "zip-container/version"
+require 'zip-container/version'
 
 Gem::Specification.new do |s|
-  s.name             = "zip-container"
+  s.name             = 'zip-container'
   s.version          = ZipContainer::Version::STRING
-  s.authors          = ["Robert Haines", "Finn Bacall"]
-  s.email            = ["support@mygrid.org.uk"]
+  s.authors          = ['Robert Haines', 'Finn Bacall']
+  s.email            = ['support@mygrid.org.uk']
 
-  s.homepage         = "http://mygrid.github.io/ruby-zip-container/"
-  s.summary          = "A ZIP Container for use by OCF and UCF implementations"
-  s.description      = "A Ruby library for working with ZIP Container "\
-    "Format files. See http://www.idpf.org/epub/30/spec/epub30-ocf.html for "\
-    "the OCF specification and "\
-    "https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format "\
-    "for the UCF specification."
-  s.license          = "BSD"
+  s.homepage         = 'http://mygrid.github.io/ruby-zip-container/'
+  s.summary          = 'A ZIP Container for use by OCF and UCF implementations'
+  s.description      = 'A Ruby library for working with ZIP Container '\
+    'Format files. See http://www.idpf.org/epub/30/spec/epub30-ocf.html for '\
+    'the OCF specification and '\
+    'https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format '\
+    'for the UCF specification.'
+  s.license          = 'BSD'
 
-  s.require_path     = "lib"
+  s.require_path     = 'lib'
   s.files            = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^((test|spec|features)/|\.)})
   end
 
-  s.required_ruby_version = ">= 2.2.0"
+  s.required_ruby_version = '>= 2.2.0'
 
-  s.add_runtime_dependency "rubyzip", "~> 1.2.1"
+  s.add_runtime_dependency 'rubyzip', '~> 1.2.1'
 
-  s.add_development_dependency "bundler", "~> 1.16"
-  s.add_development_dependency "coveralls", "~> 0.8"
-  s.add_development_dependency "rake", "~> 10.1"
-  s.add_development_dependency "rdoc", "~> 4.1"
-  s.add_development_dependency "rubocop", "~> 0.59"
-  s.add_development_dependency "test-unit", "~> 3.0"
+  s.add_development_dependency 'bundler', '~> 1.16'
+  s.add_development_dependency 'coveralls', '~> 0.8'
+  s.add_development_dependency 'rake', '~> 10.1'
+  s.add_development_dependency 'rdoc', '~> 4.1'
+  s.add_development_dependency 'rubocop', '~> 0.59'
+  s.add_development_dependency 'test-unit', '~> 3.0'
 end
