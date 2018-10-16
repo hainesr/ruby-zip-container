@@ -37,19 +37,19 @@ class TestExceptions < Test::Unit::TestCase
 
   def test_rescue_container_errors
     assert_raise(ZipContainer::Error) do
-      raise ZipContainer::ZipError.new
+      raise ZipContainer::ZipError
     end
 
     assert_raise(ZipContainer::Error) do
-      raise ZipContainer::MalformedContainerError.new
+      raise ZipContainer::MalformedContainerError
     end
 
     assert_raise(ZipContainer::Error) do
-      raise ZipContainer::ReservedNameClashError.new("test")
+      raise ZipContainer::ReservedNameClashError, "test"
     end
 
     assert_raise(ZipContainer::Error) do
-      raise Zip::ZipError.new
+      raise Zip::ZipError
     end
   end
 

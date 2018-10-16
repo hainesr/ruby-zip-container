@@ -149,7 +149,7 @@ module ZipContainer
     # with the container.
     def verify!
       unless @mimetype_error.nil?
-        raise MalformedContainerError.new(@mimetype_error)
+        raise MalformedContainerError, @mimetype_error
       end
 
       verify_managed_entries!

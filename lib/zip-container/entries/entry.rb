@@ -140,7 +140,7 @@ module ZipContainer
     # fails.
     def verify!
       messages = verify
-      raise MalformedContainerError.new(messages) unless messages.empty?
+      raise MalformedContainerError, messages unless messages.empty?
     end
 
     protected
