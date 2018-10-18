@@ -30,40 +30,37 @@
 #
 # Author: Robert Haines
 
-require 'test/unit'
+require 'test_helper'
 require 'tmpdir'
-require 'zip-container'
 
-class TestReadDir < Test::Unit::TestCase
+class TestReadDir < MiniTest::Test
 
   # Check that the empty directory does not verify.
   def test_verify_empty_directory
-    assert_raise(ZipContainer::MalformedContainerError) do
-      ZipContainer::Dir.verify!($dir_null)
+    assert_raises(ZipContainer::MalformedContainerError) do
+      ZipContainer::Dir.verify!(DIR_NULL)
     end
 
-    refute(ZipContainer::Dir.verify($dir_null).empty?)
-    refute(ZipContainer::Dir.verify?($dir_null))
+    refute(ZipContainer::Dir.verify(DIR_NULL).empty?)
+    refute(ZipContainer::Dir.verify?(DIR_NULL))
   end
 
   # Check that the empty container directory does verify.
   def test_verify_empty_container
-    assert_nothing_raised(ZipContainer::MalformedContainerError) do
-      ZipContainer::Dir.verify!($dir_empty)
-    end
+    ZipContainer::Dir.verify!(DIR_EMPTY)
 
-    assert(ZipContainer::Dir.verify($dir_empty).empty?)
-    assert(ZipContainer::Dir.verify?($dir_empty))
+    assert(ZipContainer::Dir.verify(DIR_EMPTY).empty?)
+    assert(ZipContainer::Dir.verify?(DIR_EMPTY))
   end
 
   # Check that a mimetype entry that is a directory does not verify.
   def test_verify_mimetype_directory
-    assert_raise(ZipContainer::MalformedContainerError) do
-      ZipContainer::Dir.verify!($dir_dir_mimetype)
+    assert_raises(ZipContainer::MalformedContainerError) do
+      ZipContainer::Dir.verify!(DIR_DIR_MIMETYPE)
     end
 
-    refute(ZipContainer::Dir.verify($dir_dir_mimetype).empty?)
-    refute(ZipContainer::Dir.verify?($dir_dir_mimetype))
+    refute(ZipContainer::Dir.verify(DIR_DIR_MIMETYPE).empty?)
+    refute(ZipContainer::Dir.verify?(DIR_DIR_MIMETYPE))
   end
 
   # Check that a mimetype which is not readable does not verify. We have to
@@ -78,7 +75,7 @@ class TestReadDir < Test::Unit::TestCase
       File.chmod(0o0000, mime_path)
 
       refute File.readable?(mime_path)
-      assert_raise(ZipContainer::MalformedContainerError) do
+      assert_raises(ZipContainer::MalformedContainerError) do
         ZipContainer::Dir.verify!(container)
       end
 

@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2014, 2015 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,30 +30,58 @@
 #
 # Author: Robert Haines
 
-require 'coveralls'
-Coveralls.wear!
+require 'test_helper'
 
-# Example default mimetype
-$mimetype = 'application/epub+zip'
+class TestExceptions < MiniTest::Test
 
-# Example data files
-$dir_null = 'test/data/dirs/null'
-$dir_empty = 'test/data/dirs/empty'
-$dir_dir_mimetype = 'test/data/dirs/dir-mimetype'
-$dir_managed = 'test/data/dirs/managed'
-$file_null = 'test/data/null.file'
-$empty = 'test/data/empty.container'
-$empty_zip = 'test/data/empty.zip'
-$compressed_mimetype = 'test/data/compressed_mimetype.container'
-$example = 'test/data/example.container'
-$subclass = 'test/data/subclassed.container'
+  def test_rescue_container_errors
+    assert_raises(ZipContainer::Error) do
+      raise ZipContainer::ZipError
+    end
 
-# Run test cases.
-require 'tc_util'
-require 'tc_exceptions'
-require 'tc_create_dir'
-require 'tc_create_file'
-require 'tc_read_dir'
-require 'tc_read_file'
-require 'tc_reserved_names'
-require 'tc_managed_entries'
+    assert_raises(ZipContainer::Error) do
+      raise ZipContainer::MalformedContainerError
+    end
+
+    assert_raises(ZipContainer::Error) do
+      raise ZipContainer::ReservedNameClashError, 'test'
+    end
+
+    assert_raises(ZipContainer::Error) do
+      raise Zip::ZipError
+    end
+  end
+
+  def test_malformed_container_error_nil
+    mce = ZipContainer::MalformedContainerError.new(nil)
+
+    refute mce.message.empty?
+    refute mce.message.include?(':')
+  end
+
+  def test_malformed_container_error_empty_string
+    mce = ZipContainer::MalformedContainerError.new('')
+
+    refute mce.message.empty?
+    refute mce.message.include?(':')
+  end
+
+  def test_malformed_container_error_string
+    message = 'test'
+    mce = ZipContainer::MalformedContainerError.new(message)
+
+    refute mce.message.empty?
+    assert mce.message.include?(':')
+    assert mce.message.include?(message)
+  end
+
+  def test_malformed_container_error_list
+    message = %w[test1 test2]
+    mce = ZipContainer::MalformedContainerError.new(message)
+
+    refute mce.message.empty?
+    assert mce.message.include?(':')
+    assert mce.message.include?(' * test1')
+    assert mce.message.include?(' * test2')
+  end
+end

@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014, 2018 The University of Manchester, UK.
+# Copyright (c) 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,38 +30,39 @@
 #
 # Author: Robert Haines
 
-lib = File.expand_path('lib', __dir__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'zip-container/version'
+require 'test_helper'
 
-Gem::Specification.new do |s|
-  s.name             = 'zip-container'
-  s.version          = ZipContainer::Version::STRING
-  s.authors          = ['Robert Haines', 'Finn Bacall']
-  s.email            = ['support@mygrid.org.uk']
+class Util
 
-  s.homepage         = 'http://mygrid.github.io/ruby-zip-container/'
-  s.summary          = 'A ZIP Container for use by OCF and UCF implementations'
-  s.description      = 'A Ruby library for working with ZIP Container '\
-    'Format files. See http://www.idpf.org/epub/30/spec/epub30-ocf.html for '\
-    'the OCF specification and '\
-    'https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format '\
-    'for the UCF specification.'
-  s.license          = 'BSD'
+  include ZipContainer::Util
+end
 
-  s.require_path     = 'lib'
-  s.files            = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{^((test|spec|features)/|\.)})
+class TestUtil < MiniTest::Test
+
+  def setup
+    @util = Util.new
   end
 
-  s.required_ruby_version = '>= 2.2.0'
+  def test_entry_name_strings
+    assert_equal('test', @util.entry_name('test'))
+    assert_equal('test', @util.entry_name('test/'))
+    assert_equal('test/test', @util.entry_name('test/test'))
+    assert_equal('test/test', @util.entry_name('test/test/'))
+  end
 
-  s.add_runtime_dependency 'rubyzip', '~> 1.2.1'
+  def test_entry_name_entries
+    assert_equal('test', @util.entry_name(Zip::Entry.new('fake.zip', 'test')))
+    assert_equal('test', @util.entry_name(Zip::Entry.new('fake.zip', 'test/')))
+    assert_equal(
+      'test/test', @util.entry_name(Zip::Entry.new('fake.zip', 'test/test'))
+    )
+    assert_equal(
+      'test/test', @util.entry_name(Zip::Entry.new('fake.zip', 'test/test/'))
+    )
+  end
 
-  s.add_development_dependency 'bundler', '~> 1.16'
-  s.add_development_dependency 'coveralls', '~> 0.8'
-  s.add_development_dependency 'minitest', '~> 5.0'
-  s.add_development_dependency 'rake', '~> 10.1'
-  s.add_development_dependency 'rdoc', '~> 4.1'
-  s.add_development_dependency 'rubocop', '~> 0.59'
+  def test_entry_name_odd_things
+    uri = URI.parse('http://www.example.com/path')
+    assert_equal(uri, @util.entry_name(uri))
+  end
 end

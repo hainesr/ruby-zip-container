@@ -1,4 +1,4 @@
-# Copyright (c) 2014 The University of Manchester, UK.
+# Copyright (c) 2013, 2014 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,40 +30,25 @@
 #
 # Author: Robert Haines
 
-require 'test/unit'
+require 'coveralls'
+Coveralls.wear!
+
+$LOAD_PATH.unshift ::File.expand_path('../lib', __dir__)
 require 'zip-container'
 
-class Util
+require 'minitest/autorun'
 
-  include ZipContainer::Util
-end
+# Example default mimetype
+TEST_MIMETYPE = 'application/epub+zip'.freeze
 
-class TestUtil < Test::Unit::TestCase
-
-  def setup
-    @util = Util.new
-  end
-
-  def test_entry_name_strings
-    assert_equal('test', @util.entry_name('test'))
-    assert_equal('test', @util.entry_name('test/'))
-    assert_equal('test/test', @util.entry_name('test/test'))
-    assert_equal('test/test', @util.entry_name('test/test/'))
-  end
-
-  def test_entry_name_entries
-    assert_equal('test', @util.entry_name(Zip::Entry.new('fake.zip', 'test')))
-    assert_equal('test', @util.entry_name(Zip::Entry.new('fake.zip', 'test/')))
-    assert_equal(
-      'test/test', @util.entry_name(Zip::Entry.new('fake.zip', 'test/test'))
-    )
-    assert_equal(
-      'test/test', @util.entry_name(Zip::Entry.new('fake.zip', 'test/test/'))
-    )
-  end
-
-  def test_entry_name_odd_things
-    uri = URI.parse('http://www.example.com/path')
-    assert_equal(uri, @util.entry_name(uri))
-  end
-end
+# Example data files
+DIR_NULL = 'test/data/dirs/null'.freeze
+DIR_EMPTY = 'test/data/dirs/empty'.freeze
+DIR_DIR_MIMETYPE = 'test/data/dirs/dir-mimetype'.freeze
+DIR_MANAGED = 'test/data/dirs/managed'.freeze
+FILE_NULL = 'test/data/null.file'.freeze
+EMPTY_CONT = 'test/data/empty.container'.freeze
+EMPTY_ZIP = 'test/data/empty.zip'.freeze
+COMPRESSED_MIMETYPE = 'test/data/compressed_mimetype.container'.freeze
+EXAMPLE = 'test/data/example.container'.freeze
+SUBCLASS = 'test/data/subclassed.container'.freeze

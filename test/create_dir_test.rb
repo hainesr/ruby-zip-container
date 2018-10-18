@@ -30,25 +30,20 @@
 #
 # Author: Robert Haines
 
-require 'test/unit'
+require 'test_helper'
 require 'tmpdir'
-require 'zip-container'
 
-class TestCreateDir < Test::Unit::TestCase
+class TestCreateDir < MiniTest::Test
 
   def test_create_container
     Dir.mktmpdir do |dir|
       container = File.join(dir, 'empty.container')
 
-      assert_nothing_raised do
-        ZipContainer::Dir.create(container, $mimetype) do
-          assert File.exist?(File.join(container, 'mimetype'))
-        end
+      ZipContainer::Dir.create(container, TEST_MIMETYPE) do
+        assert File.exist?(File.join(container, 'mimetype'))
       end
 
-      assert_nothing_raised(ZipContainer::MalformedContainerError, ZipContainer::ZipError) do
-        ZipContainer::Dir.verify!(container)
-      end
+      ZipContainer::Dir.verify!(container)
     end
   end
 end
