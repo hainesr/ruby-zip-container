@@ -86,6 +86,13 @@ class TestReadFile < MiniTest::Test
     refute_equal('application/epub+zip', compressed_mimetype[38..57])
   end
 
+  # Check that summary information about a container is correct.
+  def test_to_s
+    ZipContainer::File.open(EXAMPLE) do |c|
+      assert_equal('test/data/example.container - application/epub+zip', c.to_s)
+    end
+  end
+
   # Check reading files out of a container file and make sure we don't change
   # it.
   def test_read_files_from_container
