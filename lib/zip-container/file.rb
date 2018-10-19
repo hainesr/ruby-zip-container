@@ -95,7 +95,6 @@ module ZipContainer
     end
 
     # :call-seq:
-    #   File.each_entry -> Enumerator
     #   File.each_entry {|entry| ...}
     #
     # Iterate over the entries in the ZipContainer file. The entry objects
@@ -104,15 +103,11 @@ module ZipContainer
     def self.each_entry(filename, &block)
       c = new(filename)
 
-      if block_given?
-        begin
-          c.each(&block)
-        ensure
-          c.close
-        end
+      begin
+        c.each(&block)
+      ensure
+        c.close
       end
-
-      c.each
     end
 
     # :call-seq:

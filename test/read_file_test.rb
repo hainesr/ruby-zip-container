@@ -116,4 +116,11 @@ class TestReadFile < MiniTest::Test
       refute(c.commit)
     end
   end
+
+  def test_read_each_entry
+    entries = %w[mimetype greeting.txt dir/ dir/code.rb]
+    ZipContainer::File.each_entry(EXAMPLE) do |entry|
+      assert(entries.include?(entry.name))
+    end
+  end
 end
