@@ -31,6 +31,7 @@
 # Author: Robert Haines
 
 require 'test_helper'
+require 'fileutils'
 require 'tmpdir'
 require 'helpers/entry_lists'
 
@@ -312,6 +313,20 @@ class TestManagedEntries < MiniTest::Test
       c.get_entry('test/deep', include_hidden: true)
 
       c.get_entry('test/deep/deep.txt', include_hidden: true)
+    end
+  end
+
+  def test_rename_managed_entry
+    Dir.mktmpdir do |dir|
+      filename = File.join(dir, 'test.container')
+      ::FileUtils.cp(SUBCLASS, filename)
+
+      ManagedZipContainer.open(filename) do |c|
+        assert(c.verify?)
+
+        c.rename('index.html', 'index.htm')
+        refute(c.verify?)
+      end
     end
   end
 
