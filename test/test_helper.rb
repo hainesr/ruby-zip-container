@@ -50,5 +50,6 @@ FILE_NULL = 'test/data/null.file'.freeze
 EMPTY_CONT = 'test/data/empty.container'.freeze
 EMPTY_ZIP = 'test/data/empty.zip'.freeze
 COMPRESSED_MIMETYPE = 'test/data/compressed_mimetype.container'.freeze
+BAD_MIMETYPE_OFFSET = 'test/data/bad_mimetype_offset.container'.freeze
 EXAMPLE = 'test/data/example.container'.freeze
 SUBCLASS = 'test/data/subclassed.container'.freeze

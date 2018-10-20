@@ -77,6 +77,16 @@ class TestReadFile < MiniTest::Test
     refute(ZipContainer::File.verify?(COMPRESSED_MIMETYPE))
   end
 
+  # Check that a container with an incorrectly stored mimetype is detected.
+  def test_verify_bad_mimetype_offset
+    assert_raises(ZipContainer::MalformedContainerError) do
+      ZipContainer::File.verify!(BAD_MIMETYPE_OFFSET)
+    end
+
+    refute(ZipContainer::File.verify(BAD_MIMETYPE_OFFSET).empty?)
+    refute(ZipContainer::File.verify?(BAD_MIMETYPE_OFFSET))
+  end
+
   # Check the raw mimetype bytes
   def test_raw_mimetypes
     empty_container = File.read(EMPTY_CONT)
