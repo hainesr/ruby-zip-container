@@ -330,6 +330,20 @@ class TestManagedEntries < MiniTest::Test
     end
   end
 
+  def test_replace_managed_entry
+    Dir.mktmpdir do |dir|
+      filename = File.join(dir, 'test.container')
+      ::FileUtils.cp(EXAMPLE, filename)
+
+      ExampleZipContainer2.open(filename) do |c|
+        assert(c.verify?)
+
+        c.replace('greeting.txt', FILE_NULL)
+        refute(c.verify?)
+      end
+    end
+  end
+
   def test_glob
     ManagedZipContainer.open(SUBCLASS) do |c|
       assert_equal(['index.html'], entry_list_names(c.glob('in*')))
