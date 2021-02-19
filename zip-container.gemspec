@@ -56,7 +56,7 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.2.0'
 
-  s.add_runtime_dependency 'rubyzip', '~> 1.3.0'
+  s.add_runtime_dependency 'rubyzip', '~> 2.0.0'
 
   s.add_development_dependency 'bundler'
   s.add_development_dependency 'coveralls', '~> 0.8'
