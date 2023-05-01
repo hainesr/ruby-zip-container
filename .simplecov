@@ -1,4 +1,6 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# frozen_string_literal: true
+
+# Copyright (c) 2013-2023 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,29 +32,23 @@
 #
 # Author: Robert Haines
 
-require 'simplecov'
+require 'simplecov-lcov'
 
-# Example default mimetype
-$mimetype = 'application/epub+zip'
+SimpleCov::Formatter::LcovFormatter.config do |c|
+  c.output_directory = 'coverage'
+  c.lcov_file_name = 'lcov.info'
+  c.report_with_single_file = true
+  c.single_report_path = 'coverage/lcov.info'
+end
 
-# Example data files
-$dir_null = 'test/data/dirs/null'
-$dir_empty = 'test/data/dirs/empty'
-$dir_dir_mimetype = 'test/data/dirs/dir-mimetype'
-$dir_managed = 'test/data/dirs/managed'
-$file_null = 'test/data/null.file'
-$empty = 'test/data/empty.container'
-$empty_zip = 'test/data/empty.zip'
-$compressed_mimetype = 'test/data/compressed_mimetype.container'
-$example = 'test/data/example.container'
-$subclass = 'test/data/subclassed.container'
+SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
+  [
+    SimpleCov::Formatter::HTMLFormatter,
+    SimpleCov::Formatter::LcovFormatter
+  ]
+)
 
-# Run test cases.
-require 'tc_util'
-require 'tc_exceptions'
-require 'tc_create_dir'
-require 'tc_create_file'
-require 'tc_read_dir'
-require 'tc_read_file'
-require 'tc_reserved_names'
-require 'tc_managed_entries'
+SimpleCov.start do
+  enable_coverage :branch
+  add_filter '/test/'
+end

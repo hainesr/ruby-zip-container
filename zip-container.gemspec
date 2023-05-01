@@ -64,9 +64,10 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'rubyzip', '~> 2.0.0'
 
-  s.add_development_dependency 'coveralls', '~> 0.8'
   s.add_development_dependency 'rake', '~> 13.0'
   s.add_development_dependency 'rdoc', '~> 6.4.0'
   s.add_development_dependency 'rubocop', '~> 0.59'
+  s.add_development_dependency 'simplecov', '0.18.3'
+  s.add_development_dependency 'simplecov-lcov', '~> 0.8.0'
   s.add_development_dependency 'test-unit', '~> 3.0'
 end
