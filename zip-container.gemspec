@@ -38,9 +38,9 @@ Gem::Specification.new do |s|
   s.name             = 'zip-container'
   s.version          = ZipContainer::Version::STRING
   s.authors          = ['Robert Haines', 'Finn Bacall']
-  s.email            = ['support@mygrid.org.uk']
+  s.email            = ["robert.haines@manchester.ac.uk"]
 
-  s.homepage         = 'http://mygrid.github.io/ruby-zip-container/'
+  s.homepage         = "https://github.com/hainesr/ruby-zip-container"
   s.summary          = 'A ZIP Container for use by OCF and UCF implementations'
   s.description      = 'A Ruby library for working with ZIP Container '\
     'Format files. See http://www.idpf.org/epub/30/spec/epub30-ocf.html for '\
@@ -53,6 +53,14 @@ Gem::Specification.new do |s|
   s.files            = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^((test|spec|features)/|\.)})
   end
+
+  s.metadata         = {
+    'bug_tracker_uri'       => 'https://github.com/hainesr/ruby-zip-container/issues',
+    'changelog_uri'         => "https://github.com/hainesr/ruby-zip-container/blob/v#{s.version}/CHANGES.md",
+    'documentation_uri'     => 'https://hainesr.github.io/ruby-zip-container',
+    'source_code_uri'       => "https://github.com/hainesr/ruby-zip-container/tree/v#{s.version}",
+    'rubygems_mfa_required' => 'true'
+  }
 
   s.required_ruby_version = '>= 2.2.0'
 
