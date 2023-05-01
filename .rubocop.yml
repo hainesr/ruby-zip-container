@@ -1,14 +1,20 @@
 inherit_from: .rubocop_todo.yml
 
-# Turn this off for now. CI checks different versions of ruby anyway.
-Gemspec/RequiredRubyVersion:
-  Exclude:
-    - 'zip-container.gemspec'
+require:
+  - rubocop-minitest
+  - rubocop-performance
+  - rubocop-rake
 
-# Turn this off for now. I think we can't enable this until rubyzip
-# does, and respects it, too.
-Style/FrozenStringLiteralComment:
-  Enabled: false
+# Set our base version of ruby and enable all cops.
+AllCops:
+  TargetRubyVersion: 2.6
+  NewCops: enable
+
+# Allow long lines in the tests.
+Layout/LineLength:
+  Max: 100
+  Exclude:
+    - 'test/**/*.rb'
 
 # Turn this off for certain files where we have extra documentation
 # towards the end of the file, after a block of private methods.
@@ -30,21 +36,6 @@ Style/PreferredHashMethods:
 Style/GuardClause:
   Exclude:
     - 'lib/zip-container/file.rb'
-
-# Enforce empty lines at the beginning of classes.
-Layout/EmptyLinesAroundClassBody:
-  EnforcedStyle: beginning_only
-
-# Allow empty lines, or not, around module bodies. I like a line at the
-# beginning, but not the end, but this is not an option in RuboCop.
-Layout/EmptyLinesAroundModuleBody:
-  Enabled: false
-
-# Allow long lines in the tests.
-Metrics/LineLength:
-  Exclude:
-    - 'lib/zip-container/dir.rb'
-    - 'test/**/*.rb'
 
 # Ignore ABC failures in the tests.
 Metrics/AbcSize:
