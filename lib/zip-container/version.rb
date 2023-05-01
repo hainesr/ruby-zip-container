@@ -1,4 +1,4 @@
-# Copyright (c) 2014 The University of Manchester, UK.
+# Copyright (c) 2014-2023 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,18 +30,6 @@
 #
 # Author: Robert Haines
 
-require 'yaml'
-
 module ZipContainer
-
-  # Library version information.
-  module Version
-    # Version information in a Hash
-    INFO = YAML.load_file(
-      File.join(File.dirname(__FILE__), '..', '..', 'version.yml')
-    )
-
-    # Version number as a String
-    STRING = %i[major minor patch].map { |d| INFO[d] }.compact.join('.')
-  end
+  VERSION = '5.0.0' # :nodoc:
 end

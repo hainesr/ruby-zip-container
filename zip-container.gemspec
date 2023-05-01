@@ -30,13 +30,11 @@
 #
 # Author: Robert Haines
 
-lib = File.expand_path('lib', __dir__)
-$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'zip-container/version'
+require_relative 'lib/zip-container/version'
 
 Gem::Specification.new do |s|
   s.name             = 'zip-container'
-  s.version          = ZipContainer::Version::STRING
+  s.version          = ZipContainer::VERSION
   s.authors          = ['Robert Haines', 'Finn Bacall']
   s.email            = ["robert.haines@manchester.ac.uk"]
 
