@@ -59,7 +59,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'rubyzip', '~> 2.0.0'
 
   s.add_development_dependency 'coveralls', '~> 0.8'
-  s.add_development_dependency 'rake', '~> 10.1'
+  s.add_development_dependency 'rake', '~> 13.0'
   s.add_development_dependency 'rdoc', '~> 4.1'
   s.add_development_dependency 'rubocop', '~> 0.59'
   s.add_development_dependency 'test-unit', '~> 3.0'
