@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2013-2023 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,29 +30,25 @@
 #
 # Author: Robert Haines
 
-require 'test/unit'
+require_relative 'test_helper'
 require 'tmpdir'
 require 'zip-container'
 
-class TestCreateFile < Test::Unit::TestCase
+class TestCreateFile < Minitest::Test
 
   # Check creation of standard empty container files.
   def test_create_standard_file
     Dir.mktmpdir do |dir|
       filename = File.join(dir, 'test.container')
 
-      assert_nothing_raised do
-        ZipContainer::File.create(filename, $mimetype) do |c|
-          assert(c.on_disk?)
-          refute(c.in_memory?)
+      ZipContainer::File.create(filename, $mimetype) do |c|
+        assert(c.on_disk?)
+        refute(c.in_memory?)
 
-          assert(c.find_entry('mimetype').local_header_offset.zero?)
-        end
+        assert(c.find_entry('mimetype').local_header_offset.zero?)
       end
 
-      assert_nothing_raised(ZipContainer::MalformedContainerError, ZipContainer::ZipError) do
-        ZipContainer::File.verify!(filename)
-      end
+      ZipContainer::File.verify!(filename)
     end
   end
 
@@ -63,18 +59,14 @@ class TestCreateFile < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       filename = File.join(dir, 'test.container')
 
-      assert_nothing_raised do
-        ZipContainer::File.create(filename, mimetype) do |c|
-          assert(c.on_disk?)
-          refute(c.in_memory?)
+      ZipContainer::File.create(filename, mimetype) do |c|
+        assert(c.on_disk?)
+        refute(c.in_memory?)
 
-          assert(c.find_entry('mimetype').local_header_offset.zero?)
-        end
+        assert(c.find_entry('mimetype').local_header_offset.zero?)
       end
 
-      assert_nothing_raised(ZipContainer::MalformedContainerError, ZipContainer::ZipError) do
-        ZipContainer::File.verify!(filename)
-      end
+      ZipContainer::File.verify!(filename)
     end
   end
 
@@ -84,55 +76,51 @@ class TestCreateFile < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       filename = File.join(dir, 'test.container')
 
-      assert_nothing_raised do
-        ZipContainer::File.create(filename, $mimetype) do |c|
-          assert(c.on_disk?)
-          refute(c.in_memory?)
+      ZipContainer::File.create(filename, $mimetype) do |c|
+        assert(c.on_disk?)
+        refute(c.in_memory?)
 
-          c.file.open('test.txt', 'w') do |f|
-            f.print 'testing'
-          end
-
-          assert(c.commit_required?)
-          assert(c.commit)
-          refute(c.commit_required?)
-          refute(c.commit)
-
-          c.dir.mkdir('dir1')
-          c.mkdir('dir2')
-
-          assert(c.commit_required?)
-          assert(c.commit)
-          refute(c.commit_required?)
-          refute(c.commit)
-
-          c.comment = 'A comment!'
-
-          assert(c.commit_required?)
-          assert(c.commit)
-          refute(c.commit_required?)
-          refute(c.commit)
+        c.file.open('test.txt', 'w') do |f|
+          f.print 'testing'
         end
+
+        assert(c.commit_required?)
+        assert(c.commit)
+        refute(c.commit_required?)
+        refute(c.commit)
+
+        c.dir.mkdir('dir1')
+        c.mkdir('dir2')
+
+        assert(c.commit_required?)
+        assert(c.commit)
+        refute(c.commit_required?)
+        refute(c.commit)
+
+        c.comment = 'A comment!'
+
+        assert(c.commit_required?)
+        assert(c.commit)
+        refute(c.commit_required?)
+        refute(c.commit)
       end
 
-      assert_nothing_raised(ZipContainer::MalformedContainerError, ZipContainer::ZipError) do
-        ZipContainer::File.open(filename) do |c|
-          assert(c.on_disk?)
-          refute(c.in_memory?)
+      ZipContainer::File.open(filename) do |c|
+        assert(c.on_disk?)
+        refute(c.in_memory?)
 
-          assert(c.file.exists?('test.txt'))
-          assert(c.file.exists?('dir1'))
-          assert(c.file.exists?('dir2'))
-          refute(c.file.exists?('dir3'))
+        assert(c.file.exists?('test.txt'))
+        assert(c.file.exists?('dir1'))
+        assert(c.file.exists?('dir2'))
+        refute(c.file.exists?('dir3'))
 
-          text = c.file.read('test.txt')
-          assert_equal('testing', text)
+        text = c.file.read('test.txt')
+        assert_equal('testing', text)
 
-          assert_equal('A comment!', c.comment)
+        assert_equal('A comment!', c.comment)
 
-          refute(c.commit_required?)
-          refute(c.commit)
-        end
+        refute(c.commit_required?)
+        refute(c.commit)
       end
     end
   end

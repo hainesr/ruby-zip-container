@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2013-2023 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,31 +30,29 @@
 #
 # Author: Robert Haines
 
-require 'test/unit'
+require_relative 'test_helper'
 require 'zip-container'
 
-class TestReadFile < Test::Unit::TestCase
+class TestReadFile < Minitest::Test
 
   # Check that the null file does not verify.
   def test_verify_null_file
-    assert_raise(ZipContainer::ZipError) do
+    assert_raises(ZipContainer::ZipError) do
       ZipContainer::File.verify($file_null)
     end
 
-    assert_raise(ZipContainer::ZipError) do
+    assert_raises(ZipContainer::ZipError) do
       ZipContainer::File.verify!($file_null)
     end
 
-    assert_raise(ZipContainer::ZipError) do
+    assert_raises(ZipContainer::ZipError) do
       ZipContainer::File.verify?($file_null)
     end
   end
 
   # Check that the empty container file does verify.
   def test_verify_empty_container
-    assert_nothing_raised(ZipContainer::MalformedContainerError, ZipContainer::ZipError) do
-      ZipContainer::File.verify!($empty)
-    end
+    ZipContainer::File.verify!($empty)
 
     assert(ZipContainer::File.verify($empty).empty?)
     assert(ZipContainer::File.verify?($empty))
@@ -62,7 +60,7 @@ class TestReadFile < Test::Unit::TestCase
 
   # Check that the empty zip file does not verify.
   def test_verify_empty_zip
-    assert_raise(ZipContainer::MalformedContainerError) do
+    assert_raises(ZipContainer::MalformedContainerError) do
       ZipContainer::File.verify!($empty_zip)
     end
 
@@ -72,7 +70,7 @@ class TestReadFile < Test::Unit::TestCase
 
   # Check that a compressed mimetype file is detected.
   def test_verify_compressed_mimetype
-    assert_raise(ZipContainer::MalformedContainerError) do
+    assert_raises(ZipContainer::MalformedContainerError) do
       ZipContainer::File.verify!($compressed_mimetype)
     end
 
@@ -86,32 +84,30 @@ class TestReadFile < Test::Unit::TestCase
     assert_equal('application/epub+zip', empty_container[38..57])
 
     compressed_mimetype = File.read($compressed_mimetype)
-    assert_not_equal('application/epub+zip', compressed_mimetype[38..57])
+    refute_equal('application/epub+zip', compressed_mimetype[38..57])
   end
 
   # Check reading files out of a container file and make sure we don't change
   # it.
   def test_read_files_from_container
-    assert_nothing_raised(ZipContainer::MalformedContainerError, ZipContainer::ZipError) do
-      ZipContainer::File.open($example) do |c|
-        assert(c.on_disk?)
-        refute(c.in_memory?)
+    ZipContainer::File.open($example) do |c|
+      assert(c.on_disk?)
+      refute(c.in_memory?)
 
-        assert(c.file.exists?('greeting.txt'))
+      assert(c.file.exists?('greeting.txt'))
 
-        greeting = c.file.read('greeting.txt')
-        assert_equal("Hello, World!\n", greeting)
+      greeting = c.file.read('greeting.txt')
+      assert_equal("Hello, World!\n", greeting)
 
-        assert(c.file.exists?('dir'))
-        assert(c.file.directory?('dir'))
+      assert(c.file.exists?('dir'))
+      assert(c.file.directory?('dir'))
 
-        assert(c.file.exists?('dir/code.rb'))
+      assert(c.file.exists?('dir/code.rb'))
 
-        assert_equal('This is an example Container file!', c.comment)
+      assert_equal('This is an example Container file!', c.comment)
 
-        refute(c.commit_required?)
-        refute(c.commit)
-      end
+      refute(c.commit_required?)
+      refute(c.commit)
     end
   end
 end

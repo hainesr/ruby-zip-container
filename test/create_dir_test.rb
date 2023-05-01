@@ -1,4 +1,4 @@
-# Copyright (c) 2014 The University of Manchester, UK.
+# Copyright (c) 2014-2023 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,25 +30,21 @@
 #
 # Author: Robert Haines
 
-require 'test/unit'
+require_relative 'test_helper'
 require 'tmpdir'
 require 'zip-container'
 
-class TestCreateDir < Test::Unit::TestCase
+class TestCreateDir < Minitest::Test
 
   def test_create_container
     Dir.mktmpdir do |dir|
       container = File.join(dir, 'empty.container')
 
-      assert_nothing_raised do
-        ZipContainer::Dir.create(container, $mimetype) do
-          assert File.exist?(File.join(container, 'mimetype'))
-        end
+      ZipContainer::Dir.create(container, $mimetype) do
+        assert File.exist?(File.join(container, 'mimetype'))
       end
 
-      assert_nothing_raised(ZipContainer::MalformedContainerError, ZipContainer::ZipError) do
-        ZipContainer::Dir.verify!(container)
-      end
+      ZipContainer::Dir.verify!(container)
     end
   end
 end

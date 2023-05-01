@@ -1,4 +1,4 @@
-# Copyright (c) 2014 The University of Manchester, UK.
+# Copyright (c) 2014-2023 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,7 +30,7 @@
 #
 # Author: Robert Haines
 
-require 'test/unit'
+require_relative 'test_helper'
 require 'zip-container'
 
 class Util
@@ -38,7 +38,7 @@ class Util
   include ZipContainer::Util
 end
 
-class TestUtil < Test::Unit::TestCase
+class TestUtil < Minitest::Test
 
   def setup
     @util = Util.new

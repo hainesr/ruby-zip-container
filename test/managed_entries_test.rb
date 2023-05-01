@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2015 The University of Manchester, UK.
+# Copyright (c) 2013-2023 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,10 +30,10 @@
 #
 # Author: Robert Haines
 
-require 'test/unit'
+require_relative 'test_helper'
 require 'tmpdir'
 require 'zip-container'
-require 'helpers/entry_lists'
+require_relative 'helpers/entry_lists'
 
 # Classes to test managed entries.
 class ManagedZipContainer < ZipContainer::File
@@ -119,7 +119,7 @@ class ExampleDirContainer < ZipContainer::Dir
   end
 end
 
-class TestManagedEntries < Test::Unit::TestCase
+class TestManagedEntries < Minitest::Test
 
   # Check that the example ZipContainer file does not validate as a
   # ManagedZipContainer.
@@ -135,20 +135,14 @@ class TestManagedEntries < Test::Unit::TestCase
   # ExampleZipContainer.
   def test_pass_verification
     assert(ExampleZipContainer.verify?($example))
-
-    assert_nothing_raised(ZipContainer::MalformedContainerError) do
-      ExampleZipContainer.verify!($example)
-    end
+    ExampleZipContainer.verify!($example)
   end
 
   # Check that the example ZipContainer file does validate as an
   # ExampleZipContainer2.
   def test_pass_verification_2
     assert(ExampleZipContainer2.verify?($example))
-
-    assert_nothing_raised(ZipContainer::MalformedContainerError) do
-      ExampleZipContainer2.verify!($example)
-    end
+    ExampleZipContainer2.verify!($example)
   end
 
   # Check that a standard Container can be created
@@ -156,29 +150,23 @@ class TestManagedEntries < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       filename = File.join(dir, 'test.container')
 
-      assert_nothing_raised do
-        ZipContainer::File.create(filename, $mimetype) do |c|
-          c.mkdir('META-INF')
-          assert(c.file.exists?('META-INF'))
+      ZipContainer::File.create(filename, $mimetype) do |c|
+        c.mkdir('META-INF')
+        assert(c.file.exists?('META-INF'))
 
-          c.file.open('META-INF/container.xml', 'w') do |f|
-            f.puts '<?xml version="1.0"?>'
-          end
-          assert(c.file.exists?('META-INF/container.xml'))
+        c.file.open('META-INF/container.xml', 'w') do |f|
+          f.puts '<?xml version="1.0"?>'
         end
+        assert(c.file.exists?('META-INF/container.xml'))
       end
 
-      assert_nothing_raised(ZipContainer::MalformedContainerError) do
-        ZipContainer::File.verify!(filename)
-      end
+      ZipContainer::File.verify!(filename)
     end
   end
 
   # Check that a subclassed container with managed files verifies correctly.
   def test_verify_subclassed_dir_container
-    assert_nothing_raised do
-      ExampleDirContainer.verify!($dir_managed)
-    end
+    ExampleDirContainer.verify!($dir_managed)
   end
 
   # Create a subclassed container. Check it doesn't verify at first; satisfy
@@ -187,21 +175,17 @@ class TestManagedEntries < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       filename = File.join(dir, 'test.container')
 
-      assert_nothing_raised do
-        ExampleDirContainer.create(filename, $mimetype) do |c|
-          assert_raises(ZipContainer::MalformedContainerError) do
-            c.verify!
-          end
-
-          Dir.mkdir(File.join(filename, 'dir'))
-          File.open(File.join(filename, 'greeting.txt'), 'w') do |f|
-            f.puts 'Yo means hello.'
-          end
-
-          assert_nothing_raised(ZipContainer::MalformedContainerError) do
-            c.verify!
-          end
+      ExampleDirContainer.create(filename, $mimetype) do |c|
+        assert_raises(ZipContainer::MalformedContainerError) do
+          c.verify!
         end
+
+        Dir.mkdir(File.join(filename, 'dir'))
+        File.open(File.join(filename, 'greeting.txt'), 'w') do |f|
+          f.puts 'Yo means hello.'
+        end
+
+        c.verify!
       end
     end
   end
@@ -212,11 +196,9 @@ class TestManagedEntries < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       filename = File.join(dir, 'test.container')
 
-      assert_nothing_raised do
-        ManagedZipContainer.create(filename, $mimetype) do |c|
-          assert_raises(ZipContainer::MalformedContainerError) do
-            c.verify!
-          end
+      ManagedZipContainer.create(filename, $mimetype) do |c|
+        assert_raises(ZipContainer::MalformedContainerError) do
+          c.verify!
         end
       end
 
@@ -233,116 +215,98 @@ class TestManagedEntries < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       filename = File.join(dir, 'test.container')
 
-      assert_nothing_raised do
-        ManagedZipContainer.create(filename, $mimetype) do |c|
-          c.dir.mkdir('src')
-          c.file.open('index.html', 'w') do |f|
-            f.puts '<html />'
-          end
-
-          # Test hidden entries before and after creation.
-          assert_nil(c.find_entry('test', include_hidden: true))
-          assert_nil(c.find_entry('test/test.txt', include_hidden: true))
-          c.dir.mkdir('test')
-          c.file.open('test/test.txt', 'w') do |f|
-            f.puts 'A test!'
-          end
-          assert_not_nil(c.find_entry('test', include_hidden: true))
-          assert_not_nil(c.find_entry('test/test.txt', include_hidden: true))
-
-          # Test deep hidden entries before and after creation.
-          assert_nil(c.find_entry('test/deep', include_hidden: true))
-          assert_nil(c.find_entry('test/deep/deep.txt', include_hidden: true))
-          c.dir.mkdir('test/deep')
-          c.file.open('test/deep/deep.txt', 'w') do |f|
-            f.puts 'A deep test!'
-          end
-          assert_not_nil(c.find_entry('test/deep', include_hidden: true))
-          assert_not_nil(c.find_entry('test/deep/deep.txt', include_hidden: true))
+      ManagedZipContainer.create(filename, $mimetype) do |c|
+        c.dir.mkdir('src')
+        c.file.open('index.html', 'w') do |f|
+          f.puts '<html />'
         end
+
+        # Test hidden entries before and after creation.
+        assert_nil(c.find_entry('test', include_hidden: true))
+        assert_nil(c.find_entry('test/test.txt', include_hidden: true))
+        c.dir.mkdir('test')
+        c.file.open('test/test.txt', 'w') do |f|
+          f.puts 'A test!'
+        end
+        refute_nil(c.find_entry('test', include_hidden: true))
+        refute_nil(c.find_entry('test/test.txt', include_hidden: true))
+
+        # Test deep hidden entries before and after creation.
+        assert_nil(c.find_entry('test/deep', include_hidden: true))
+        assert_nil(c.find_entry('test/deep/deep.txt', include_hidden: true))
+        c.dir.mkdir('test/deep')
+        c.file.open('test/deep/deep.txt', 'w') do |f|
+          f.puts 'A deep test!'
+        end
+        refute_nil(c.find_entry('test/deep', include_hidden: true))
+        refute_nil(c.find_entry('test/deep/deep.txt', include_hidden: true))
       end
 
       assert(ManagedZipContainer.verify?(filename))
-      assert_nothing_raised(ZipContainer::MalformedContainerError) do
-        ManagedZipContainer.verify!(filename)
-      end
+      ManagedZipContainer.verify!(filename)
     end
   end
 
   def test_hidden_entries
-    assert_nothing_raised do
-      ManagedZipContainer.open($subclass) do |c|
-        refute(c.hidden_entry?('src'))
-        refute(c.hidden_file?('src'))
-        refute(c.hidden_directory?('src'))
+    ManagedZipContainer.open($subclass) do |c|
+      refute(c.hidden_entry?('src'))
+      refute(c.hidden_file?('src'))
+      refute(c.hidden_directory?('src'))
 
-        assert(c.hidden_entry?('test'))
-        assert(c.hidden_directory?('test'))
-        assert(c.hidden_entry?('test/'))
-        assert(c.hidden_directory?('test/'))
-        refute(c.hidden_file?('test'))
+      assert(c.hidden_entry?('test'))
+      assert(c.hidden_directory?('test'))
+      assert(c.hidden_entry?('test/'))
+      assert(c.hidden_directory?('test/'))
+      refute(c.hidden_file?('test'))
 
-        assert(c.hidden_entry?('test/deep'))
-        assert(c.hidden_directory?('test/deep'))
-        assert(c.hidden_entry?('test/deep/deep.txt'))
-        assert(c.hidden_file?('test/deep/deep.txt'))
-      end
+      assert(c.hidden_entry?('test/deep'))
+      assert(c.hidden_directory?('test/deep'))
+      assert(c.hidden_entry?('test/deep/deep.txt'))
+      assert(c.hidden_file?('test/deep/deep.txt'))
     end
   end
 
   def test_find_entry
-    assert_nothing_raised do
-      ManagedZipContainer.open($subclass) do |c|
-        assert_not_nil(c.find_entry('src'))
-        assert_not_nil(c.find_entry('src', include_hidden: true))
+    ManagedZipContainer.open($subclass) do |c|
+      refute_nil(c.find_entry('src'))
+      refute_nil(c.find_entry('src', include_hidden: true))
 
-        assert_nil(c.find_entry('test'))
-        assert_nil(c.find_entry('test/test.txt'))
-        assert_not_nil(c.find_entry('test', include_hidden: true))
-        assert_not_nil(c.find_entry('test/test.txt', include_hidden: true))
+      assert_nil(c.find_entry('test'))
+      assert_nil(c.find_entry('test/test.txt'))
+      refute_nil(c.find_entry('test', include_hidden: true))
+      refute_nil(c.find_entry('test/test.txt', include_hidden: true))
 
-        assert_nil(c.find_entry('test/deep'))
-        assert_nil(c.find_entry('test/deep/deep.txt'))
-        assert_not_nil(c.find_entry('test/deep', include_hidden: true))
-        assert_not_nil(c.find_entry('test/deep/deep.txt', include_hidden: true))
-      end
+      assert_nil(c.find_entry('test/deep'))
+      assert_nil(c.find_entry('test/deep/deep.txt'))
+      refute_nil(c.find_entry('test/deep', include_hidden: true))
+      refute_nil(c.find_entry('test/deep/deep.txt', include_hidden: true))
     end
   end
 
   def test_get_entry
     ManagedZipContainer.open($subclass) do |c|
-      assert_nothing_raised(Errno::ENOENT) do
-        c.get_entry('src')
-      end
-      assert_nothing_raised(Errno::ENOENT) do
-        c.get_entry('src', include_hidden: true)
-      end
+      c.get_entry('src')
+      c.get_entry('src', include_hidden: true)
 
-      assert_raise(Errno::ENOENT) do
+      assert_raises(Errno::ENOENT) do
         c.get_entry('test')
       end
-      assert_raise(Errno::ENOENT) do
+      assert_raises(Errno::ENOENT) do
         c.get_entry('test/test.txt')
       end
-      assert_nothing_raised(Errno::ENOENT) do
-        c.get_entry('test', include_hidden: true)
-      end
-      assert_nothing_raised(Errno::ENOENT) do
-        c.get_entry('test/test.txt', include_hidden: true)
-      end
 
-      assert_raise(Errno::ENOENT) do
+      c.get_entry('test', include_hidden: true)
+      c.get_entry('test/test.txt', include_hidden: true)
+
+      assert_raises(Errno::ENOENT) do
         c.get_entry('test/deep')
       end
-      assert_raise(Errno::ENOENT) do
+      assert_raises(Errno::ENOENT) do
         c.get_entry('test/deep/deep.txt')
       end
-      assert_nothing_raised(Errno::ENOENT) do
-        c.get_entry('test/deep', include_hidden: true)
-      end
-      assert_nothing_raised(Errno::ENOENT) do
-        c.get_entry('test/deep/deep.txt', include_hidden: true)
-      end
+
+      c.get_entry('test/deep', include_hidden: true)
+      c.get_entry('test/deep/deep.txt', include_hidden: true)
     end
   end
 
@@ -366,11 +330,9 @@ class TestManagedEntries < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       filename = File.join(dir, 'test.container')
 
-      assert_nothing_raised do
-        ExampleZipContainer2.create(filename) do |c|
-          assert(c.file.exists?('mimetype'))
-          assert_equal('application/example+zip', c.file.read('mimetype'))
-        end
+      ExampleZipContainer2.create(filename) do |c|
+        assert(c.file.exists?('mimetype'))
+        assert_equal('application/example+zip', c.file.read('mimetype'))
       end
     end
   end
@@ -381,34 +343,28 @@ class TestManagedEntries < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       filename = File.join(dir, 'test.container')
 
-      assert_nothing_raised do
-        ExampleZipContainer2.create(filename) do |c|
-          assert_raises(ZipContainer::MalformedContainerError) do
-            c.verify!
-          end
-
-          c.file.open('greeting.txt', 'w') do |f|
-            f.puts 'Goodbye!'
-          end
-
-          assert_raises(ZipContainer::MalformedContainerError) do
-            c.verify!
-          end
-
-          c.file.open('greeting.txt', 'w') do |f|
-            f.puts "Hello, Y'All!"
-          end
-
-          assert_nothing_raised(ZipContainer::MalformedContainerError) do
-            c.verify!
-          end
+      ExampleZipContainer2.create(filename) do |c|
+        assert_raises(ZipContainer::MalformedContainerError) do
+          c.verify!
         end
+
+        c.file.open('greeting.txt', 'w') do |f|
+          f.puts 'Goodbye!'
+        end
+
+        assert_raises(ZipContainer::MalformedContainerError) do
+          c.verify!
+        end
+
+        c.file.open('greeting.txt', 'w') do |f|
+          f.puts "Hello, Y'All!"
+        end
+
+        c.verify!
       end
 
       assert(ExampleZipContainer2.verify?(filename))
-      assert_nothing_raised(ZipContainer::MalformedContainerError) do
-        ExampleZipContainer2.verify!(filename)
-      end
+      ExampleZipContainer2.verify!(filename)
     end
   end
 
@@ -418,43 +374,35 @@ class TestManagedEntries < Test::Unit::TestCase
     Dir.mktmpdir do |dir|
       filename = File.join(dir, 'test.container')
 
-      assert_nothing_raised do
-        ExampleZipContainer2.create(filename) do |c|
-          assert_raises(ZipContainer::MalformedContainerError) do
-            c.verify!
-          end
-
-          c.file.open('greeting.txt', 'w') do |f|
-            f.puts "Hello, Y'All!"
-          end
-
-          assert_nothing_raised(ZipContainer::MalformedContainerError) do
-            c.verify!
-          end
-
-          c.mkdir('dir')
-          c.file.open('dir/greet.txt', 'w') do |f|
-            f.puts 'Goodbye!'
-          end
-
-          assert_raises(ZipContainer::MalformedContainerError) do
-            c.verify!
-          end
-
-          c.file.open('dir/greet.txt', 'w') do |f|
-            f.puts 'hello everyone.'
-          end
-
-          assert_nothing_raised(ZipContainer::MalformedContainerError) do
-            c.verify!
-          end
+      ExampleZipContainer2.create(filename) do |c|
+        assert_raises(ZipContainer::MalformedContainerError) do
+          c.verify!
         end
+
+        c.file.open('greeting.txt', 'w') do |f|
+          f.puts "Hello, Y'All!"
+        end
+
+        c.verify!
+
+        c.mkdir('dir')
+        c.file.open('dir/greet.txt', 'w') do |f|
+          f.puts 'Goodbye!'
+        end
+
+        assert_raises(ZipContainer::MalformedContainerError) do
+          c.verify!
+        end
+
+        c.file.open('dir/greet.txt', 'w') do |f|
+          f.puts 'hello everyone.'
+        end
+
+        c.verify!
       end
 
       assert(ExampleZipContainer2.verify?(filename))
-      assert_nothing_raised(ZipContainer::MalformedContainerError) do
-        ExampleZipContainer2.verify!(filename)
-      end
+      ExampleZipContainer2.verify!(filename)
     end
   end
 end

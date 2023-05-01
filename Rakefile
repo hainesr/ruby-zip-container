@@ -31,16 +31,14 @@
 # Author: Robert Haines
 
 require 'bundler/gem_tasks'
-require 'rake/testtask'
+require 'minitest/test_task'
 require 'rdoc/task'
 require 'rubocop/rake_task'
 
 task default: :test
 
-Rake::TestTask.new do |t|
-  t.libs << 'test'
-  t.test_files = FileList['test/ts_container.rb']
-  t.verbose = true
+Minitest::TestTask.create do |test|
+  test.test_globs = 'test/**/*_test.rb'
 end
 
 RDoc::Task.new do |r|

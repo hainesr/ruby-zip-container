@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2013-2023 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -31,6 +31,9 @@
 # Author: Robert Haines
 
 require 'simplecov'
+require 'minitest/autorun'
+
+Minitest::Test.make_my_diffs_pretty!
 
 # Example default mimetype
 $mimetype = 'application/epub+zip'
@@ -46,13 +49,3 @@ $empty_zip = 'test/data/empty.zip'
 $compressed_mimetype = 'test/data/compressed_mimetype.container'
 $example = 'test/data/example.container'
 $subclass = 'test/data/subclassed.container'
-
-# Run test cases.
-require 'tc_util'
-require 'tc_exceptions'
-require 'tc_create_dir'
-require 'tc_create_file'
-require 'tc_read_dir'
-require 'tc_read_file'
-require 'tc_reserved_names'
-require 'tc_managed_entries'

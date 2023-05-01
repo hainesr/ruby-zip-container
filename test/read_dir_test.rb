@@ -1,4 +1,4 @@
-# Copyright (c) 2014 The University of Manchester, UK.
+# Copyright (c) 2014-2023 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,15 +30,15 @@
 #
 # Author: Robert Haines
 
-require 'test/unit'
+require_relative 'test_helper'
 require 'tmpdir'
 require 'zip-container'
 
-class TestReadDir < Test::Unit::TestCase
+class TestReadDir < Minitest::Test
 
   # Check that the empty directory does not verify.
   def test_verify_empty_directory
-    assert_raise(ZipContainer::MalformedContainerError) do
+    assert_raises(ZipContainer::MalformedContainerError) do
       ZipContainer::Dir.verify!($dir_null)
     end
 
@@ -48,9 +48,7 @@ class TestReadDir < Test::Unit::TestCase
 
   # Check that the empty container directory does verify.
   def test_verify_empty_container
-    assert_nothing_raised(ZipContainer::MalformedContainerError) do
-      ZipContainer::Dir.verify!($dir_empty)
-    end
+    ZipContainer::Dir.verify!($dir_empty)
 
     assert(ZipContainer::Dir.verify($dir_empty).empty?)
     assert(ZipContainer::Dir.verify?($dir_empty))
@@ -58,7 +56,7 @@ class TestReadDir < Test::Unit::TestCase
 
   # Check that a mimetype entry that is a directory does not verify.
   def test_verify_mimetype_directory
-    assert_raise(ZipContainer::MalformedContainerError) do
+    assert_raises(ZipContainer::MalformedContainerError) do
       ZipContainer::Dir.verify!($dir_dir_mimetype)
     end
 
@@ -78,7 +76,7 @@ class TestReadDir < Test::Unit::TestCase
       File.chmod(0o0000, mime_path)
 
       refute File.readable?(mime_path)
-      assert_raise(ZipContainer::MalformedContainerError) do
+      assert_raises(ZipContainer::MalformedContainerError) do
         ZipContainer::Dir.verify!(container)
       end
 
