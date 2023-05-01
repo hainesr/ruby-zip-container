@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014, 2018 The University of Manchester, UK.
+# Copyright (c) 2013-2023 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -60,7 +60,7 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency 'coveralls', '~> 0.8'
   s.add_development_dependency 'rake', '~> 13.0'
-  s.add_development_dependency 'rdoc', '~> 4.1'
+  s.add_development_dependency 'rdoc', '~> 6.4.0'
   s.add_development_dependency 'rubocop', '~> 0.59'
   s.add_development_dependency 'test-unit', '~> 3.0'
 end
