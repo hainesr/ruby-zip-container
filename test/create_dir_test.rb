@@ -35,7 +35,6 @@ require 'tmpdir'
 require 'zip-container'
 
 class TestCreateDir < Minitest::Test
-
   def test_create_container
     Dir.mktmpdir do |dir|
       container = File.join(dir, 'empty.container')

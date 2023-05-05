@@ -32,10 +32,8 @@
 
 ##
 module ZipContainer
-
   # Utility methods useful throughout the rest of the ZipContainer library.
   module Util
-
     # :call-seq:
     #   entry_name(entry) -> String
     #
@@ -54,6 +52,5 @@ module ZipContainer
 
       name
     end
-
   end
 end

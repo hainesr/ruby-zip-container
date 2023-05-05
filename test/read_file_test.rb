@@ -34,7 +34,6 @@ require_relative 'test_helper'
 require 'zip-container'
 
 class TestReadFile < Minitest::Test
-
   # Check that the null file does not verify.
   def test_verify_null_file
     assert_raises(ZipContainer::ZipError) do

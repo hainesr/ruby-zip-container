@@ -32,10 +32,8 @@
 
 ##
 module ZipContainer
-
   # A ManagedFile is used to reserve a filename in a Container namespace.
   class ManagedFile < ManagedEntry
-
     # :call-seq:
     #   new(name, required = false, validation_proc = nil) -> ManagedFile
     #

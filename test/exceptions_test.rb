@@ -34,7 +34,6 @@ require_relative 'test_helper'
 require 'zip-container'
 
 class TestExceptions < Minitest::Test
-
   def test_rescue_container_errors
     assert_raises(ZipContainer::Error) do
       raise ZipContainer::ZipError

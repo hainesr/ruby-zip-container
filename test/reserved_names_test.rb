@@ -35,7 +35,6 @@ require 'zip-container'
 
 # A class to test the overriding of reserved and managed names.
 class NewZipContainer < ZipContainer::File
-
   private_class_method :new
 
   def initialize(filename)
@@ -52,7 +51,6 @@ class NewZipContainer < ZipContainer::File
 end
 
 class TestReservedNames < Minitest::Test
-
   # Check that the reserved names verify correctly.
   def test_verify_reserved_name
     assert(NewZipContainer.verify?($example))

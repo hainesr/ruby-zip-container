@@ -33,7 +33,6 @@
 require 'forwardable'
 
 module ZipContainer
-
   # This class represents a ZipContainer in directory format. See the
   # {OCF}[http://www.idpf.org/epub/30/spec/epub30-ocf.html] and
   # {UCF}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
@@ -46,7 +45,6 @@ module ZipContainer
   #
   # There are code examples available with the source code of this library.
   class Dir < Container
-
     extend Forwardable
     def_delegators :@container, :close, :each, :path, :pos, :pos=, :rewind,
                    :seek, :tell
@@ -109,7 +107,6 @@ module ZipContainer
     end
 
     class Entries # :nodoc:
-
       include Enumerable
 
       Entry = Struct.new(:name, :ftype)
@@ -224,5 +221,4 @@ module ZipContainer
     # Equal to
     # {::Dir.tell}[http://ruby-doc.org/core-1.9.3/Dir.html#method-i-tell]
   end
-
 end

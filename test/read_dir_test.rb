@@ -35,7 +35,6 @@ require 'tmpdir'
 require 'zip-container'
 
 class TestReadDir < Minitest::Test
-
   # Check that the empty directory does not verify.
   def test_verify_empty_directory
     assert_raises(ZipContainer::MalformedContainerError) do

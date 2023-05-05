@@ -37,7 +37,6 @@ require_relative 'helpers/entry_lists'
 
 # Classes to test managed entries.
 class ManagedZipContainer < ZipContainer::File
-
   private_class_method :new
 
   def initialize(filename)
@@ -60,7 +59,6 @@ class ManagedZipContainer < ZipContainer::File
 end
 
 class ExampleZipContainer < ZipContainer::File
-
   private_class_method :new
 
   def initialize(filename)
@@ -71,7 +69,6 @@ class ExampleZipContainer < ZipContainer::File
 end
 
 class ExampleZipContainer2 < ZipContainer::File
-
   private_class_method :new
 
   def initialize(filename)
@@ -97,7 +94,6 @@ class ExampleZipContainer2 < ZipContainer::File
 end
 
 class ExampleDirContainer < ZipContainer::Dir
-
   private_class_method :new
 
   def initialize(filename)
@@ -120,7 +116,6 @@ class ExampleDirContainer < ZipContainer::Dir
 end
 
 class TestManagedEntries < Minitest::Test
-
   # Check that the example ZipContainer file does not validate as a
   # ManagedZipContainer.
   def test_fail_verification

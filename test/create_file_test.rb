@@ -35,7 +35,6 @@ require 'tmpdir'
 require 'zip-container'
 
 class TestCreateFile < Minitest::Test
-
   # Check creation of standard empty container files.
   def test_create_standard_file
     Dir.mktmpdir do |dir|

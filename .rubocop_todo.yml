@@ -6,45 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 23
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty_lines, empty_lines_except_namespace, empty_lines_special, no_empty_lines, beginning_only, ending_only
-Layout/EmptyLinesAroundClassBody:
-  Exclude:
-    - 'lib/zip-container/container.rb'
-    - 'lib/zip-container/dir.rb'
-    - 'lib/zip-container/entries/directory.rb'
-    - 'lib/zip-container/entries/entry.rb'
-    - 'lib/zip-container/entries/file.rb'
-    - 'lib/zip-container/exceptions.rb'
-    - 'lib/zip-container/file.rb'
-    - 'test/create_dir_test.rb'
-    - 'test/create_file_test.rb'
-    - 'test/exceptions_test.rb'
-    - 'test/managed_entries_test.rb'
-    - 'test/read_dir_test.rb'
-    - 'test/read_file_test.rb'
-    - 'test/reserved_names_test.rb'
-    - 'test/util_test.rb'
-
-# Offense count: 16
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: empty_lines, empty_lines_except_namespace, empty_lines_special, no_empty_lines
-Layout/EmptyLinesAroundModuleBody:
-  Exclude:
-    - 'lib/zip-container/container.rb'
-    - 'lib/zip-container/dir.rb'
-    - 'lib/zip-container/entries/directory.rb'
-    - 'lib/zip-container/entries/entry.rb'
-    - 'lib/zip-container/entries/file.rb'
-    - 'lib/zip-container/entries/managed.rb'
-    - 'lib/zip-container/entries/reserved.rb'
-    - 'lib/zip-container/exceptions.rb'
-    - 'lib/zip-container/file.rb'
-    - 'lib/zip-container/util.rb'
-
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: AllowForAlignment, AllowBeforeTrailingComments, ForceEqualSignAlignment.

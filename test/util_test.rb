@@ -34,12 +34,10 @@ require_relative 'test_helper'
 require 'zip-container'
 
 class Util
-
   include ZipContainer::Util
 end
 
 class TestUtil < Minitest::Test
-
   def setup
     @util = Util.new
   end

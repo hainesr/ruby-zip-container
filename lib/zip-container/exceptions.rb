@@ -32,7 +32,6 @@
 
 ##
 module ZipContainer
-
   # The base of all exceptions raised by this library.
   module Error
   end
@@ -43,7 +42,6 @@ module ZipContainer
 
   # This exception is raised when a bad Container is detected.
   class MalformedContainerError < RuntimeError
-
     include Error
 
     # :call-seq:
@@ -68,7 +66,6 @@ module ZipContainer
   # This exception is raised when a clash occurs with a reserved or managed
   # name.
   class ReservedNameClashError < RuntimeError
-
     include Error
 
     # :call-seq:
@@ -79,5 +76,4 @@ module ZipContainer
       super("'#{name}' is reserved for internal use in this ZipContainer.")
     end
   end
-
 end

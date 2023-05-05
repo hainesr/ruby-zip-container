@@ -33,7 +33,6 @@
 require 'forwardable'
 
 module ZipContainer
-
   # This class represents a ZipContainer file in PK Zip format. See the
   # {OCF}[http://www.idpf.org/epub/30/spec/epub30-ocf.html] and
   # {UCF}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
@@ -46,7 +45,6 @@ module ZipContainer
   #
   # There are code examples available with the source code of this library.
   class File < Container
-
     extend Forwardable
     def_delegators :@container, :comment, :comment=, :commit_required?, :each,
                    :entries, :extract, :get_input_stream, :name, :read, :size

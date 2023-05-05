@@ -32,7 +32,6 @@
 
 ##
 module ZipContainer
-
   # This module provides support for managed file and directory entries.
   #
   # <b>Note!</b> If you mix this module in you *must* call
@@ -223,6 +222,5 @@ module ZipContainer
       @entries = all
     end
     # :startdoc:
-
   end
 end

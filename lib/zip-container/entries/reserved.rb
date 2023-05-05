@@ -32,7 +32,6 @@
 
 ##
 module ZipContainer
-
   # This module provides support for reserved names.
   module ReservedNames
     include Util

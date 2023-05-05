@@ -32,7 +32,6 @@
 
 ##
 module ZipContainer
-
   # A ManagedDirectory acts as the interface to a set of (possibly) managed
   # files within it and also reserves the directory name in the Container
   # namespace.
@@ -40,7 +39,6 @@ module ZipContainer
   # Once a ManagedDirectory is registered in a Container then only it can be
   # used to write to its contents.
   class ManagedDirectory < ManagedEntry
-
     include ReservedNames
     include ManagedEntries
 
