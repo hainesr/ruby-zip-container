@@ -351,13 +351,12 @@ module ZipContainer
     def verify_mimetype
       # Check mimetype file is present and correct.
       entry = @container.find_entry(MIMETYPE_FILE)
-
       return "'mimetype' file is missing." if entry.nil?
+
       if entry.local_header_offset != 0
-        return "'mimetype' file is not at offset 0 in the archive."
-      end
-      if entry.compression_method != ::Zip::Entry::STORED
-        return "'mimetype' file is compressed."
+        "'mimetype' file is not at offset 0 in the archive."
+      elsif entry.compression_method != ::Zip::Entry::STORED
+        "'mimetype' file is compressed."
       end
     end
 
