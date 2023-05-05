@@ -58,3 +58,9 @@ Metrics/ClassLength:
   Max: 150
   Exclude:
     - 'test/**/*.rb'
+
+# Don't use word arrays in tests as we're generally listing filenames,
+# which look odd in word arrays.
+Style/WordArray:
+  Exclude:
+    - 'test/**/*.rb'
