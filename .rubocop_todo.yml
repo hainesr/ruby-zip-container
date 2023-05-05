@@ -257,14 +257,6 @@ Style/SoleNestedConditional:
     - 'lib/zip-container/file.rb'
     - 'lib/zip-container/util.rb'
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, ConsistentQuotesInMultiline.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  Exclude:
-    - 'zip-container.gemspec'
-
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: WordRegex.

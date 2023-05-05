@@ -36,9 +36,9 @@ Gem::Specification.new do |s|
   s.name             = 'zip-container'
   s.version          = ZipContainer::VERSION
   s.authors          = ['Robert Haines', 'Finn Bacall']
-  s.email            = ["robert.haines@manchester.ac.uk"]
+  s.email            = ['robert.haines@manchester.ac.uk']
 
-  s.homepage         = "https://github.com/hainesr/ruby-zip-container"
+  s.homepage         = 'https://github.com/hainesr/ruby-zip-container'
   s.summary          = 'A ZIP Container for use by OCF and UCF implementations'
   s.description      = 'A Ruby library for working with ZIP Container '\
     'Format files. See http://www.idpf.org/epub/30/spec/epub30-ocf.html for '\
