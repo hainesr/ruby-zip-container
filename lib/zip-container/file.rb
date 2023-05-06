@@ -102,7 +102,7 @@ module ZipContainer
     def self.each_entry(filename, &block)
       c = new(filename)
 
-      if block_given?
+      if block
         begin
           c.each(&block)
         ensure
