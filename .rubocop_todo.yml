@@ -199,12 +199,6 @@ Style/HashEachMethods:
   Exclude:
     - 'lib/zip-container/entries/directory.rb'
 
-# Offense count: 3
-# This cop supports safe autocorrection (--autocorrect).
-Style/IfUnlessModifier:
-  Exclude:
-    - 'lib/zip-container/file.rb'
-
 # Offense count: 12
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: EnforcedStyle.

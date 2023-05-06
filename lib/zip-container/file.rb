@@ -273,9 +273,7 @@ module ZipContainer
     # permissions. The default (+0755+) is owner read, write and list; group
     # read and list; and world read and list.
     def mkdir(name, permission = 0o0755)
-      if reserved_entry?(name) || managed_file?(name)
-        raise ReservedNameClashError, name
-      end
+      raise ReservedNameClashError, name if reserved_entry?(name) || managed_file?(name)
 
       @container.mkdir(name, permission)
     end
