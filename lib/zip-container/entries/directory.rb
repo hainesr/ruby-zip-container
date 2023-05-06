@@ -75,7 +75,7 @@ module ZipContainer
     def verify
       messages = super
 
-      @files.values.each { |f| messages += f.verify }
+      @files.each_value { |f| messages += f.verify }
 
       messages
     end
