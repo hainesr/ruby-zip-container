@@ -200,18 +200,6 @@ Style/FileWrite:
 Style/FrozenStringLiteralComment:
   Enabled: false
 
-# Offense count: 76
-# Configuration parameters: AllowedVariables.
-Style/GlobalVars:
-  Exclude:
-    - 'test/create_dir_test.rb'
-    - 'test/create_file_test.rb'
-    - 'test/managed_entries_test.rb'
-    - 'test/read_dir_test.rb'
-    - 'test/read_file_test.rb'
-    - 'test/reserved_names_test.rb'
-    - 'test/test_helper.rb'
-
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: AllowedReceivers.
@@ -226,10 +214,11 @@ Style/IfUnlessModifier:
   Exclude:
     - 'lib/zip-container/file.rb'
 
-# Offense count: 1
+# Offense count: 12
 # This cop supports unsafe autocorrection (--autocorrect-all).
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: literals, strict
 Style/MutableConstant:
   Exclude:
     - 'lib/zip-container/version.rb'
+    - 'test/test_helper.rb'

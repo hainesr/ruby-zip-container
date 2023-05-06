@@ -38,29 +38,29 @@ class TestReadDir < Minitest::Test
   # Check that the empty directory does not verify.
   def test_verify_empty_directory
     assert_raises(ZipContainer::MalformedContainerError) do
-      ZipContainer::Dir.verify!($dir_null)
+      ZipContainer::Dir.verify!(DIR_NULL)
     end
 
-    refute(ZipContainer::Dir.verify($dir_null).empty?)
-    refute(ZipContainer::Dir.verify?($dir_null))
+    refute(ZipContainer::Dir.verify(DIR_NULL).empty?)
+    refute(ZipContainer::Dir.verify?(DIR_NULL))
   end
 
   # Check that the empty container directory does verify.
   def test_verify_empty_container
-    ZipContainer::Dir.verify!($dir_empty)
+    ZipContainer::Dir.verify!(DIR_EMPTY)
 
-    assert(ZipContainer::Dir.verify($dir_empty).empty?)
-    assert(ZipContainer::Dir.verify?($dir_empty))
+    assert(ZipContainer::Dir.verify(DIR_EMPTY).empty?)
+    assert(ZipContainer::Dir.verify?(DIR_EMPTY))
   end
 
   # Check that a mimetype entry that is a directory does not verify.
   def test_verify_mimetype_directory
     assert_raises(ZipContainer::MalformedContainerError) do
-      ZipContainer::Dir.verify!($dir_dir_mimetype)
+      ZipContainer::Dir.verify!(DIR_DIR_MIMETYPE)
     end
 
-    refute(ZipContainer::Dir.verify($dir_dir_mimetype).empty?)
-    refute(ZipContainer::Dir.verify?($dir_dir_mimetype))
+    refute(ZipContainer::Dir.verify(DIR_DIR_MIMETYPE).empty?)
+    refute(ZipContainer::Dir.verify?(DIR_DIR_MIMETYPE))
   end
 
   # Check that a mimetype which is not readable does not verify. We have to

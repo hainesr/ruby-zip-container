@@ -37,59 +37,59 @@ class TestReadFile < Minitest::Test
   # Check that the null file does not verify.
   def test_verify_null_file
     assert_raises(ZipContainer::ZipError) do
-      ZipContainer::File.verify($file_null)
+      ZipContainer::File.verify(FILE_NULL)
     end
 
     assert_raises(ZipContainer::ZipError) do
-      ZipContainer::File.verify!($file_null)
+      ZipContainer::File.verify!(FILE_NULL)
     end
 
     assert_raises(ZipContainer::ZipError) do
-      ZipContainer::File.verify?($file_null)
+      ZipContainer::File.verify?(FILE_NULL)
     end
   end
 
   # Check that the empty container file does verify.
   def test_verify_empty_container
-    ZipContainer::File.verify!($empty)
+    ZipContainer::File.verify!(EMPTY_CNTR)
 
-    assert(ZipContainer::File.verify($empty).empty?)
-    assert(ZipContainer::File.verify?($empty))
+    assert(ZipContainer::File.verify(EMPTY_CNTR).empty?)
+    assert(ZipContainer::File.verify?(EMPTY_CNTR))
   end
 
   # Check that the empty zip file does not verify.
   def test_verify_empty_zip
     assert_raises(ZipContainer::MalformedContainerError) do
-      ZipContainer::File.verify!($empty_zip)
+      ZipContainer::File.verify!(EMPTY_ZIP)
     end
 
-    refute(ZipContainer::File.verify($empty_zip).empty?)
-    refute(ZipContainer::File.verify?($empty_zip))
+    refute(ZipContainer::File.verify(EMPTY_ZIP).empty?)
+    refute(ZipContainer::File.verify?(EMPTY_ZIP))
   end
 
   # Check that a compressed mimetype file is detected.
   def test_verify_compressed_mimetype
     assert_raises(ZipContainer::MalformedContainerError) do
-      ZipContainer::File.verify!($compressed_mimetype)
+      ZipContainer::File.verify!(COMPRESSED_MIMETYPE)
     end
 
-    refute(ZipContainer::File.verify($compressed_mimetype).empty?)
-    refute(ZipContainer::File.verify?($compressed_mimetype))
+    refute(ZipContainer::File.verify(COMPRESSED_MIMETYPE).empty?)
+    refute(ZipContainer::File.verify?(COMPRESSED_MIMETYPE))
   end
 
   # Check the raw mimetype bytes
   def test_raw_mimetypes
-    empty_container = File.read($empty)
+    empty_container = File.read(EMPTY_CNTR)
     assert_equal('application/epub+zip', empty_container[38..57])
 
-    compressed_mimetype = File.read($compressed_mimetype)
+    compressed_mimetype = File.read(COMPRESSED_MIMETYPE)
     refute_equal('application/epub+zip', compressed_mimetype[38..57])
   end
 
   # Check reading files out of a container file and make sure we don't change
   # it.
   def test_read_files_from_container
-    ZipContainer::File.open($example) do |c|
+    ZipContainer::File.open(EXAMPLE_CNTR) do |c|
       assert(c.on_disk?)
       refute(c.in_memory?)
 

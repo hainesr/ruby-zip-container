@@ -39,7 +39,7 @@ class TestCreateDir < Minitest::Test
     Dir.mktmpdir do |dir|
       container = File.join(dir, 'empty.container')
 
-      ZipContainer::Dir.create(container, $mimetype) do
+      ZipContainer::Dir.create(container, MIMETYPE) do
         assert File.exist?(File.join(container, 'mimetype'))
       end
 

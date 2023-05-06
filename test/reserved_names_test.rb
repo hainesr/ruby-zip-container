@@ -53,14 +53,14 @@ end
 class TestReservedNames < Minitest::Test
   # Check that the reserved names verify correctly.
   def test_verify_reserved_name
-    assert(NewZipContainer.verify?($example))
-    NewZipContainer.verify!($example)
+    assert(NewZipContainer.verify?(EXAMPLE_CNTR))
+    NewZipContainer.verify!(EXAMPLE_CNTR)
   end
 
   # Check the reserved names stuff all works correctly, baring in mind that
   # such comparisons for ZipContainer file should be case sensitive.
   def test_reserved_names
-    ZipContainer::File.open($example) do |c|
+    ZipContainer::File.open(EXAMPLE_CNTR) do |c|
       assert_equal(1, c.reserved_names.length)
       assert_equal(['mimetype'], c.reserved_names)
 
@@ -82,7 +82,7 @@ class TestReservedNames < Minitest::Test
 
   # Check that overriding the reserved names in a sub-class works correctly
   def test_subclass_reserved_names
-    NewZipContainer.open($example) do |c|
+    NewZipContainer.open(EXAMPLE_CNTR) do |c|
       assert_equal(3, c.reserved_names.length)
       assert_equal(
         ['mimetype', 'META-INF', 'reserved_dir'], c.reserved_names
@@ -126,7 +126,7 @@ class TestReservedNames < Minitest::Test
 
   # Check that nothing happens when trying to delete the mimetype file.
   def test_delete_mimetype
-    ZipContainer::File.open($example) do |c|
+    ZipContainer::File.open(EXAMPLE_CNTR) do |c|
       assert(c.file.exists?('mimetype'))
       assert_nil(c.remove('mimetype'))
       assert(c.file.exists?('mimetype'))
@@ -135,7 +135,7 @@ class TestReservedNames < Minitest::Test
 
   # Check that nothing happens when trying to rename the mimetype file.
   def test_rename_mimetype
-    ZipContainer::File.open($example) do |c|
+    ZipContainer::File.open(EXAMPLE_CNTR) do |c|
       assert(c.file.exists?('mimetype'))
       assert_nil(c.rename('mimetype', 'something-else'))
       assert(c.file.exists?('mimetype'))
@@ -146,9 +146,9 @@ class TestReservedNames < Minitest::Test
   # Check that nothing happens when trying to replace the contents of the
   # mimetype file.
   def test_replace_mimetype
-    ZipContainer::File.open($example) do |c|
+    ZipContainer::File.open(EXAMPLE_CNTR) do |c|
       assert(c.file.exists?('mimetype'))
-      assert_nil(c.replace('mimetype', $zip_empty))
+      assert_nil(c.replace('mimetype', EMPTY_ZIP))
       assert_equal('application/epub+zip', c.file.read('mimetype'))
     end
   end
@@ -156,9 +156,9 @@ class TestReservedNames < Minitest::Test
   # Check that an exception is raised when trying to add file with a reserved
   # name.
   def test_add_reserved
-    ZipContainer::File.open($empty) do |c|
+    ZipContainer::File.open(EMPTY_CNTR) do |c|
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.add('mimetype', $zip_empty)
+        c.add('mimetype', EMPTY_ZIP)
       end
     end
   end
@@ -166,21 +166,21 @@ class TestReservedNames < Minitest::Test
   # Check that an exception is raised when trying to add file with a reserved
   # name to a subclassed container.
   def test_subclass_add_reserved
-    NewZipContainer.open($empty) do |c|
+    NewZipContainer.open(EMPTY_CNTR) do |c|
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.add('mimetype', $zip_empty)
+        c.add('mimetype', EMPTY_ZIP)
       end
 
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.add('reserved_dir', $zip_empty)
+        c.add('reserved_dir', EMPTY_ZIP)
       end
 
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.add('MimeType', $zip_empty)
+        c.add('MimeType', EMPTY_ZIP)
       end
 
       assert_raises(ZipContainer::ReservedNameClashError) do
-        c.add('Reserved_Dir', $zip_empty)
+        c.add('Reserved_Dir', EMPTY_ZIP)
       end
     end
   end
@@ -188,7 +188,7 @@ class TestReservedNames < Minitest::Test
   # Check that the META-INF directory is detected as non-existent when trying
   # to delete it.
   def test_delete_metainf
-    ZipContainer::File.open($example) do |c|
+    ZipContainer::File.open(EXAMPLE_CNTR) do |c|
       assert_raises(Errno::ENOENT) do
         c.remove('META-INF')
       end
@@ -198,7 +198,7 @@ class TestReservedNames < Minitest::Test
   # Check that the META-INF directory is detected as non-existent when trying
   # to rename it.
   def test_rename_metainf
-    ZipContainer::File.open($example) do |c|
+    ZipContainer::File.open(EXAMPLE_CNTR) do |c|
       assert_raises(Errno::ENOENT) do
         c.rename('META-INF', 'something-else')
       end
@@ -208,7 +208,7 @@ class TestReservedNames < Minitest::Test
   # Check that an exception is raised when trying to create a directory with a
   # reserved name.
   def test_mkdir_reserved
-    ZipContainer::File.open($empty) do |c|
+    ZipContainer::File.open(EMPTY_CNTR) do |c|
       assert_raises(ZipContainer::ReservedNameClashError) do
         c.mkdir('mimetype')
       end
@@ -218,7 +218,7 @@ class TestReservedNames < Minitest::Test
   # Check that an exception is raised when trying to create a directory with a
   # reserved name in a subclassed container.
   def test_subclass_mkdir_reserved
-    NewZipContainer.open($empty) do |c|
+    NewZipContainer.open(EMPTY_CNTR) do |c|
       assert_raises(ZipContainer::ReservedNameClashError) do
         c.mkdir('mimetype')
       end
@@ -243,7 +243,7 @@ class TestReservedNames < Minitest::Test
 
   # Check that a file cannot be renamed to one of the reserved names.
   def test_rename_to_reserved
-    ZipContainer::File.open($example) do |c|
+    ZipContainer::File.open(EXAMPLE_CNTR) do |c|
       assert_raises(ZipContainer::ReservedNameClashError) do
         c.rename('dir/code.rb', 'mimetype')
       end
@@ -253,7 +253,7 @@ class TestReservedNames < Minitest::Test
   # Check that a file cannot be renamed to one of the reserved names in a
   # subclassed container.
   def test_subclass_rename_to_reserved
-    NewZipContainer.open($example) do |c|
+    NewZipContainer.open(EXAMPLE_CNTR) do |c|
       assert_raises(ZipContainer::ReservedNameClashError) do
         c.rename('dir/code.rb', 'mimetype')
       end
@@ -267,7 +267,7 @@ class TestReservedNames < Minitest::Test
   # Check that the ruby-like File and Dir classes respect reserved and managed
   # names.
   def test_file_dir_ops_reserved
-    ZipContainer::File.open($empty) do |c|
+    ZipContainer::File.open(EMPTY_CNTR) do |c|
       assert_raises(ZipContainer::ReservedNameClashError) do
         c.file.open('mimetype', 'w') do |f|
           f.puts 'TESTING'
@@ -286,7 +286,7 @@ class TestReservedNames < Minitest::Test
   # Check that the ruby-like File and Dir classes respect reserved names in a
   # subclassed container.
   def test_subclass_file_dir_ops_reserved
-    NewZipContainer.open($empty) do |c|
+    NewZipContainer.open(EMPTY_CNTR) do |c|
       assert_raises(ZipContainer::ReservedNameClashError) do
         c.file.open('META-INF', 'w') do |f|
           f.puts 'TESTING'

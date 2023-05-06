@@ -119,25 +119,25 @@ class TestManagedEntries < Minitest::Test
   # Check that the example ZipContainer file does not validate as a
   # ManagedZipContainer.
   def test_fail_verification
-    refute(ManagedZipContainer.verify?($example))
+    refute(ManagedZipContainer.verify?(EXAMPLE_CNTR))
 
     assert_raises(ZipContainer::MalformedContainerError) do
-      ManagedZipContainer.verify!($example)
+      ManagedZipContainer.verify!(EXAMPLE_CNTR)
     end
   end
 
   # Check that the example ZipContainer file does validate as an
   # ExampleZipContainer.
   def test_pass_verification
-    assert(ExampleZipContainer.verify?($example))
-    ExampleZipContainer.verify!($example)
+    assert(ExampleZipContainer.verify?(EXAMPLE_CNTR))
+    ExampleZipContainer.verify!(EXAMPLE_CNTR)
   end
 
   # Check that the example ZipContainer file does validate as an
   # ExampleZipContainer2.
   def test_pass_verification_2
-    assert(ExampleZipContainer2.verify?($example))
-    ExampleZipContainer2.verify!($example)
+    assert(ExampleZipContainer2.verify?(EXAMPLE_CNTR))
+    ExampleZipContainer2.verify!(EXAMPLE_CNTR)
   end
 
   # Check that a standard Container can be created
@@ -145,7 +145,7 @@ class TestManagedEntries < Minitest::Test
     Dir.mktmpdir do |dir|
       filename = File.join(dir, 'test.container')
 
-      ZipContainer::File.create(filename, $mimetype) do |c|
+      ZipContainer::File.create(filename, MIMETYPE) do |c|
         c.mkdir('META-INF')
         assert(c.file.exists?('META-INF'))
 
@@ -161,7 +161,7 @@ class TestManagedEntries < Minitest::Test
 
   # Check that a subclassed container with managed files verifies correctly.
   def test_verify_subclassed_dir_container
-    ExampleDirContainer.verify!($dir_managed)
+    ExampleDirContainer.verify!(DIR_MANAGED)
   end
 
   # Create a subclassed container. Check it doesn't verify at first; satisfy
@@ -170,7 +170,7 @@ class TestManagedEntries < Minitest::Test
     Dir.mktmpdir do |dir|
       filename = File.join(dir, 'test.container')
 
-      ExampleDirContainer.create(filename, $mimetype) do |c|
+      ExampleDirContainer.create(filename, MIMETYPE) do |c|
         assert_raises(ZipContainer::MalformedContainerError) do
           c.verify!
         end
@@ -191,7 +191,7 @@ class TestManagedEntries < Minitest::Test
     Dir.mktmpdir do |dir|
       filename = File.join(dir, 'test.container')
 
-      ManagedZipContainer.create(filename, $mimetype) do |c|
+      ManagedZipContainer.create(filename, MIMETYPE) do |c|
         assert_raises(ZipContainer::MalformedContainerError) do
           c.verify!
         end
@@ -210,7 +210,7 @@ class TestManagedEntries < Minitest::Test
     Dir.mktmpdir do |dir|
       filename = File.join(dir, 'test.container')
 
-      ManagedZipContainer.create(filename, $mimetype) do |c|
+      ManagedZipContainer.create(filename, MIMETYPE) do |c|
         c.dir.mkdir('src')
         c.file.open('index.html', 'w') do |f|
           f.puts '<html />'
@@ -243,7 +243,7 @@ class TestManagedEntries < Minitest::Test
   end
 
   def test_hidden_entries
-    ManagedZipContainer.open($subclass) do |c|
+    ManagedZipContainer.open(SUBCLASS_CNTR) do |c|
       refute(c.hidden_entry?('src'))
       refute(c.hidden_file?('src'))
       refute(c.hidden_directory?('src'))
@@ -262,7 +262,7 @@ class TestManagedEntries < Minitest::Test
   end
 
   def test_find_entry
-    ManagedZipContainer.open($subclass) do |c|
+    ManagedZipContainer.open(SUBCLASS_CNTR) do |c|
       refute_nil(c.find_entry('src'))
       refute_nil(c.find_entry('src', include_hidden: true))
 
@@ -279,7 +279,7 @@ class TestManagedEntries < Minitest::Test
   end
 
   def test_get_entry
-    ManagedZipContainer.open($subclass) do |c|
+    ManagedZipContainer.open(SUBCLASS_CNTR) do |c|
       c.get_entry('src')
       c.get_entry('src', include_hidden: true)
 
@@ -306,7 +306,7 @@ class TestManagedEntries < Minitest::Test
   end
 
   def test_glob
-    ManagedZipContainer.open($subclass) do |c|
+    ManagedZipContainer.open(SUBCLASS_CNTR) do |c|
       assert_equal(['index.html'], entry_list_names(c.glob('in*')))
       assert_equal([], c.glob('test/**/*'))
       assert_equal(

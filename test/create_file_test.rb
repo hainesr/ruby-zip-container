@@ -40,7 +40,7 @@ class TestCreateFile < Minitest::Test
     Dir.mktmpdir do |dir|
       filename = File.join(dir, 'test.container')
 
-      ZipContainer::File.create(filename, $mimetype) do |c|
+      ZipContainer::File.create(filename, MIMETYPE) do |c|
         assert(c.on_disk?)
         refute(c.in_memory?)
 
@@ -75,7 +75,7 @@ class TestCreateFile < Minitest::Test
     Dir.mktmpdir do |dir|
       filename = File.join(dir, 'test.container')
 
-      ZipContainer::File.create(filename, $mimetype) do |c|
+      ZipContainer::File.create(filename, MIMETYPE) do |c|
         assert(c.on_disk?)
         refute(c.in_memory?)
 

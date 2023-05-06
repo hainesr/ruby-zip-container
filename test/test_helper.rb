@@ -36,16 +36,16 @@ require 'minitest/autorun'
 Minitest::Test.make_my_diffs_pretty!
 
 # Example default mimetype
-$mimetype = 'application/epub+zip'
+MIMETYPE = 'application/epub+zip'
 
 # Example data files
-$dir_null = 'test/data/dirs/null'
-$dir_empty = 'test/data/dirs/empty'
-$dir_dir_mimetype = 'test/data/dirs/dir-mimetype'
-$dir_managed = 'test/data/dirs/managed'
-$file_null = 'test/data/null.file'
-$empty = 'test/data/empty.container'
-$empty_zip = 'test/data/empty.zip'
-$compressed_mimetype = 'test/data/compressed_mimetype.container'
-$example = 'test/data/example.container'
-$subclass = 'test/data/subclassed.container'
+DIR_NULL = 'test/data/dirs/null'
+DIR_EMPTY = 'test/data/dirs/empty'
+DIR_DIR_MIMETYPE = 'test/data/dirs/dir-mimetype'
+DIR_MANAGED = 'test/data/dirs/managed'
+FILE_NULL = 'test/data/null.file'
+EMPTY_CNTR = 'test/data/empty.container'
+EMPTY_ZIP = 'test/data/empty.zip'
+COMPRESSED_MIMETYPE = 'test/data/compressed_mimetype.container'
+EXAMPLE_CNTR = 'test/data/example.container'
+SUBCLASS_CNTR = 'test/data/subclassed.container'
