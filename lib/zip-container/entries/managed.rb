@@ -45,7 +45,7 @@ module ZipContainer
     #
     # Return the list of managed directories.
     def managed_directories
-      return @managed_directories if @managed_directories
+      return @managed_directories if defined?(@managed_directories)
 
       dirs = @directories.values
       @managed_directories = dirs + dirs.map(&:managed_directories).flatten
@@ -216,7 +216,7 @@ module ZipContainer
 
     # :stopdoc:
     def all_managed_entries
-      return @entries unless @entries.nil?
+      return @entries if defined?(@entries) && !@entries.nil?
 
       all = {}
       managed_entries.each { |e| all[e.full_name] = e }
