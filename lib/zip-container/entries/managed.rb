@@ -214,7 +214,8 @@ module ZipContainer
       @files[entry.name] = entry if entry.is_a? ManagedFile
     end
 
-    # :stopdoc:
+    private
+
     def all_managed_entries
       return @entries if defined?(@entries) && !@entries.nil?
 
@@ -222,6 +223,5 @@ module ZipContainer
       managed_entries.each { |e| all[e.full_name] = e }
       @entries = all
     end
-    # :startdoc:
   end
 end
