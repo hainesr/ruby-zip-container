@@ -120,10 +120,8 @@ module ZipContainer
         end
       end
 
-      def each
-        @entries.each do |entry|
-          yield entry
-        end
+      def each(&block)
+        @entries.each(&block)
       end
     end
     # :startdoc:

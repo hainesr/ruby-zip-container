@@ -160,12 +160,6 @@ Naming/VariableNumber:
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
-Style/ExplicitBlockArgument:
-  Exclude:
-    - 'lib/zip-container/dir.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
 Style/FileWrite:
   Exclude:
     - 'test/read_dir_test.rb'
