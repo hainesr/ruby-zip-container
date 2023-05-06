@@ -71,7 +71,7 @@ class TestReadDir < Minitest::Test
       container = File.join(dir, 'unreadable.container')
       Dir.mkdir(container)
       mime_path = File.join(container, ZipContainer::Container::MIMETYPE_FILE)
-      File.open(mime_path, 'w') { |file| file.write 'MIMETYPE' }
+      File.write(mime_path, 'MIMETYPE')
       File.chmod(0o0000, mime_path)
 
       refute File.readable?(mime_path)
