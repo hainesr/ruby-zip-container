@@ -232,7 +232,7 @@ module ZipContainer
     #   <tt>::File::FNM_PATHNAME | ::File::FNM_DOTMATCH</tt>
     # * +options+ - <tt>:include_hidden => true</tt> will include hidden
     #   entries in the search.
-    def glob(pattern, *params)
+    def glob(pattern, *params) # rubocop:disable Metrics/CyclomaticComplexity
       flags = ::File::FNM_PATHNAME | ::File::FNM_DOTMATCH
       options = { include_hidden: false }
 
