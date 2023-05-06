@@ -65,17 +65,17 @@ class TestReservedNames < Minitest::Test
       assert_equal(['mimetype'], c.reserved_names)
 
       assert_equal(0, c.managed_files.length)
-      assert_equal([], c.managed_file_names)
+      assert_empty(c.managed_file_names)
       assert(c.reserved_entry?('mimetype'))
       assert(c.reserved_entry?('mimetype/'))
       assert(c.reserved_entry?('MimeType'))
 
       assert_equal(0, c.managed_directories.length)
-      assert_equal([], c.managed_directory_names)
+      assert_empty(c.managed_directory_names)
       refute(c.reserved_entry?('META-INF'))
 
       assert_equal(0, c.managed_entries.length)
-      assert_equal([], c.managed_entry_names)
+      assert_empty(c.managed_entry_names)
       refute(c.managed_entry?('This_should_fail'))
     end
   end

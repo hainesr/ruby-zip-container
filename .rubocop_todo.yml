@@ -6,20 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-Minitest/AssertEmpty:
-  Exclude:
-    - 'test/read_dir_test.rb'
-    - 'test/read_file_test.rb'
-
-# Offense count: 4
-# This cop supports safe autocorrection (--autocorrect).
-Minitest/AssertEmptyLiteral:
-  Exclude:
-    - 'test/managed_entries_test.rb'
-    - 'test/reserved_names_test.rb'
-
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 Minitest/AssertPathExists:
@@ -35,14 +21,6 @@ Minitest/EmptyLineBeforeAssertionMethods:
     - 'test/read_file_test.rb'
     - 'test/reserved_names_test.rb'
     - 'test/util_test.rb'
-
-# Offense count: 9
-# This cop supports safe autocorrection (--autocorrect).
-Minitest/RefuteEmpty:
-  Exclude:
-    - 'test/exceptions_test.rb'
-    - 'test/read_dir_test.rb'
-    - 'test/read_file_test.rb'
 
 # Offense count: 1
 # Configuration parameters: ExpectMatchingDefinition, CheckDefinitionPathHierarchy, CheckDefinitionPathHierarchyRoots, Regex, IgnoreExecutableScripts, AllowedAcronyms.

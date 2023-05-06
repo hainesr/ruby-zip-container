@@ -308,7 +308,7 @@ class TestManagedEntries < Minitest::Test
   def test_glob
     ManagedZipContainer.open(SUBCLASS_CNTR) do |c|
       assert_equal(['index.html'], entry_list_names(c.glob('in*')))
-      assert_equal([], c.glob('test/**/*'))
+      assert_empty(c.glob('test/**/*'))
       assert_equal(
         ['test/test.txt', 'test/deep', 'test/deep/deep.txt'],
         entry_list_names(c.glob('test/**/*', include_hidden: true))
