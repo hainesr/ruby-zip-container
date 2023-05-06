@@ -26,12 +26,6 @@ Layout/LineEndStringConcatenationIndentation:
     - 'lib/zip-container/entries/managed.rb'
 
 # Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Lint/UselessMethodDefinition:
-  Exclude:
-    - 'lib/zip-container/dir.rb'
-
-# Offense count: 1
 # Configuration parameters: AllowedMethods, AllowedPatterns.
 Metrics/CyclomaticComplexity:
   Max: 8

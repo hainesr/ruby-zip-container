@@ -51,12 +51,6 @@ module ZipContainer
 
     private_class_method :new
 
-    # :stopdoc:
-    def initialize(location)
-      super(location)
-    end
-    # :startdoc:
-
     # :call-seq:
     #   create(pathname, mimetype) -> container
     #   create(pathname, mimetype) {|container| ...}
