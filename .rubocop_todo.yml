@@ -6,24 +6,7 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowForAlignment, AllowBeforeTrailingComments, ForceEqualSignAlignment.
-Layout/ExtraSpacing:
-  Exclude:
-    - 'zip-container.gemspec'
-
-# Offense count: 4
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowMultipleStyles, EnforcedHashRocketStyle, EnforcedColonStyle, EnforcedLastArgumentHashStyle.
-# SupportedHashRocketStyles: key, separator, table
-# SupportedColonStyles: key, separator, table
-# SupportedLastArgumentHashStyles: always_inspect, always_ignore, ignore_implicit, ignore_explicit
-Layout/HashAlignment:
-  Exclude:
-    - 'zip-container.gemspec'
-
-# Offense count: 7
+# Offense count: 3
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle.
 # SupportedStyles: space, no_space
@@ -31,9 +14,8 @@ Layout/LineContinuationSpacing:
   Exclude:
     - 'examples/zip-container-info'
     - 'lib/zip-container/entries/managed.rb'
-    - 'zip-container.gemspec'
 
-# Offense count: 5
+# Offense count: 4
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle, IndentationWidth.
 # SupportedStyles: aligned, indented
@@ -42,15 +24,6 @@ Layout/LineEndStringConcatenationIndentation:
     - 'Rakefile'
     - 'examples/zip-container-info'
     - 'lib/zip-container/entries/managed.rb'
-    - 'zip-container.gemspec'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowForAlignment, EnforcedStyleForExponentOperator.
-# SupportedStylesForExponentOperator: space, no_space
-Layout/SpaceAroundOperators:
-  Exclude:
-    - 'zip-container.gemspec'
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).

@@ -40,10 +40,11 @@ Gem::Specification.new do |s|
 
   s.homepage         = 'https://github.com/hainesr/ruby-zip-container'
   s.summary          = 'A ZIP Container for use by OCF and UCF implementations'
-  s.description      = 'A Ruby library for working with ZIP Container '\
-    'Format files. See http://www.idpf.org/epub/30/spec/epub30-ocf.html for '\
-    'the OCF specification and '\
-    'https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format '\
+  s.description      =
+    'A Ruby library for working with ZIP Container ' \
+    'Format files. See http://www.idpf.org/epub/30/spec/epub30-ocf.html for ' \
+    'the OCF specification and ' \
+    'https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format ' \
     'for the UCF specification.'
   s.license          = 'BSD'
 
@@ -52,11 +53,11 @@ Gem::Specification.new do |s|
     f.match(%r{^((test|spec|features)/|\.)})
   end
 
-  s.metadata         = {
-    'bug_tracker_uri'       => 'https://github.com/hainesr/ruby-zip-container/issues',
-    'changelog_uri'         => "https://github.com/hainesr/ruby-zip-container/blob/v#{s.version}/CHANGES.md",
-    'documentation_uri'     => 'https://hainesr.github.io/ruby-zip-container',
-    'source_code_uri'       => "https://github.com/hainesr/ruby-zip-container/tree/v#{s.version}",
+  s.metadata = {
+    'bug_tracker_uri' => 'https://github.com/hainesr/ruby-zip-container/issues',
+    'changelog_uri' => "https://github.com/hainesr/ruby-zip-container/blob/v#{s.version}/CHANGES.md",
+    'documentation_uri' => 'https://hainesr.github.io/ruby-zip-container',
+    'source_code_uri' => "https://github.com/hainesr/ruby-zip-container/tree/v#{s.version}",
     'rubygems_mfa_required' => 'true'
   }
 
