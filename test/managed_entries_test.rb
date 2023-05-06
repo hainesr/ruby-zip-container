@@ -135,7 +135,7 @@ class TestManagedEntries < Minitest::Test
 
   # Check that the example ZipContainer file does validate as an
   # ExampleZipContainer2.
-  def test_pass_verification_2
+  def test_pass_verification2
     assert(ExampleZipContainer2.verify?(EXAMPLE_CNTR))
     ExampleZipContainer2.verify!(EXAMPLE_CNTR)
   end
