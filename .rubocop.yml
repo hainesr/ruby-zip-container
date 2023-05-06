@@ -45,6 +45,7 @@ Metrics/AbcSize:
 # Ignore block length failures in the tests.
 Metrics/BlockLength:
   Exclude:
+    - 'zip-container.gemspec'
     - 'test/**/*.rb'
 
 # Set a more reasonable method length and ignore failures in the tests.
