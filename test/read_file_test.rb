@@ -80,9 +80,9 @@ class TestReadFile < Minitest::Test
   # Check the raw mimetype bytes
   def test_raw_mimetypes
     empty_container = File.read(EMPTY_CNTR)
-    assert_equal('application/epub+zip', empty_container[38..57])
-
     compressed_mimetype = File.read(COMPRESSED_MIMETYPE)
+
+    assert_equal('application/epub+zip', empty_container[38..57])
     refute_equal('application/epub+zip', compressed_mimetype[38..57])
   end
 
@@ -96,11 +96,11 @@ class TestReadFile < Minitest::Test
       assert(c.file.exists?('greeting.txt'))
 
       greeting = c.file.read('greeting.txt')
+
       assert_equal("Hello, World!\n", greeting)
 
       assert(c.file.exists?('dir'))
       assert(c.file.directory?('dir'))
-
       assert(c.file.exists?('dir/code.rb'))
 
       assert_equal('This is an example Container file!', c.comment)

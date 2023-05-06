@@ -62,6 +62,7 @@ class TestUtil < Minitest::Test
 
   def test_entry_name_odd_things
     uri = URI.parse('http://www.example.com/path')
+
     assert_equal(uri, @util.entry_name(uri))
   end
 end

@@ -279,6 +279,7 @@ class TestReservedNames < Minitest::Test
       end
 
       c.file.delete('mimetype')
+
       assert(c.file.exists?('mimetype'))
     end
   end
@@ -304,6 +305,7 @@ class TestReservedNames < Minitest::Test
       end
 
       c.file.delete('mimetype')
+
       assert(c.file.exists?('mimetype'))
 
       assert_raises(ZipContainer::ReservedNameClashError) do

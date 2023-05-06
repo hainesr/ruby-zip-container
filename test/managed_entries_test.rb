@@ -147,11 +147,13 @@ class TestManagedEntries < Minitest::Test
 
       ZipContainer::File.create(filename, MIMETYPE) do |c|
         c.mkdir('META-INF')
+
         assert(c.file.exists?('META-INF'))
 
         c.file.open('META-INF/container.xml', 'w') do |f|
           f.puts '<?xml version="1.0"?>'
         end
+
         assert(c.file.exists?('META-INF/container.xml'))
       end
 
@@ -223,6 +225,7 @@ class TestManagedEntries < Minitest::Test
         c.file.open('test/test.txt', 'w') do |f|
           f.puts 'A test!'
         end
+
         refute_nil(c.find_entry('test', include_hidden: true))
         refute_nil(c.find_entry('test/test.txt', include_hidden: true))
 
@@ -233,6 +236,7 @@ class TestManagedEntries < Minitest::Test
         c.file.open('test/deep/deep.txt', 'w') do |f|
           f.puts 'A deep test!'
         end
+
         refute_nil(c.find_entry('test/deep', include_hidden: true))
         refute_nil(c.find_entry('test/deep/deep.txt', include_hidden: true))
       end

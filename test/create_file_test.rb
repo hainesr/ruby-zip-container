@@ -114,8 +114,8 @@ class TestCreateFile < Minitest::Test
         refute(c.file.exists?('dir3'))
 
         text = c.file.read('test.txt')
-        assert_equal('testing', text)
 
+        assert_equal('testing', text)
         assert_equal('A comment!', c.comment)
 
         refute_predicate(c, :commit_required?)
