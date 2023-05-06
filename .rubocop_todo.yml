@@ -20,12 +20,6 @@ Minitest/AssertEmptyLiteral:
     - 'test/managed_entries_test.rb'
     - 'test/reserved_names_test.rb'
 
-# Offense count: 5
-# This cop supports safe autocorrection (--autocorrect).
-Minitest/AssertIncludes:
-  Exclude:
-    - 'test/exceptions_test.rb'
-
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 Minitest/AssertPathExists:
@@ -49,12 +43,6 @@ Minitest/RefuteEmpty:
     - 'test/exceptions_test.rb'
     - 'test/read_dir_test.rb'
     - 'test/read_file_test.rb'
-
-# Offense count: 2
-# This cop supports safe autocorrection (--autocorrect).
-Minitest/RefuteIncludes:
-  Exclude:
-    - 'test/exceptions_test.rb'
 
 # Offense count: 1
 # Configuration parameters: ExpectMatchingDefinition, CheckDefinitionPathHierarchy, CheckDefinitionPathHierarchyRoots, Regex, IgnoreExecutableScripts, AllowedAcronyms.
