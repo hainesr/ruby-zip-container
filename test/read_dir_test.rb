@@ -41,7 +41,7 @@ class TestReadDir < Minitest::Test
       ZipContainer::Dir.verify!(DIR_NULL)
     end
 
-    refute(ZipContainer::Dir.verify(DIR_NULL).empty?)
+    refute_predicate(ZipContainer::Dir.verify(DIR_NULL), :empty?)
     refute(ZipContainer::Dir.verify?(DIR_NULL))
   end
 
@@ -49,7 +49,7 @@ class TestReadDir < Minitest::Test
   def test_verify_empty_container
     ZipContainer::Dir.verify!(DIR_EMPTY)
 
-    assert(ZipContainer::Dir.verify(DIR_EMPTY).empty?)
+    assert_predicate(ZipContainer::Dir.verify(DIR_EMPTY), :empty?)
     assert(ZipContainer::Dir.verify?(DIR_EMPTY))
   end
 
@@ -59,7 +59,7 @@ class TestReadDir < Minitest::Test
       ZipContainer::Dir.verify!(DIR_DIR_MIMETYPE)
     end
 
-    refute(ZipContainer::Dir.verify(DIR_DIR_MIMETYPE).empty?)
+    refute_predicate(ZipContainer::Dir.verify(DIR_DIR_MIMETYPE), :empty?)
     refute(ZipContainer::Dir.verify?(DIR_DIR_MIMETYPE))
   end
 
@@ -79,7 +79,7 @@ class TestReadDir < Minitest::Test
         ZipContainer::Dir.verify!(container)
       end
 
-      refute(ZipContainer::Dir.verify(container).empty?)
+      refute_predicate(ZipContainer::Dir.verify(container), :empty?)
       refute(ZipContainer::Dir.verify?(container))
     end
   end

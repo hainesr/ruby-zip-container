@@ -41,10 +41,10 @@ class TestCreateFile < Minitest::Test
       filename = File.join(dir, 'test.container')
 
       ZipContainer::File.create(filename, MIMETYPE) do |c|
-        assert(c.on_disk?)
-        refute(c.in_memory?)
+        assert_predicate(c, :on_disk?)
+        refute_predicate(c, :in_memory?)
 
-        assert(c.find_entry('mimetype').local_header_offset.zero?)
+        assert_predicate(c.find_entry('mimetype').local_header_offset, :zero?)
       end
 
       ZipContainer::File.verify!(filename)
@@ -59,10 +59,10 @@ class TestCreateFile < Minitest::Test
       filename = File.join(dir, 'test.container')
 
       ZipContainer::File.create(filename, mimetype) do |c|
-        assert(c.on_disk?)
-        refute(c.in_memory?)
+        assert_predicate(c, :on_disk?)
+        refute_predicate(c, :in_memory?)
 
-        assert(c.find_entry('mimetype').local_header_offset.zero?)
+        assert_predicate(c.find_entry('mimetype').local_header_offset, :zero?)
       end
 
       ZipContainer::File.verify!(filename)
@@ -76,37 +76,37 @@ class TestCreateFile < Minitest::Test
       filename = File.join(dir, 'test.container')
 
       ZipContainer::File.create(filename, MIMETYPE) do |c|
-        assert(c.on_disk?)
-        refute(c.in_memory?)
+        assert_predicate(c, :on_disk?)
+        refute_predicate(c, :in_memory?)
 
         c.file.open('test.txt', 'w') do |f|
           f.print 'testing'
         end
 
-        assert(c.commit_required?)
+        assert_predicate(c, :commit_required?)
         assert(c.commit)
-        refute(c.commit_required?)
+        refute_predicate(c, :commit_required?)
         refute(c.commit)
 
         c.dir.mkdir('dir1')
         c.mkdir('dir2')
 
-        assert(c.commit_required?)
+        assert_predicate(c, :commit_required?)
         assert(c.commit)
-        refute(c.commit_required?)
+        refute_predicate(c, :commit_required?)
         refute(c.commit)
 
         c.comment = 'A comment!'
 
-        assert(c.commit_required?)
+        assert_predicate(c, :commit_required?)
         assert(c.commit)
-        refute(c.commit_required?)
+        refute_predicate(c, :commit_required?)
         refute(c.commit)
       end
 
       ZipContainer::File.open(filename) do |c|
-        assert(c.on_disk?)
-        refute(c.in_memory?)
+        assert_predicate(c, :on_disk?)
+        refute_predicate(c, :in_memory?)
 
         assert(c.file.exists?('test.txt'))
         assert(c.file.exists?('dir1'))
@@ -118,7 +118,7 @@ class TestCreateFile < Minitest::Test
 
         assert_equal('A comment!', c.comment)
 
-        refute(c.commit_required?)
+        refute_predicate(c, :commit_required?)
         refute(c.commit)
       end
     end

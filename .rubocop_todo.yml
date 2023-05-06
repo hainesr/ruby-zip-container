@@ -32,14 +32,6 @@ Minitest/AssertPathExists:
   Exclude:
     - 'test/create_dir_test.rb'
 
-# Offense count: 12
-# This cop supports safe autocorrection (--autocorrect).
-Minitest/AssertPredicate:
-  Exclude:
-    - 'test/create_file_test.rb'
-    - 'test/read_dir_test.rb'
-    - 'test/read_file_test.rb'
-
 # Offense count: 11
 # This cop supports safe autocorrection (--autocorrect).
 Minitest/EmptyLineBeforeAssertionMethods:
@@ -63,15 +55,6 @@ Minitest/RefuteEmpty:
 Minitest/RefuteIncludes:
   Exclude:
     - 'test/exceptions_test.rb'
-
-# Offense count: 19
-# This cop supports safe autocorrection (--autocorrect).
-Minitest/RefutePredicate:
-  Exclude:
-    - 'test/create_file_test.rb'
-    - 'test/exceptions_test.rb'
-    - 'test/read_dir_test.rb'
-    - 'test/read_file_test.rb'
 
 # Offense count: 1
 # Configuration parameters: ExpectMatchingDefinition, CheckDefinitionPathHierarchy, CheckDefinitionPathHierarchyRoots, Regex, IgnoreExecutableScripts, AllowedAcronyms.

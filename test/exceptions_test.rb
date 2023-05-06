@@ -55,14 +55,14 @@ class TestExceptions < Minitest::Test
   def test_malformed_container_error_nil
     mce = ZipContainer::MalformedContainerError.new(nil)
 
-    refute mce.message.empty?
+    refute_predicate(mce.message, :empty?)
     refute mce.message.include?(':')
   end
 
   def test_malformed_container_error_empty_string
     mce = ZipContainer::MalformedContainerError.new('')
 
-    refute mce.message.empty?
+    refute_predicate(mce.message, :empty?)
     refute mce.message.include?(':')
   end
 
@@ -70,7 +70,7 @@ class TestExceptions < Minitest::Test
     message = 'test'
     mce = ZipContainer::MalformedContainerError.new(message)
 
-    refute mce.message.empty?
+    refute_predicate(mce.message, :empty?)
     assert mce.message.include?(':')
     assert mce.message.include?(message)
   end
@@ -79,7 +79,7 @@ class TestExceptions < Minitest::Test
     message = %w[test1 test2]
     mce = ZipContainer::MalformedContainerError.new(message)
 
-    refute mce.message.empty?
+    refute_predicate(mce.message, :empty?)
     assert mce.message.include?(':')
     assert mce.message.include?(' * test1')
     assert mce.message.include?(' * test2')

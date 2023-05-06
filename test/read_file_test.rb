@@ -53,7 +53,7 @@ class TestReadFile < Minitest::Test
   def test_verify_empty_container
     ZipContainer::File.verify!(EMPTY_CNTR)
 
-    assert(ZipContainer::File.verify(EMPTY_CNTR).empty?)
+    assert_predicate(ZipContainer::File.verify(EMPTY_CNTR), :empty?)
     assert(ZipContainer::File.verify?(EMPTY_CNTR))
   end
 
@@ -63,7 +63,7 @@ class TestReadFile < Minitest::Test
       ZipContainer::File.verify!(EMPTY_ZIP)
     end
 
-    refute(ZipContainer::File.verify(EMPTY_ZIP).empty?)
+    refute_predicate(ZipContainer::File.verify(EMPTY_ZIP), :empty?)
     refute(ZipContainer::File.verify?(EMPTY_ZIP))
   end
 
@@ -73,7 +73,7 @@ class TestReadFile < Minitest::Test
       ZipContainer::File.verify!(COMPRESSED_MIMETYPE)
     end
 
-    refute(ZipContainer::File.verify(COMPRESSED_MIMETYPE).empty?)
+    refute_predicate(ZipContainer::File.verify(COMPRESSED_MIMETYPE), :empty?)
     refute(ZipContainer::File.verify?(COMPRESSED_MIMETYPE))
   end
 
@@ -90,8 +90,8 @@ class TestReadFile < Minitest::Test
   # it.
   def test_read_files_from_container
     ZipContainer::File.open(EXAMPLE_CNTR) do |c|
-      assert(c.on_disk?)
-      refute(c.in_memory?)
+      assert_predicate(c, :on_disk?)
+      refute_predicate(c, :in_memory?)
 
       assert(c.file.exists?('greeting.txt'))
 
@@ -105,7 +105,7 @@ class TestReadFile < Minitest::Test
 
       assert_equal('This is an example Container file!', c.comment)
 
-      refute(c.commit_required?)
+      refute_predicate(c, :commit_required?)
       refute(c.commit)
     end
   end
