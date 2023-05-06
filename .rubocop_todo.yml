@@ -26,12 +26,6 @@ Layout/LineEndStringConcatenationIndentation:
     - 'lib/zip-container/entries/managed.rb'
 
 # Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Lint/SendWithMixinArgument:
-  Exclude:
-    - 'lib/zip-container/exceptions.rb'
-
-# Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Lint/UselessMethodDefinition:
   Exclude:

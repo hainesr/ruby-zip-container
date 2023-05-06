@@ -38,7 +38,7 @@ module ZipContainer
 
   # Shadow Zip::Error so the rubyzip API doesn't leak out.
   ZipError = ::Zip::Error
-  ZipError.send(:include, Error)
+  ZipError.include Error
 
   # This exception is raised when a bad Container is detected.
   class MalformedContainerError < RuntimeError
