@@ -180,9 +180,7 @@ module ZipContainer
     def find_entry(entry_name, options = {})
       options = { include_hidden: false }.merge(options)
 
-      unless options[:include_hidden]
-        return if hidden_entry?(entry_name)
-      end
+      return if !options[:include_hidden] && hidden_entry?(entry_name)
 
       @container.find_entry(entry_name)
     end
@@ -197,9 +195,7 @@ module ZipContainer
     def get_entry(entry, options = {})
       options = { include_hidden: false }.merge(options)
 
-      unless options[:include_hidden]
-        raise Errno::ENOENT, entry if hidden_entry?(entry)
-      end
+      raise Errno::ENOENT, entry if !options[:include_hidden] && hidden_entry?(entry)
 
       @container.get_entry(entry)
     end
