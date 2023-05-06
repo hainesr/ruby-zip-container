@@ -6,25 +6,6 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 3
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle.
-# SupportedStyles: space, no_space
-Layout/LineContinuationSpacing:
-  Exclude:
-    - 'examples/zip-container-info'
-    - 'lib/zip-container/entries/managed.rb'
-
-# Offense count: 4
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: EnforcedStyle, IndentationWidth.
-# SupportedStyles: aligned, indented
-Layout/LineEndStringConcatenationIndentation:
-  Exclude:
-    - 'Rakefile'
-    - 'examples/zip-container-info'
-    - 'lib/zip-container/entries/managed.rb'
-
 # Offense count: 1
 # Configuration parameters: AllowedMethods, AllowedPatterns.
 Metrics/CyclomaticComplexity:

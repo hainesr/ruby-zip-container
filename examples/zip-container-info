@@ -51,8 +51,8 @@ rescue ZipContainer::MalformedContainerError, ZipContainer::ZipError => e
 end
 
 puts "Archive: #{container}"
-puts "Container file size: #{File.size(container_file)} bytes, "\
-  "number of entries: #{container.size}"
+puts "Container file size: #{File.size(container_file)} bytes, " \
+     "number of entries: #{container.size}"
 
 total_size = 0
 total_comp = 0
@@ -66,5 +66,5 @@ container.each do |entry|
 end
 
 ratio = ((total_size - total_comp) / total_size.to_f) * 100
-puts "#{container.size} files, #{total_size} bytes uncompressed, "\
-  "#{total_comp} bytes compressed: #{ratio.round(1)}%"
+puts "#{container.size} files, #{total_size} bytes uncompressed, " \
+     "#{total_comp} bytes compressed: #{ratio.round(1)}%"

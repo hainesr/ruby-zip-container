@@ -204,8 +204,9 @@ module ZipContainer
     # managed files within it.
     def register_managed_entry(entry)
       unless entry.is_a?(ManagedDirectory) || entry.is_a?(ManagedFile)
-        raise ArgumentError, 'The supplied entry must be of type '\
-          'ManagedDirectory or ManagedFile or a subclass of either.'
+        raise ArgumentError,
+              'The supplied entry must be of type ' \
+              'ManagedDirectory or ManagedFile or a subclass of either.'
       end
 
       entry.parent = self
