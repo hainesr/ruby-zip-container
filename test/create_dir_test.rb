@@ -40,7 +40,7 @@ class TestCreateDir < Minitest::Test
       container = File.join(dir, 'empty.container')
 
       ZipContainer::Dir.create(container, MIMETYPE) do
-        assert File.exist?(File.join(container, 'mimetype'))
+        assert_path_exists(File.join(container, 'mimetype'))
       end
 
       ZipContainer::Dir.verify!(container)
