@@ -134,7 +134,7 @@ module ZipContainer
     # This method returns +false+ if there are any problems at all with the
     # container.
     def verify?
-      verify.empty? ? true : false
+      verify.empty?
     end
 
     # :call-seq:
