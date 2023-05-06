@@ -52,14 +52,6 @@ Layout/SpaceAroundOperators:
   Exclude:
     - 'zip-container.gemspec'
 
-# Offense count: 3
-# This cop supports safe autocorrection (--autocorrect).
-Lint/RedundantStringCoercion:
-  Exclude:
-    - 'examples/create-zip-container'
-    - 'examples/verify-zip-container'
-    - 'examples/zip-container-info'
-
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
 Lint/SendWithMixinArgument:

@@ -65,6 +65,6 @@ begin
     c.comment = 'This is an example Container file!'
   end
 rescue ZipContainer::MalformedContainerError, ZipContainer::ZipError => e
-  puts e.to_s
+  puts e
   exit 1
 end

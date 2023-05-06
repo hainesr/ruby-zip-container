@@ -46,7 +46,7 @@ container_file = ARGV[0]
 begin
   container = ZipContainer::File.open(container_file)
 rescue ZipContainer::MalformedContainerError, ZipContainer::ZipError => e
-  puts e.to_s
+  puts e
   exit 1
 end
 
