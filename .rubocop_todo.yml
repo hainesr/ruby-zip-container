@@ -158,15 +158,6 @@ Naming/FileName:
   Exclude:
     - 'lib/zip-container.rb'
 
-# Offense count: 3
-# This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: PreferredName.
-Naming/RescuedExceptionsVariableName:
-  Exclude:
-    - 'examples/create-zip-container'
-    - 'examples/verify-zip-container'
-    - 'examples/zip-container-info'
-
 # Offense count: 1
 # Configuration parameters: EnforcedStyle, CheckMethodNames, CheckSymbols, AllowedIdentifiers, AllowedPatterns.
 # SupportedStyles: snake_case, normalcase, non_integer
