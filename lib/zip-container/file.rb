@@ -136,12 +136,14 @@ module ZipContainer
     #   close -> boolean
     #
     # Commits changes that have been made since the previous commit to the
-    # ZipContainer file. Returns +true+ if anything was actually done, +false+
+    # ZipContainer file. Returns +false+ if no commit was required, +true+
     # otherwise.
     def commit
       return false unless commit_required?
 
       @container.commit if on_disk?
+
+      true
     end
 
     alias close commit
