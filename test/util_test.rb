@@ -31,6 +31,7 @@
 # Author: Robert Haines
 
 require_relative 'test_helper'
+require 'uri'
 require 'zip-container'
 
 class Util
