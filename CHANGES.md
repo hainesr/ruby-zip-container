@@ -1,5 +1,16 @@
 # Changes log for the ZIP Container Ruby Gem
 
+## Version 4.0.2
+
+* Bump rubyzip version again.
+
+## Version 4.0.1
+
+* Don't package test files in the gem.
+* Add rubocop configuration.
+* Configure and fix many rubocop issues.
+* Updated rubyzip to fix vulnerability.
+
 ## Version 3.0.2
 
 * Update rubyzip dependency to fix security vulnerability.
