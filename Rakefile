@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2023 The University of Manchester, UK.
+# Copyright (c) 2013-2024 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -42,11 +42,11 @@ Minitest::TestTask.create do |test|
 end
 
 RDoc::Task.new do |r|
-  r.main = 'ReadMe.rdoc'
+  r.main = 'README.md'
   lib = Dir.glob('lib/**/*.rb')
-  r.rdoc_files.include('ReadMe.rdoc', 'LICENCE', 'CHANGES.md', lib)
+  r.rdoc_files.include('README.md', 'LICENCE', 'CHANGES.md', lib)
   r.options << "-t ZIP Container Format Ruby Library version #{ZipContainer::VERSION}"
-  r.options << '-N'
+  r.options << '--markup=markdown'
   r.options << '--tab-width=2'
 end
 
