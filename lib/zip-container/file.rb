@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2013-2024 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -247,13 +247,13 @@ module ZipContainer
         end
       end
 
-      entries.map do |entry|
+      entries.filter_map do |entry|
         next if !options[:include_hidden] && hidden_entry?(entry)
         next unless ::File.fnmatch(pattern, entry.name.chomp('/'), flags)
 
         yield(entry) if block_given?
         entry
-      end.compact
+      end
     end
 
     # :call-seq:
