@@ -32,6 +32,7 @@
 
 require_relative 'test_helper'
 require 'tmpdir'
+require 'os'
 require 'zip-container'
 
 class TestReadDir < Minitest::Test
@@ -66,7 +67,11 @@ class TestReadDir < Minitest::Test
   # Check that a mimetype which is not readable does not verify. We have to
   # build this fixture programmatically as there's no way to add a file
   # without read permissions into git.
+  #
+  # Skip this test in non-POSIX environments.
   def test_verify_unreadable_mimetype
+    skip unless OS.posix?
+
     Dir.mktmpdir do |dir|
       container = File.join(dir, 'unreadable.container')
       Dir.mkdir(container)

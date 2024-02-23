@@ -66,6 +66,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency 'rubyzip', '~> 2.3'
 
   s.add_development_dependency 'minitest', '~> 5.22.2'
+  s.add_development_dependency 'os', '~> 1.1.4'
   s.add_development_dependency 'rake', '~> 13.0'
   s.add_development_dependency 'rdoc', '~> 6.4.0'
   s.add_development_dependency 'rubocop', '~> 1.50.0'
