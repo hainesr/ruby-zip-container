@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2023 The University of Manchester, UK.
+# Copyright (c) 2013-2024 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,10 +30,14 @@
 #
 # Author: Robert Haines
 
-require_relative 'test_helper'
-require 'tmpdir'
-require 'zip-container'
 require_relative 'helpers/entry_lists'
+require_relative 'test_helper'
+
+require 'tmpdir'
+require 'zip-container/file'
+require 'zip-container/dir'
+require 'zip-container/entries/file'
+require 'zip-container/entries/directory'
 
 # Classes to test managed entries.
 class ManagedZipContainer < ZipContainer::File

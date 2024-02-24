@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2013-2024 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -29,6 +29,11 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #
 # Author: Robert Haines
+
+require_relative 'entry'
+require_relative 'file'
+require_relative '../errors'
+require_relative '../util'
 
 ##
 module ZipContainer
@@ -203,15 +208,18 @@ module ZipContainer
     # the container namespace and act as an interface to the (possibly)
     # managed files within it.
     def register_managed_entry(entry)
-      unless entry.is_a?(ManagedDirectory) || entry.is_a?(ManagedFile)
+      unless entry.is_a?(ManagedEntry)
         raise ArgumentError,
               'The supplied entry must be of type ' \
               'ManagedDirectory or ManagedFile or a subclass of either.'
       end
 
       entry.parent = self
-      @directories[entry.name] = entry if entry.is_a? ManagedDirectory
-      @files[entry.name] = entry if entry.is_a? ManagedFile
+      if entry.is_a?(ManagedFile)
+        @files[entry.name] = entry
+      else
+        @directories[entry.name] = entry
+      end
     end
 
     private

@@ -1,4 +1,4 @@
-# Copyright (c) 2014, 2015 The University of Manchester, UK.
+# Copyright (c) 2014-2024 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -29,6 +29,10 @@
 # POSSIBILITY OF SUCH DAMAGE.
 #
 # Author: Robert Haines
+
+require_relative 'entries/managed'
+require_relative 'entries/reserved'
+require_relative 'errors'
 
 ##
 module ZipContainer

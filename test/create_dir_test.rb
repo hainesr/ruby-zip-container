@@ -1,4 +1,4 @@
-# Copyright (c) 2014-2023 The University of Manchester, UK.
+# Copyright (c) 2014-2024 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -31,8 +31,9 @@
 # Author: Robert Haines
 
 require_relative 'test_helper'
+
 require 'tmpdir'
-require 'zip-container'
+require 'zip-container/dir'
 
 class TestCreateDir < Minitest::Test
   def test_create_container

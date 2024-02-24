@@ -30,6 +30,10 @@
 #
 # Author: Robert Haines
 
+require_relative 'container'
+require_relative 'errors'
+
+require 'zip/filesystem'
 require 'forwardable'
 
 module ZipContainer

@@ -1,4 +1,4 @@
-# Copyright (c) 2014-2023 The University of Manchester, UK.
+# Copyright (c) 2014-2024 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -31,8 +31,9 @@
 # Author: Robert Haines
 
 require_relative 'test_helper'
+
+require 'zip-container/util'
 require 'uri'
-require 'zip-container'
 
 class Util
   include ZipContainer::Util

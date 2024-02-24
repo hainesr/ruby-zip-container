@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2023 The University of Manchester, UK.
+# Copyright (c) 2013-2024 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -31,7 +31,8 @@
 # Author: Robert Haines
 
 require_relative 'test_helper'
-require 'zip-container'
+
+require 'zip-container/file'
 
 class TestReadFile < Minitest::Test
   # Check that the null file does not verify.

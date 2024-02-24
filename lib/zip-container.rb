@@ -1,4 +1,4 @@
-# Copyright (c) 2013, 2014 The University of Manchester, UK.
+# Copyright (c) 2013-2024 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,20 +30,6 @@
 #
 # Author: Robert Haines
 
-require 'rubygems'
-require 'bundler/setup'
-
-require 'zip/filesystem'
-
-require 'zip-container/util'
-require 'zip-container/version'
-require 'zip-container/errors'
-require 'zip-container/entries/reserved'
-require 'zip-container/entries/managed'
-require 'zip-container/entries/entry'
-require 'zip-container/entries/file'
-require 'zip-container/entries/directory'
-require 'zip-container/container'
 require 'zip-container/file'
 require 'zip-container/dir'
 

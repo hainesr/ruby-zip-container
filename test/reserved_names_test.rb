@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2023 The University of Manchester, UK.
+# Copyright (c) 2013-2024 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -31,7 +31,11 @@
 # Author: Robert Haines
 
 require_relative 'test_helper'
-require 'zip-container'
+
+require 'zip-container/errors'
+require 'zip-container/file'
+require 'zip-container/entries/directory'
+require 'zip-container/entries/file'
 
 # A class to test the overriding of reserved and managed names.
 class NewZipContainer < ZipContainer::File

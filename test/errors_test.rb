@@ -31,7 +31,8 @@
 # Author: Robert Haines
 
 require_relative 'test_helper'
-require 'zip-container'
+
+require 'zip-container/errors'
 
 class TestExceptions < Minitest::Test
   def test_rescue_container_errors

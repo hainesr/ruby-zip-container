@@ -1,4 +1,4 @@
-# Copyright (c) 2014-2023 The University of Manchester, UK.
+# Copyright (c) 2014-2024 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -31,9 +31,10 @@
 # Author: Robert Haines
 
 require_relative 'test_helper'
+
 require 'tmpdir'
 require 'os'
-require 'zip-container'
+require 'zip-container/dir'
 
 class TestReadDir < Minitest::Test
   # Check that the empty directory does not verify.
