@@ -34,8 +34,8 @@ require_relative 'test_helper'
 
 require 'zip-container/errors'
 require 'zip-container/file'
-require 'zip-container/entries/directory'
-require 'zip-container/entries/file'
+require 'zip-container/managed_directory'
+require 'zip-container/managed_file'
 
 # A class to test the overriding of reserved and managed names.
 class NewZipContainer < ZipContainer::File

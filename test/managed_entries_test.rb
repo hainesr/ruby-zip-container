@@ -34,10 +34,10 @@ require_relative 'helpers/entry_lists'
 require_relative 'test_helper'
 
 require 'tmpdir'
-require 'zip-container/file'
 require 'zip-container/dir'
-require 'zip-container/entries/file'
-require 'zip-container/entries/directory'
+require 'zip-container/file'
+require 'zip-container/managed_directory'
+require 'zip-container/managed_file'
 
 # Classes to test managed entries.
 class ManagedZipContainer < ZipContainer::File

@@ -30,9 +30,9 @@
 #
 # Author: Robert Haines
 
-require_relative 'entry'
-require_relative 'managed'
-require_relative 'reserved'
+require_relative 'managed_entries'
+require_relative 'managed_entry'
+require_relative 'reserved_names'
 
 ##
 module ZipContainer

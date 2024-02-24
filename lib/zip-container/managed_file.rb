@@ -30,7 +30,7 @@
 #
 # Author: Robert Haines
 
-require_relative 'entry'
+require_relative 'managed_entry'
 
 ##
 module ZipContainer

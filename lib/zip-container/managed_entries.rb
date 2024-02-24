@@ -30,10 +30,10 @@
 #
 # Author: Robert Haines
 
-require_relative 'entry'
-require_relative 'file'
-require_relative '../errors'
-require_relative '../util'
+require_relative 'errors'
+require_relative 'managed_entry'
+require_relative 'managed_file'
+require_relative 'util'
 
 ##
 module ZipContainer

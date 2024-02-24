@@ -30,7 +30,7 @@
 #
 # Author: Robert Haines
 
-require_relative '../util'
+require_relative 'util'
 
 ##
 module ZipContainer
