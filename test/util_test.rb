@@ -35,36 +35,32 @@ require_relative 'test_helper'
 require 'zip-container/util'
 require 'uri'
 
-class Util
-  include ZipContainer::Util
-end
-
 class TestUtil < Minitest::Test
-  def setup
-    @util = Util.new
-  end
-
   def test_entry_name_strings
-    assert_equal('test', @util.entry_name('test'))
-    assert_equal('test', @util.entry_name('test/'))
-    assert_equal('test/test', @util.entry_name('test/test'))
-    assert_equal('test/test', @util.entry_name('test/test/'))
+    assert_equal('test', ZipContainer::Util.entry_name('test'))
+    assert_equal('test', ZipContainer::Util.entry_name('test/'))
+    assert_equal('test/test', ZipContainer::Util.entry_name('test/test'))
+    assert_equal('test/test', ZipContainer::Util.entry_name('test/test/'))
   end
 
   def test_entry_name_entries
-    assert_equal('test', @util.entry_name(Zip::Entry.new('fake.zip', 'test')))
-    assert_equal('test', @util.entry_name(Zip::Entry.new('fake.zip', 'test/')))
     assert_equal(
-      'test/test', @util.entry_name(Zip::Entry.new('fake.zip', 'test/test'))
+      'test', ZipContainer::Util.entry_name(Zip::Entry.new('fake.zip', 'test'))
     )
     assert_equal(
-      'test/test', @util.entry_name(Zip::Entry.new('fake.zip', 'test/test/'))
+      'test', ZipContainer::Util.entry_name(Zip::Entry.new('fake.zip', 'test/'))
+    )
+    assert_equal(
+      'test/test', ZipContainer::Util.entry_name(Zip::Entry.new('fake.zip', 'test/test'))
+    )
+    assert_equal(
+      'test/test', ZipContainer::Util.entry_name(Zip::Entry.new('fake.zip', 'test/test/'))
     )
   end
 
   def test_entry_name_odd_things
     uri = URI.parse('http://www.example.com/path')
 
-    assert_equal(uri, @util.entry_name(uri))
+    assert_equal(uri, ZipContainer::Util.entry_name(uri))
   end
 end

@@ -30,15 +30,11 @@
 #
 # Author: Robert Haines
 
-require_relative 'util'
-
 ##
 module ZipContainer
   # ManagedEntry is the superclass of ManagedDirectory and ManagedFile. It
   # should not be used directly but may be subclassed if necessary.
   class ManagedEntry
-    include Util
-
     # The name of the ManagedEntry. For the full path name of this entry use
     # full_name.
     attr_reader :name

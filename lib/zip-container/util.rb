@@ -37,6 +37,8 @@ require 'zip/entry'
 module ZipContainer
   # Utility methods useful throughout the rest of the ZipContainer library.
   module Util
+    module_function
+
     # :call-seq:
     #   entry_name(entry) -> String
     #

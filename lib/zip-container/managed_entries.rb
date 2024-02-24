@@ -43,8 +43,6 @@ module ZipContainer
   # +initialize_managed_entries+ in your constructor to ensure that the
   # internal lists of managed entries are correctly assigned.
   module ManagedEntries
-    include Util
-
     # :call-seq:
     #   managed_directories -> Array
     #
@@ -93,7 +91,7 @@ module ZipContainer
     #
     # Is the supplied entry/name a managed entry?
     def managed_entry?(entry, list = managed_entry_names)
-      name = entry_name(entry)
+      name = Util.entry_name(entry)
       list.map(&:downcase).include? name.downcase
     end
 
@@ -110,7 +108,7 @@ module ZipContainer
     #
     # Is the supplied entry/name a hidden directory?
     def hidden_directory?(entry)
-      name = entry_name(entry)
+      name = Util.entry_name(entry)
       managed_directory?(name) ? all_managed_entries[name].hidden? : false
     end
 
@@ -119,7 +117,7 @@ module ZipContainer
     #
     # Is the supplied entry/name a hidden file?
     def hidden_file?(entry)
-      name = entry_name(entry)
+      name = Util.entry_name(entry)
       managed_file?(name) ? all_managed_entries[name].hidden? : false
     end
 

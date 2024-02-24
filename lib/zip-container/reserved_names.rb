@@ -36,8 +36,6 @@ require_relative 'util'
 module ZipContainer
   # This module provides support for reserved names.
   module ReservedNames
-    include Util
-
     # :call-seq:
     #   reserved_names -> Array
     #
@@ -70,7 +68,7 @@ module ZipContainer
     # Is the given entry in the reserved list of names? A String or a
     # Zip::Entry object can be passed in here.
     def reserved_entry?(entry)
-      name = entry_name(entry)
+      name = Util.entry_name(entry)
       reserved_names.map(&:downcase).include? name.downcase
     end
 
