@@ -37,7 +37,7 @@ require 'zip/filesystem'
 
 require 'zip-container/util'
 require 'zip-container/version'
-require 'zip-container/exceptions'
+require 'zip-container/errors'
 require 'zip-container/entries/reserved'
 require 'zip-container/entries/managed'
 require 'zip-container/entries/entry'

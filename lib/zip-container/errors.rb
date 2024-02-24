@@ -32,7 +32,7 @@
 
 ##
 module ZipContainer
-  # The base of all exceptions raised by this library.
+  # The base of all errors raised by this library.
   module Error
   end
 
@@ -40,7 +40,7 @@ module ZipContainer
   ZipError = ::Zip::Error
   ZipError.include Error
 
-  # This exception is raised when a bad Container is detected.
+  # This error is raised when a bad Container is detected.
   class MalformedContainerError < RuntimeError
     include Error
 
@@ -63,7 +63,7 @@ module ZipContainer
     end
   end
 
-  # This exception is raised when a clash occurs with a reserved or managed
+  # This error is raised when a clash occurs with a reserved or managed
   # name.
   class ReservedNameClashError < RuntimeError
     include Error

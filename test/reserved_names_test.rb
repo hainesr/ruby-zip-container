@@ -153,7 +153,7 @@ class TestReservedNames < Minitest::Test
     end
   end
 
-  # Check that an exception is raised when trying to add file with a reserved
+  # Check that an error is raised when trying to add file with a reserved
   # name.
   def test_add_reserved
     ZipContainer::File.open(EMPTY_CNTR) do |c|
@@ -163,7 +163,7 @@ class TestReservedNames < Minitest::Test
     end
   end
 
-  # Check that an exception is raised when trying to add file with a reserved
+  # Check that an error is raised when trying to add file with a reserved
   # name to a subclassed container.
   def test_subclass_add_reserved
     NewZipContainer.open(EMPTY_CNTR) do |c|
@@ -205,7 +205,7 @@ class TestReservedNames < Minitest::Test
     end
   end
 
-  # Check that an exception is raised when trying to create a directory with a
+  # Check that an error is raised when trying to create a directory with a
   # reserved name.
   def test_mkdir_reserved
     ZipContainer::File.open(EMPTY_CNTR) do |c|
@@ -215,7 +215,7 @@ class TestReservedNames < Minitest::Test
     end
   end
 
-  # Check that an exception is raised when trying to create a directory with a
+  # Check that an error is raised when trying to create a directory with a
   # reserved name in a subclassed container.
   def test_subclass_mkdir_reserved
     NewZipContainer.open(EMPTY_CNTR) do |c|

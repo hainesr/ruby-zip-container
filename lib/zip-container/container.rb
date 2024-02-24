@@ -109,9 +109,8 @@ module ZipContainer
     #   verify!(filename)
     #
     # Verify that the specified ZipContainer conforms to the specification.
-    # This method raises exceptions when errors are found or if there is
-    # something fundamental wrong with the container itself (e.g. it cannot be
-    # found).
+    # This method raises an error if there is something fundamental wrong
+    # with the container itself (e.g. it cannot be found).
     def self.verify!(filename)
       new(filename).verify!
     end
