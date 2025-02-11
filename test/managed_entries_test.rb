@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2024 The University of Manchester, UK.
+# Copyright (c) 2013-2025 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -34,6 +34,7 @@ require_relative 'helpers/entry_lists'
 require_relative 'test_helper'
 
 require 'tmpdir'
+require 'os'
 require 'zip-container/dir'
 require 'zip-container/file'
 require 'zip-container/managed_directory'
@@ -186,8 +187,12 @@ class TestManagedEntries < Minitest::Test
           f.puts 'Yo means hello.'
         end
 
-        c.verify!
+        # It seems this doesn't work on Windows, perhaps due to the way the
+        # filesystem is implemented.
+        c.verify! unless OS.windows?
       end
+
+      ExampleDirContainer.verify!(filename)
     end
   end
 
