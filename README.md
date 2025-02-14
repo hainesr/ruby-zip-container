@@ -28,6 +28,10 @@ The `ZipContainer::Dir` class mimics, where possible, the core ruby [`Dir` API](
 
 There are some examples of how to use the library provided in the examples directory. See the contents of the tests directory for even more.
 
+#### Versions
+
+Version 5 of this library will be the last to support Ruby 2.7 and the last to support RubyZip 2.4. Version 6 will require at least Ruby 3.0 and RubyZip 3.0.
+
 ### What this library can not do yet
 
 The basic requirements of a ZIP Container are all implemented but memory resident ZIP Container files are not yet supported. Presently all operations are performed on files that are resident on disk.
