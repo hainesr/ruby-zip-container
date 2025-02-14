@@ -14,7 +14,7 @@ A Ruby library for creating, editing and validating ZIP Container files.
 
 This is a Ruby library for working with ZIP Container files. See the [ODF](http://www.idpf.org/epub/30/spec/epub30-ocf.html) and [UCF](https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format) specifications for more details.
 
-If you are wanting to work with UCF files specifically, there is a Ruby Gem that builds on this one specifically for that. Please see:
+If you are wanting to work with UCF files in particular, there is a Ruby Gem that builds on this one specifically for that. Please see:
  * [GitHub](https://github.com/hainesr/ruby-ucf)
  * [Rubygems](https://rubygems.org/gems/ucf)
 
@@ -22,9 +22,9 @@ If you are wanting to work with UCF files specifically, there is a Ruby Gem that
 
 This library has two entry points.
 
-The main `ZipContainer::File` class largely mimics the rubyzip [Zip::File](http://www.rubydoc.info/gems/rubyzip/1.1.6/Zip/File) and [Zip::FileSystem](http://www.rubydoc.info/gems/rubyzip/1.1.6/Zip/FileSystem) APIs so much of what you can do with them are supported for ZIP Containers. There is also [API documentation](http://hainesr.github.io/ruby-zip-container/) with much more detail and any differences explained.
+The main `ZipContainer::File` class largely mimics the rubyzip [`Zip::File`](https://www.rubydoc.info/gems/rubyzip/2.4.1/Zip/File) and [`Zip::FileSystem`](https://www.rubydoc.info/gems/rubyzip/2.4.1/Zip/FileSystem) APIs so much of what you can do with them are supported for ZIP Containers. There is also [API documentation](http://hainesr.github.io/ruby-zip-container/) with much more detail and any differences explained.
 
-The `ZipContainer::Dir` class mimics, where possible, the core ruby [Dir API](http://ruby-doc.org/core-1.9.3/Dir.html).
+The `ZipContainer::Dir` class mimics, where possible, the core ruby [`Dir` API](http://ruby-doc.org/core-1.9.3/Dir.html).
 
 There are some examples of how to use the library provided in the examples directory. See the contents of the tests directory for even more.
 

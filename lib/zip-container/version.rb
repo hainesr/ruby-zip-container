@@ -1,4 +1,4 @@
-# Copyright (c) 2014-2023 The University of Manchester, UK.
+# Copyright (c) 2014-2025 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -31,5 +31,5 @@
 # Author: Robert Haines
 
 module ZipContainer
-  VERSION = '5.0.0' # :nodoc:
+  VERSION = '5.0.0.rc1' # :nodoc:
 end

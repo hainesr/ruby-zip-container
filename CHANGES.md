@@ -1,5 +1,28 @@
 # Changes log for the ZIP Container Ruby Gem
 
+## Version 5.0.0
+
+* Fix warnings about uninitialized instance variables.
+* Set ManagedEntries#all_managed_entries to private.
+* Add a code of conduct.
+* Add contributing guidelines.
+* Move to README.md (and update).
+* Update minimum ruby version required to 2.7.
+* Update RubyZip version to v2.4.
+
+### Internal/tooling:
+
+* Update Rake version.
+* Update and add metadata in the gemspec.
+* Just use a constant for the gem version string.
+* Add a script to start IRB with ZipContainer loaded.
+* Switch from Coveralls to Simplecov.
+* Switch to use minitest for unit tests.
+* Switch from Travis CI to GitHub Actions.
+* Update Rubocop.
+* Skip certain tests in non-POSIX environments.
+* Fix managed directory test on Windows.
+
 ## Version 4.0.2
 
 * Bump rubyzip version again.
