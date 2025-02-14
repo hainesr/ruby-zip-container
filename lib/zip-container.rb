@@ -1,4 +1,4 @@
-# Copyright (c) 2013-2024 The University of Manchester, UK.
+# Copyright (c) 2013-2025 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -30,8 +30,9 @@
 #
 # Author: Robert Haines
 
-require 'zip-container/file'
-require 'zip-container/dir'
+require_relative 'zip-container/file'
+require_relative 'zip-container/dir'
+require_relative 'zip-container/managed_directory'
 
 # This is a ruby library to read and write ZIP Container Format files. See the
 # ZipContainer::Container class for more information.
