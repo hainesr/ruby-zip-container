@@ -9,6 +9,9 @@
 * Move to README.md (and update).
 * Update minimum ruby version required to 2.7.
 * Update RubyZip version to v2.4.
+* Ensure 'managed_directory' is required at the top-level.
+* Add note README about ruby and RubyZip versions.
+* Apply frozen_string_literal magic comment to all files.
 
 ### Internal/tooling:
 
@@ -22,6 +25,7 @@
 * Update Rubocop.
 * Skip certain tests in non-POSIX environments.
 * Fix managed directory test on Windows.
+* Ensure simplecov is required first with MiniTest.
 
 ## Version 4.0.2
 
