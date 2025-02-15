@@ -1,4 +1,6 @@
-# Copyright (c) 2014-2024 The University of Manchester, UK.
+# frozen_string_literal: true
+
+# Copyright (c) 2014-2025 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -50,7 +52,7 @@ module ZipContainer
 
     # :stopdoc:
     # The reserved mimetype file name for standard ZipContainers.
-    MIMETYPE_FILE = 'mimetype'.freeze
+    MIMETYPE_FILE = 'mimetype'
 
     def initialize(location)
       @container = open_container(location)

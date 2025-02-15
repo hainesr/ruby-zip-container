@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Copyright (c) 2013-2025 The University of Manchester, UK.
 #
 # All rights reserved.
@@ -323,7 +325,7 @@ class TestManagedEntries < Minitest::Test
       assert_equal(['index.html'], entry_list_names(c.glob('in*')))
       assert_empty(c.glob('test/**/*'))
       assert_equal(
-        ['test/test.txt', 'test/deep', 'test/deep/deep.txt'],
+        ['test/test.txt', 'test/deep/', 'test/deep/deep.txt'],
         entry_list_names(c.glob('test/**/*', include_hidden: true))
       )
       assert_equal(

@@ -1,4 +1,6 @@
-# Copyright (c) 2014-2024 The University of Manchester, UK.
+# frozen_string_literal: true
+
+# Copyright (c) 2014-2025 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -51,9 +53,7 @@ module ZipContainer
     def entry_name(entry)
       name = entry.is_a?(::Zip::Entry) ? entry.name : entry
 
-      name.chomp!('/') if name.respond_to?(:chomp!)
-
-      name
+      name.respond_to?(:chomp) ? name.chomp('/') : name
     end
   end
 end
