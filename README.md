@@ -12,7 +12,7 @@ A Ruby library for creating, editing and validating ZIP Container files.
 
 ### Synopsis
 
-This is a Ruby library for working with ZIP Container files. See the [ODF](http://www.idpf.org/epub/30/spec/epub30-ocf.html) and [UCF](https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format) specifications for more details.
+This is a Ruby library for working with ZIP Container files. See the OCF [[1](http://www.idpf.org/epub/30/spec/epub30-ocf.html), [2](https://www.w3.org/TR/epub-33/#sec-ocf)] and UCF [[3](https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format)] specifications for more details.
 
 If you are wanting to work with UCF files in particular, there is a Ruby Gem that builds on this one specifically for that. Please see:
  * [GitHub](https://github.com/hainesr/ruby-ucf)

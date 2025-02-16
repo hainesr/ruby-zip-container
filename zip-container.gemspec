@@ -44,8 +44,8 @@ Gem::Specification.new do |s|
   s.summary          = 'A ZIP Container for use by OCF and UCF implementations'
   s.description      =
     'A Ruby library for working with ZIP Container ' \
-    'Format files. See http://www.idpf.org/epub/30/spec/epub30-ocf.html for ' \
-    'the OCF specification and ' \
+    'Format files. See http://www.idpf.org/epub/30/spec/epub30-ocf.html and ' \
+    'https://www.w3.org/TR/epub-33/#sec-ocf for the OCF specification and ' \
     'https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format ' \
     'for the UCF specification.'
   s.license          = 'BSD'
