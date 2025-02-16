@@ -1,0 +1,54 @@
+# This CITATION.cff file was created by ruby-cff (v 1.3.0).
+# Gem: https://rubygems.org/gems/cff
+# CFF: https://citation-file-format.github.io/
+
+cff-version: 1.2.0
+title: Ruby Zip Container
+message: If you use Ruby Zip Container in your work, please cite it using the following metadata
+type: software
+authors:
+  - given-names: Robert
+    family-names: Haines
+    affiliation: The University of Manchester
+    orcid: https://orcid.org/0000-0002-9538-7919
+  - given-names: Finn
+    family-names: Bacall
+    affiliation: The University of Manchester
+repository-code: https://github.com/hainesr/ruby-zip-container
+url: https://hainesr.github.io/ruby-zip-container/
+repository-artifact: https://rubygems.org/gems/zip-container
+abstract: A Ruby library for working with ZIP Container Format files.
+keywords:
+  - ruby
+  - zip
+  - EPUB
+  - OCF
+  - zip-container
+license: BSD-3-Clause
+references:
+  - title: EPUB Open Container Format (OCF) 3.0
+    authors:
+      - name: International Digital Publishing Forum (IDPF)
+    editors:
+      - given-names: James
+        family-names: Pritchett
+      - given-names: Markus
+        family-names: Gylling
+        affiliation: DAISY Consortium
+    type: standard
+    url: https://idpf.org/epub/30/spec/epub30-ocf.html
+  - title: EPUB 3.3 - Open Container Format (OCF)
+    authors:
+      - name: W3C
+    editors:
+      - given-names: Matt
+        family-names: Garrish
+        affiliation: DAISY Consortium
+      - given-names: Ivan
+        family-names: Herman
+        affiliation: W3C
+        orcid: https://orcid.org/0000-0003-0782-2704
+      - given-names: Dave
+        family-names: Cramer
+    type: standard
+    url: https://www.w3.org/TR/epub-33/#sec-ocf
