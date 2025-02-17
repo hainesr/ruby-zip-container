@@ -1,0 +1,16 @@
+Mon, 17 Feb 2025 19:53:48 +0000
+ReadMe.rdoc	Mon, 17 Feb 2025 19:53:06 +0000
+Licence.rdoc	Mon, 17 Feb 2025 19:53:06 +0000
+Changes.rdoc	Mon, 17 Feb 2025 19:53:06 +0000
+lib/zip-container/container.rb	Mon, 17 Feb 2025 19:53:06 +0000
+lib/zip-container/dir.rb	Mon, 17 Feb 2025 19:53:06 +0000
+lib/zip-container/entries/directory.rb	Mon, 17 Feb 2025 19:53:06 +0000
+lib/zip-container/entries/entry.rb	Mon, 17 Feb 2025 19:53:06 +0000
+lib/zip-container/entries/file.rb	Mon, 17 Feb 2025 19:53:06 +0000
+lib/zip-container/entries/managed.rb	Mon, 17 Feb 2025 19:53:06 +0000
+lib/zip-container/entries/reserved.rb	Mon, 17 Feb 2025 19:53:06 +0000
+lib/zip-container/exceptions.rb	Mon, 17 Feb 2025 19:53:06 +0000
+lib/zip-container/file.rb	Mon, 17 Feb 2025 19:53:06 +0000
+lib/zip-container/util.rb	Mon, 17 Feb 2025 19:53:06 +0000
+lib/zip-container/version.rb	Mon, 17 Feb 2025 19:53:06 +0000
+lib/zip-container.rb	Mon, 17 Feb 2025 19:53:06 +0000
