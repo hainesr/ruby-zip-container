@@ -17,6 +17,7 @@
 
 ### Internal/tooling:
 
+* Add Ruby 3.4 to the CI tests.
 * Update Rake version.
 * Update and add metadata in the gemspec.
 * Just use a constant for the gem version string.
