@@ -12,6 +12,8 @@
 * Ensure 'managed_directory' is required at the top-level.
 * Add note README about ruby and RubyZip versions.
 * Apply frozen_string_literal magic comment to all files.
+* Update OCF references in README and gemspec.
+* Add a CITATION.cff file.
 
 ### Internal/tooling:
 
@@ -26,6 +28,8 @@
 * Skip certain tests in non-POSIX environments.
 * Fix managed directory test on Windows.
 * Ensure simplecov is required first with MiniTest.
+* Add an Action to build the latest documentation.
+* Set Rubocop output to use GitHub format.
 
 ## Version 4.0.2
 

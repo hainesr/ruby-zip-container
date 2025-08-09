@@ -33,5 +33,5 @@
 # Author: Robert Haines
 
 module ZipContainer
-  VERSION = '5.0.0.rc2' # :nodoc:
+  VERSION = '5.0.0' # :nodoc:
 end
