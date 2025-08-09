@@ -1,16 +1,16 @@
-Tue, 18 Feb 2025 14:56:22 +0000
-README.md	Tue, 18 Feb 2025 14:56:02 +0000
-LICENCE	Tue, 18 Feb 2025 14:56:02 +0000
-CHANGES.md	Tue, 18 Feb 2025 14:56:02 +0000
-lib/zip-container.rb	Tue, 18 Feb 2025 14:56:02 +0000
-lib/zip-container/container.rb	Tue, 18 Feb 2025 14:56:02 +0000
-lib/zip-container/util.rb	Tue, 18 Feb 2025 14:56:02 +0000
-lib/zip-container/reserved_names.rb	Tue, 18 Feb 2025 14:56:02 +0000
-lib/zip-container/managed_directory.rb	Tue, 18 Feb 2025 14:56:02 +0000
-lib/zip-container/errors.rb	Tue, 18 Feb 2025 14:56:02 +0000
-lib/zip-container/version.rb	Tue, 18 Feb 2025 14:56:02 +0000
-lib/zip-container/managed_entries.rb	Tue, 18 Feb 2025 14:56:02 +0000
-lib/zip-container/managed_entry.rb	Tue, 18 Feb 2025 14:56:02 +0000
-lib/zip-container/managed_file.rb	Tue, 18 Feb 2025 14:56:02 +0000
-lib/zip-container/dir.rb	Tue, 18 Feb 2025 14:56:02 +0000
-lib/zip-container/file.rb	Tue, 18 Feb 2025 14:56:02 +0000
+Sat, 09 Aug 2025 20:30:05 +0000
+README.md	Sat, 09 Aug 2025 20:29:34 +0000
+LICENCE	Sat, 09 Aug 2025 20:29:34 +0000
+CHANGES.md	Sat, 09 Aug 2025 20:29:34 +0000
+lib/zip-container/container.rb	Sat, 09 Aug 2025 20:29:34 +0000
+lib/zip-container/dir.rb	Sat, 09 Aug 2025 20:29:34 +0000
+lib/zip-container/errors.rb	Sat, 09 Aug 2025 20:29:34 +0000
+lib/zip-container/file.rb	Sat, 09 Aug 2025 20:29:34 +0000
+lib/zip-container/managed_directory.rb	Sat, 09 Aug 2025 20:29:34 +0000
+lib/zip-container/managed_entries.rb	Sat, 09 Aug 2025 20:29:34 +0000
+lib/zip-container/managed_entry.rb	Sat, 09 Aug 2025 20:29:34 +0000
+lib/zip-container/managed_file.rb	Sat, 09 Aug 2025 20:29:34 +0000
+lib/zip-container/reserved_names.rb	Sat, 09 Aug 2025 20:29:34 +0000
+lib/zip-container/util.rb	Sat, 09 Aug 2025 20:29:34 +0000
+lib/zip-container/version.rb	Sat, 09 Aug 2025 20:29:34 +0000
+lib/zip-container.rb	Sat, 09 Aug 2025 20:29:34 +0000
