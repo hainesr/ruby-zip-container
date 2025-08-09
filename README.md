@@ -22,15 +22,15 @@ If you are wanting to work with UCF files in particular, there is a Ruby Gem tha
 
 This library has two entry points.
 
-The main `ZipContainer::File` class largely mimics the rubyzip [`Zip::File`](https://www.rubydoc.info/gems/rubyzip/2.4.1/Zip/File) and [`Zip::FileSystem`](https://www.rubydoc.info/gems/rubyzip/2.4.1/Zip/FileSystem) APIs so much of what you can do with them are supported for ZIP Containers. There is also [API documentation](http://hainesr.github.io/ruby-zip-container/) with much more detail and any differences explained.
+The main `ZipContainer::File` class largely mimics the rubyzip [`Zip::File`](https://www.rubydoc.info/gems/rubyzip/3.0.1/Zip/File) and [`Zip::FileSystem`](https://www.rubydoc.info/gems/rubyzip/3.0.1/Zip/FileSystem) APIs so much of what you can do with them are supported for ZIP Containers. There is also [API documentation](http://hainesr.github.io/ruby-zip-container/) with much more detail and any differences explained.
 
-The `ZipContainer::Dir` class mimics, where possible, the core ruby [`Dir` API](http://ruby-doc.org/core-1.9.3/Dir.html).
+The `ZipContainer::Dir` class mimics, where possible, the core ruby [`Dir` API](https://rubyapi.org/3.0/o/dir).
 
 There are some examples of how to use the library provided in the examples directory. See the contents of the tests directory for even more.
 
 #### Versions
 
-Version 5 of this library will be the last to support Ruby 2.7 and the last to support RubyZip 2.4. Version 6 will require at least Ruby 3.0 and RubyZip 3.0.
+Version 5 of this library was the last to support Ruby 2.7 and the last to support RubyZip 2.4. Version 6 requires at least Ruby 3.0 and RubyZip 3.0.
 
 ### What this library can not do yet
 
