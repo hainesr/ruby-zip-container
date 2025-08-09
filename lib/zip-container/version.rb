@@ -32,6 +32,8 @@
 #
 # Author: Robert Haines
 
+##
 module ZipContainer
-  VERSION = '5.0.0' # :nodoc:
+  # The current version of the ZipContainer library.
+  VERSION = '6.0.0'
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Copyright (c) 2013-2025 The University of Manchester, UK.
+# Copyright (c) 2014-2025 The University of Manchester, UK.
 #
 # All rights reserved.
 #
@@ -32,16 +32,14 @@
 #
 # Author: Robert Haines
 
-require_relative 'zip-container/version'
-require_relative 'zip-container/file'
-require_relative 'zip-container/dir'
-require_relative 'zip-container/managed_directory'
+require_relative 'test_helper'
 
-# This is a ruby library to read and write ZIP Container Format files. See the
-# ZipContainer::Container class for more information.
-#
-# See the {OCF}[http://www.idpf.org/epub/30/spec/epub30-ocf.html] and
-# {UCF}[https://learn.adobe.com/wiki/display/PDFNAV/Universal+Container+Format]
-# specifications for more details.
-module ZipContainer
+require 'zip-container/version'
+
+class VersionTest < Minitest::Test
+  def test_version
+    # Ensure all our versions numbers have at least MAJOR.MINOR.PATCH
+    # elements separated by dots, to comply with Semantic Versioning.
+    assert_match(/^\d+\.\d+\.\d+/, ZipContainer::VERSION)
+  end
 end
