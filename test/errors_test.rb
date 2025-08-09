@@ -51,7 +51,7 @@ class TestExceptions < Minitest::Test
     end
 
     assert_raises(ZipContainer::Error) do
-      raise Zip::ZipError
+      raise Zip::Error
     end
   end
 

@@ -7,8 +7,8 @@
 * Add a code of conduct.
 * Add contributing guidelines.
 * Move to README.md (and update).
-* Update minimum ruby version required to 2.7.
-* Update RubyZip version to v2.4.
+* Update minimum ruby version required to 3.0.
+* Update RubyZip version to v3.0.
 * Ensure 'managed_directory' is required at the top-level.
 * Add note README about ruby and RubyZip versions.
 * Apply frozen_string_literal magic comment to all files.

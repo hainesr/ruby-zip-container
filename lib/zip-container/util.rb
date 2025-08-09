@@ -32,7 +32,7 @@
 #
 # Author: Robert Haines
 
-require 'zip' # Remove this when we update to rubyzip 3.x.
+require 'zip' # Remove this when rubyzip fixes its require tree.
 require 'zip/entry'
 
 ##

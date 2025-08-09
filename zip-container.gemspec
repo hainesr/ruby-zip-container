@@ -63,9 +63,9 @@ Gem::Specification.new do |s|
     'rubygems_mfa_required' => 'true'
   }
 
-  s.required_ruby_version = '>= 2.7'
+  s.required_ruby_version = '>= 3.0'
 
-  s.add_runtime_dependency 'rubyzip', '~> 2.4'
+  s.add_runtime_dependency 'rubyzip', '~> 3.0'
 
   s.add_development_dependency 'minitest', '~> 5.25'
   s.add_development_dependency 'os', '~> 1.1.4'

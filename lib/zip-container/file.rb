@@ -66,8 +66,8 @@ module ZipContainer
       # Here we fake up the connection to the rubyzip filesystem classes so
       # that they also respect the reserved names that we define.
       mapped_zip = ::Zip::FileSystem::ZipFileNameMapper.new(self)
-      @fs_dir  = ::Zip::FileSystem::ZipFsDir.new(mapped_zip)
-      @fs_file = ::Zip::FileSystem::ZipFsFile.new(mapped_zip)
+      @fs_dir  = ::Zip::FileSystem::Dir.new(mapped_zip)
+      @fs_file = ::Zip::FileSystem::File.new(mapped_zip)
       @fs_dir.file = @fs_file
       @fs_file.dir = @fs_dir
     end
@@ -155,7 +155,7 @@ module ZipContainer
     alias close commit
 
     # :call-seq:
-    #   dir -> Zip::ZipFsDir
+    #   dir -> Zip::FileSystem::Dir
     #
     # Returns an object which can be used like ruby's built in +Dir+ (class)
     # object, except that it works on the ZipContainer file on which this
@@ -167,7 +167,7 @@ module ZipContainer
     end
 
     # :call-seq:
-    #   file -> Zip::ZipFsFile
+    #   file -> Zip::FileSystem::File
     #
     # Returns an object which can be used like ruby's built in +File+ (class)
     # object, except that it works on the ZipContainer file on which this
@@ -209,8 +209,8 @@ module ZipContainer
     end
 
     # :call-seq:
-    #   get_output_stream(entry, permission = nil) -> stream
-    #   get_output_stream(entry, permission = nil) {|stream| ...}
+    #   get_output_stream(entry, permissions: nil) -> stream
+    #   get_output_stream(entry, permissions: nil) {|stream| ...}
     #
     # Returns an output stream to the specified entry. If a block is passed
     # the stream object is passed to the block and the stream is automatically
@@ -218,12 +218,12 @@ module ZipContainer
     #
     # See the rubyzip documentation for details of the +permission_int+
     # parameter.
-    def get_output_stream(entry, permission = nil, &block)
+    def get_output_stream(entry, permissions: nil, &block)
       if reserved_entry?(entry) || managed_directory?(entry)
         raise ReservedNameClashError, entry.to_s
       end
 
-      @container.get_output_stream(entry, permission, &block)
+      @container.get_output_stream(entry, permissions: permissions, &block)
     end
 
     # :call-seq:
