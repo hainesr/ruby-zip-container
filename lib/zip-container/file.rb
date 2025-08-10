@@ -79,8 +79,13 @@ module ZipContainer
     #
     # Create a new ZipContainer file on disk with the specified mimetype.
     def self.create(filename, mimetype)
-      ::Zip::OutputStream.open(filename) do |stream|
-        stream.put_next_entry(MIMETYPE_FILE, nil, nil, ::Zip::Entry::STORED)
+      # The mimetype file must be first in the archive, and uncompressed.
+      mimetype_entry = Zip::Entry.new(
+        nil, MIMETYPE_FILE, compression_method: Zip::Entry::STORED
+      )
+
+      Zip::OutputStream.open(filename) do |stream|
+        stream.put_next_entry(mimetype_entry)
         stream.write mimetype
       end
 
