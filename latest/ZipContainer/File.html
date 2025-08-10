@@ -207,8 +207,13 @@
           <div class="method-source-code" id="create-source">
             <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 81</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">create</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-identifier">mimetype</span>)
-  <span class="ruby-operator">::</span><span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">OutputStream</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">filename</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">stream</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">stream</span>.<span class="ruby-identifier">put_next_entry</span>(<span class="ruby-constant">MIMETYPE_FILE</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-operator">::</span><span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Entry</span><span class="ruby-operator">::</span><span class="ruby-constant">STORED</span>)
+  <span class="ruby-comment"># The mimetype file must be first in the archive, and uncompressed.</span>
+  <span class="ruby-identifier">mimetype_entry</span> = <span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Entry</span>.<span class="ruby-identifier">new</span>(
+    <span class="ruby-keyword">nil</span>, <span class="ruby-constant">MIMETYPE_FILE</span>, <span class="ruby-value">compression_method:</span> <span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">Entry</span><span class="ruby-operator">::</span><span class="ruby-constant">STORED</span>
+  )
+
+  <span class="ruby-constant">Zip</span><span class="ruby-operator">::</span><span class="ruby-constant">OutputStream</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">filename</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">stream</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">stream</span>.<span class="ruby-identifier">put_next_entry</span>(<span class="ruby-identifier">mimetype_entry</span>)
     <span class="ruby-identifier">stream</span>.<span class="ruby-identifier">write</span> <span class="ruby-identifier">mimetype</span>
   <span class="ruby-keyword">end</span>
 
@@ -258,7 +263,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="each_entry-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 108</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 113</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">each_entry</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-identifier">c</span> = <span class="ruby-identifier">new</span>(<span class="ruby-identifier">filename</span>)
 
@@ -305,7 +310,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="add-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 132</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 137</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">add</span>(<span class="ruby-identifier">entry</span>, <span class="ruby-identifier">src_path</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">continue_on_exists_proc</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">reserved_entry?</span>(<span class="ruby-identifier">entry</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">managed_directory?</span>(<span class="ruby-identifier">entry</span>)
     <span class="ruby-identifier">raise</span> <span class="ruby-constant">ReservedNameClashError</span>, <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">to_s</span>
@@ -363,7 +368,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="comment-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 374</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 379</span>
     </pre>
           </div>
           <p>Returns the <a href="../ZipContainer.html"><code>ZipContainer</code></a> file comment, if it has one.</p>
@@ -391,7 +396,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="comment-3D-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 381</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 386</span>
     </pre>
           </div>
           <p>Set the <a href="../ZipContainer.html"><code>ZipContainer</code></a> file comment to the new value.</p>
@@ -419,7 +424,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="commit-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 147</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 152</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">commit</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">commit_required?</span>
 
@@ -456,7 +461,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="commit_required-3F-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 388</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 393</span>
     </pre>
           </div>
           <p>Returns <code>true</code> if any changes have been made to this <a href="../ZipContainer.html"><code>ZipContainer</code></a> file since the last commit, <code>false</code> otherwise.</p>
@@ -484,7 +489,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="dir-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 165</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 170</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">dir</span>
   <span class="ruby-ivar">@fs_dir</span>
 <span class="ruby-keyword">end</span></pre>
@@ -523,7 +528,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="each-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 396</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 401</span>
     </pre>
           </div>
           <p>Iterate over the entries in the <a href="../ZipContainer.html"><code>ZipContainer</code></a> file. The entry objects returned by this method are Zip::Entry objects. Please see the rubyzip documentation for details.</p>
@@ -551,7 +556,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="entries-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 406</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 411</span>
     </pre>
           </div>
           <p>Returns an Enumerable containing all the entries in the <a href="../ZipContainer.html"><code>ZipContainer</code></a> file The entry objects returned by this method are Zip::Entry objects. Please see the rubyzip documentation for details.</p>
@@ -579,7 +584,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="extract-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 415</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 420</span>
     </pre>
           </div>
           <p>Extracts the specified entry of the <a href="../ZipContainer.html"><code>ZipContainer</code></a> file to <code>dest_path</code>.</p>
@@ -609,7 +614,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="file-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 177</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 182</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">file</span>
   <span class="ruby-ivar">@fs_file</span>
 <span class="ruby-keyword">end</span></pre>
@@ -641,7 +646,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="find_entry-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 188</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 193</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">find_entry</span>(<span class="ruby-identifier">entry_name</span>, <span class="ruby-identifier">options</span> = {})
   <span class="ruby-identifier">options</span> = { <span class="ruby-value">include_hidden:</span> <span class="ruby-keyword">false</span> }.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">options</span>)
 
@@ -675,7 +680,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="get_entry-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 203</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 208</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_entry</span>(<span class="ruby-identifier">entry</span>, <span class="ruby-identifier">options</span> = {})
   <span class="ruby-identifier">options</span> = { <span class="ruby-value">include_hidden:</span> <span class="ruby-keyword">false</span> }.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">options</span>)
 
@@ -716,7 +721,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="get_input_stream-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 441</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 446</span>
     </pre>
           </div>
           <p>Returns an input stream to the specified entry. If a block is passed the stream object is passed to the block and the stream is automatically closed afterwards just as with ruby’s built in <a href="Container.html#method-c-open"><code>File.open</code></a> method.</p>
@@ -751,7 +756,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="get_output_stream-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 221</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 226</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_output_stream</span>(<span class="ruby-identifier">entry</span>, <span class="ruby-value">permissions:</span> <span class="ruby-keyword">nil</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">reserved_entry?</span>(<span class="ruby-identifier">entry</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">managed_directory?</span>(<span class="ruby-identifier">entry</span>)
     <span class="ruby-identifier">raise</span> <span class="ruby-constant">ReservedNameClashError</span>, <span class="ruby-identifier">entry</span>.<span class="ruby-identifier">to_s</span>
@@ -808,7 +813,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="glob-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 243</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 248</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">glob</span>(<span class="ruby-identifier">pattern</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">params</span>) <span class="ruby-comment"># rubocop:disable Metrics/CyclomaticComplexity</span>
   <span class="ruby-identifier">flags</span> = <span class="ruby-operator">::</span><span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">FNM_PATHNAME</span> <span class="ruby-operator">|</span> <span class="ruby-operator">::</span><span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">FNM_DOTMATCH</span>
   <span class="ruby-identifier">options</span> = { <span class="ruby-value">include_hidden:</span> <span class="ruby-keyword">false</span> }
@@ -858,7 +863,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="in_memory-3F-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 269</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 274</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">in_memory?</span>
   <span class="ruby-operator">!</span><span class="ruby-ivar">@on_disk</span>
 <span class="ruby-keyword">end</span></pre>
@@ -888,7 +893,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="mkdir-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 283</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 288</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">mkdir</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">permission</span> = <span class="ruby-value">0o0755</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">ReservedNameClashError</span>, <span class="ruby-identifier">name</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">reserved_entry?</span>(<span class="ruby-identifier">name</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">managed_file?</span>(<span class="ruby-identifier">name</span>)
 
@@ -922,7 +927,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="name-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 463</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 468</span>
     </pre>
           </div>
           <p>Returns the filename of this <a href="../ZipContainer.html"><code>ZipContainer</code></a> file.</p>
@@ -950,7 +955,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="on_disk-3F-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 293</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 298</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">on_disk?</span>
   <span class="ruby-ivar">@on_disk</span>
 <span class="ruby-keyword">end</span></pre>
@@ -980,7 +985,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="read-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 470</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 475</span>
     </pre>
           </div>
           <p>Returns a string containing the contents of the specified entry.</p>
@@ -1008,7 +1013,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="remove-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 303</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 308</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">remove</span>(<span class="ruby-identifier">entry</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">reserved_entry?</span>(<span class="ruby-identifier">entry</span>)
 
@@ -1040,7 +1045,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="rename-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 319</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 324</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">rename</span>(<span class="ruby-identifier">entry</span>, <span class="ruby-identifier">new_name</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">continue_on_exists_proc</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">reserved_entry?</span>(<span class="ruby-identifier">entry</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">ReservedNameClashError</span>, <span class="ruby-identifier">new_name</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">reserved_entry?</span>(<span class="ruby-identifier">new_name</span>)
@@ -1075,7 +1080,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="replace-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 333</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 338</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">replace</span>(<span class="ruby-identifier">entry</span>, <span class="ruby-identifier">src_path</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">reserved_entry?</span>(<span class="ruby-identifier">entry</span>)
 
@@ -1107,7 +1112,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="size-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 477</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 482</span>
   </pre>
           </div>
           <p>Returns the number of entries in the <a href="../ZipContainer.html"><code>ZipContainer</code></a> file.</p>
@@ -1135,7 +1140,7 @@
 
         <div class="method-description">
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 343</span>
+            <pre><span class="ruby-comment"># File lib/zip-container/file.rb, line 348</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_s</span>
   <span class="ruby-ivar">@container</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-node">&quot; - #{@mimetype}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
